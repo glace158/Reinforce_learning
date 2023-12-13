@@ -1,0 +1,209 @@
+# Install script for directory: /home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs
+
+# Set the install prefix
+if(NOT DEFINED CMAKE_INSTALL_PREFIX)
+  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/robot_ws/install")
+endif()
+string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+
+# Set the install configuration name.
+if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
+  if(BUILD_TYPE)
+    string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
+           CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
+  else()
+    set(CMAKE_INSTALL_CONFIG_NAME "")
+  endif()
+  message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
+endif()
+
+# Set the component getting installed.
+if(NOT CMAKE_INSTALL_COMPONENT)
+  if(COMPONENT)
+    message(STATUS "Install component: \"${COMPONENT}\"")
+    set(CMAKE_INSTALL_COMPONENT "${COMPONENT}")
+  else()
+    set(CMAKE_INSTALL_COMPONENT)
+  endif()
+endif()
+
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
+# Is this installation the result of a crosscompile?
+if(NOT DEFINED CMAKE_CROSSCOMPILING)
+  set(CMAKE_CROSSCOMPILING "FALSE")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_one_msgs/msg" TYPE FILE FILES
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/RPY.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/ShiftPose.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/RobotState.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/RobotMoveCommand.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/ToolCommand.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/ProcessState.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/HardwareStatus.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/LogStatus.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/DigitalIOState.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/SoftwareVersion.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/Sequence.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/SequenceAutorunStatus.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/TrajectoryPlan.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/MatlabMoveResult.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/Position.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/Trajectory.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/ObjectPose.msg"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/msg/ConveyorFeedback.msg"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_one_msgs/srv" TYPE FILE FILES
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/SetInt.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/RobotMove.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/ManageProcess.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/SetLeds.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/GetInt.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/PingDxlTool.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/OpenGripper.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/CloseGripper.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/PullAirVacuumPump.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/PushAirVacuumPump.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/SetDigitalIO.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/GetDigitalIO.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/GetSequenceList.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/ManageSequence.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/SetSequenceAutorun.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/ManagePosition.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/GetPositionList.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/ManageTrajectory.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/GetTrajectoryList.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/ChangeHardwareVersion.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/SendCustomDxlValue.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/ChangeMotorConfig.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/SetString.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/SetCalibrationCam.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/GetCalibrationCam.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/ObjDetection.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/EditGrip.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/EditWorkspace.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/GetTargetPose.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/GetWorkspaceRatio.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/GetWorkspaceList.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/TakePicture.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/SetConveyor.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/ControlConveyor.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/UpdateConveyorId.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/GetWorkspaceRobotPoses.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/DebugMarkers.srv"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/srv/DebugColorDetection.srv"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_one_msgs/action" TYPE FILE FILES
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/action/JoystickJoints.action"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/action/RobotMove.action"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/action/Tool.action"
+    "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/action/Sequence.action"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_one_msgs/msg" TYPE FILE FILES
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/JoystickJointsAction.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/JoystickJointsActionGoal.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/JoystickJointsActionResult.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/JoystickJointsActionFeedback.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/JoystickJointsGoal.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/JoystickJointsResult.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/JoystickJointsFeedback.msg"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_one_msgs/msg" TYPE FILE FILES
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/RobotMoveAction.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/RobotMoveActionGoal.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/RobotMoveActionResult.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/RobotMoveActionFeedback.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/RobotMoveGoal.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/RobotMoveResult.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/RobotMoveFeedback.msg"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_one_msgs/msg" TYPE FILE FILES
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/ToolAction.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/ToolActionGoal.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/ToolActionResult.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/ToolActionFeedback.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/ToolGoal.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/ToolResult.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/ToolFeedback.msg"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_one_msgs/msg" TYPE FILE FILES
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/SequenceAction.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/SequenceActionGoal.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/SequenceActionResult.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/SequenceActionFeedback.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/SequenceGoal.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/SequenceResult.msg"
+    "/home/ubuntu/robot_ws/devel/share/niryo_one_msgs/msg/SequenceFeedback.msg"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_one_msgs/cmake" TYPE FILE FILES "/home/ubuntu/robot_ws/build/niryo_one_ros/niryo_one_msgs/catkin_generated/installspace/niryo_one_msgs-msg-paths.cmake")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/ubuntu/robot_ws/devel/include/niryo_one_msgs")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/ubuntu/robot_ws/devel/share/roseus/ros/niryo_one_msgs")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/ubuntu/robot_ws/devel/share/common-lisp/ros/niryo_one_msgs")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/ubuntu/robot_ws/devel/share/gennodejs/ros/niryo_one_msgs")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/ubuntu/robot_ws/devel/lib/python3/dist-packages/niryo_one_msgs")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/ubuntu/robot_ws/devel/lib/python3/dist-packages/niryo_one_msgs")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/robot_ws/build/niryo_one_ros/niryo_one_msgs/catkin_generated/installspace/niryo_one_msgs.pc")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_one_msgs/cmake" TYPE FILE FILES "/home/ubuntu/robot_ws/build/niryo_one_ros/niryo_one_msgs/catkin_generated/installspace/niryo_one_msgs-msg-extras.cmake")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_one_msgs/cmake" TYPE FILE FILES
+    "/home/ubuntu/robot_ws/build/niryo_one_ros/niryo_one_msgs/catkin_generated/installspace/niryo_one_msgsConfig.cmake"
+    "/home/ubuntu/robot_ws/build/niryo_one_ros/niryo_one_msgs/catkin_generated/installspace/niryo_one_msgsConfig-version.cmake"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/niryo_one_msgs" TYPE FILE FILES "/home/ubuntu/robot_ws/src/niryo_one_ros/niryo_one_msgs/package.xml")
+endif()
+
