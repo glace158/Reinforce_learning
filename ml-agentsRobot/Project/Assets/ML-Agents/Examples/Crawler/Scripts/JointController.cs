@@ -2,25 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JointController : MonoBehaviour
-{
-    [HideInInspector] public Vector3 startingPos;
-    [HideInInspector] public Quaternion startingRot;
+namespace Unity.MLAgentsRobot{
+    [System.Serializable]
+    public class RobotPart{
+        public ArticulationBody joint;
+        [HideInInspector] public float startingPos;
 
-    public float maxJointSpring;
-    public float jointDampen;
-    public float maxJointForceLimit;
+        public float maxAngularVelocity;
 
-    const float k_MaxAngularVelocity = 50.0f;
+        public void Reset(RobotPart rp){
+            var rp_drive = rp.joint.xDrive;
+            
+            rp_drive.target = rp.startingPos;
 
-    public void move(){
-        /*
-        var RR_HipDrive = RR_Hip.xDrive;
+            rp.joint.xDrive = rp_drive;
+        }
+
+        public void SetJointTarget(float target, float damping, float stiffness, float velocity){
+            var rp_drive = joint.xDrive;
+            
+            rp_drive.target = target;
+            rp_drive.damping = damping;
+            rp_drive.stiffness = stiffness;
+            rp_drive.targetVelocity = velocity;
+
+            joint.xDrive = rp_drive;
+        }
+    }
+
+    public class JointController : MonoBehaviour
+    {
+        public float maxJointSpring;
+        public float jointDampen;
+        public float maxJointForceLimit;
+
+        public float maxAngularVelocity;
+        [HideInInspector] public Dictionary<Transform, RobotPart> robotPartsDict = new Dictionary<Transform, RobotPart>();
+        [HideInInspector] public List<RobotPart> robotPartsList = new List<RobotPart>();
         
-        RR_HipDrive.target = -45.0f;
-        RR_HipDrive.damping = 1f;
+        public void SetupRobotPart(Transform t){
+            var rp = new RobotPart{
+                joint = t.GetComponent<ArticulationBody>(),
+                startingPos = 0.0f
+            };
+            rp.maxAngularVelocity = maxAngularVelocity;
 
-        RR_Hip.xDrive = RR_HipDrive;
-        */
+            robotPartsDict.Add(t, rp);
+            robotPartsList.Add(rp);
+        }
+
+        public void GetCurrentJointInfo(){
+
+        }
     }
 }

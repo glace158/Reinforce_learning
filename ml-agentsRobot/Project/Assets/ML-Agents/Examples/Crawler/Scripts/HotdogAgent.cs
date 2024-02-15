@@ -59,7 +59,14 @@ public class HotdogAgent : Agent
 
     public override void Initialize()
     {
-        
+        SpawnTarget(TargetPrefab, transform.position);
+        m_OrientationCube = GetComponentInChildren<OrientationCubeController>();
+        m_DirectionIndicator = GetComponentInChildren<DirectionIndicator>();
+    }
+
+    void SpawnTarget(Transform prefab, Vector3 pos)
+    {
+        m_Target = Instantiate(prefab, pos, Quaternion.identity, transform.parent);
     }
 
     public override void OnEpisodeBegin()
