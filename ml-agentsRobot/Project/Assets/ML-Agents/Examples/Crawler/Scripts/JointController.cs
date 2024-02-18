@@ -1,14 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Unity.MLAgentsExamples;
+using Unity.MLAgents;
 
 namespace Unity.MLAgentsRobot{
     [System.Serializable]
     public class RobotPart{
         public ArticulationBody joint;
+        public Transform trans;
         [HideInInspector] public float startingPos;
 
         public float maxAngularVelocity;
+
+        public GroundContact groundContact;
+
+        [HideInInspector] public float currentStrength;
 
         public void Reset(RobotPart rp){
             var rp_drive = rp.joint.xDrive;
@@ -16,6 +23,11 @@ namespace Unity.MLAgentsRobot{
             rp_drive.target = rp.startingPos;
 
             rp.joint.xDrive = rp_drive;
+
+            if (rp.groundContact)
+            {
+                rp.groundContact.touchingGround = false;
+            }
         }
 
         public void SetJointTarget(float target, float damping, float stiffness, float velocity){
@@ -42,10 +54,21 @@ namespace Unity.MLAgentsRobot{
         
         public void SetupRobotPart(Transform t){
             var rp = new RobotPart{
+                trans = t,
                 joint = t.GetComponent<ArticulationBody>(),
                 startingPos = 0.0f
             };
             rp.maxAngularVelocity = maxAngularVelocity;
+
+            rp.groundContact = t.GetComponent<GroundContact>();
+            if(!rp.groundContact){
+                rp.groundContact = t.gameObject.AddComponent<GroundContact>();
+                rp.groundContact.agent = gameObject.GetComponent<Agent>();
+            }
+            else
+            {
+                rp.groundContact.agent = gameObject.GetComponent<Agent>();
+            }
 
             robotPartsDict.Add(t, rp);
             robotPartsList.Add(rp);
