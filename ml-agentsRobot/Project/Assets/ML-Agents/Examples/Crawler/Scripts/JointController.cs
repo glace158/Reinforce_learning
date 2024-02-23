@@ -3,11 +3,14 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Unity.MLAgentsExamples;
 using Unity.MLAgents;
+using Unity.Robotics.UrdfImporter;
 
 namespace Unity.MLAgentsRobot{
     [System.Serializable]
     public class RobotPart{
         public ArticulationBody joint;
+
+        //public UrdfJointRevolute urdf_joint;
         public Transform trans;
         [HideInInspector] public float startingPos;
 
@@ -39,6 +42,8 @@ namespace Unity.MLAgentsRobot{
             rp_drive.targetVelocity = velocity;
 
             joint.xDrive = rp_drive;
+
+            //currentStrength = urdf_joint.Get
         }
     }
 
