@@ -80,7 +80,7 @@ namespace Unity.MLAgentsRobot{
         }
 
         public void GetCurrentJointInfo(){
-
+            
         }
     }
 }
