@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TestScript : MonoBehaviour
 {
-    public Transform body;
+    public Transform t_body;
+    public ArticulationBody body;
     // Start is called before the first frame update
     public ArticulationBody joint;
     public int startingPos = 45;
@@ -24,20 +25,33 @@ public class TestScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        jointfunc();
-    }
-
-    void jointfunc(){
         timer += Time.deltaTime;
-        Debug.Log("pos: " + (joint.jointPosition[0] * 180 / Mathf.PI).ToString()+ " vel: " + joint.jointVelocity[0].ToString() + " tor: " + joint.driveForce[0].ToString());
         if(timer > waitingTime)
         {
+        //jointfunc();
+        rotFunc();
+
+        timer = 0;
+        }
+    }
+
+    void checkvel(){
+        Debug.Log("liner vel: " + body.velocity); 
+    }
+
+    void rotFunc(){
+        body.TeleportRoot( new Vector3(0f,1f,0f), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
+        //t_body.rotation = Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0);
+    }
+    void jointfunc(){
+        
+        Debug.Log("pos: " + (joint.jointPosition[0] * 180 / Mathf.PI).ToString()+ " vel: " + joint.jointVelocity[0].ToString() + " tor: " + joint.driveForce[0].ToString());
+        
         var rp_drive = joint.xDrive;
             startingPos *= -1;
             rp_drive.target = startingPos;
 
             joint.xDrive = rp_drive;
-        timer = 0;
-        }
+        
     }
 }
