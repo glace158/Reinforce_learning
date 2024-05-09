@@ -5,6 +5,21 @@ using static UnityEngine.GraphicsBuffer;
 
 public class SpiderController : MonoBehaviour
 {
+    [Header("Walk Speed")]
+    [Range(0f, m_maxWalkingSpeed)]
+
+    [SerializeField]
+    private float m_TargetWalkingSpeed = m_maxWalkingSpeed;
+
+    const float m_maxWalkingSpeed = 1.2f; //The max walking speed
+
+    //The current target walking speed. Clamped because a value of zero will cause NaNs
+    public float TargetWalkingSpeed
+    {
+        get { return m_TargetWalkingSpeed; }
+        set { m_TargetWalkingSpeed = Mathf.Clamp(value, .1f, m_maxWalkingSpeed); }
+    }
+
     public float _walk_speed = 0.5f;
     public float _run_speed = 1f;
     public float _trun_gain = 60f;
@@ -15,19 +30,30 @@ public class SpiderController : MonoBehaviour
     Vector3 movement;
     private bool turn_mode = true;
 
+    float h;
+    float v;
+    void Start(){
+        initParameter();
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
+        //keyboardController();
+        randomController();
+        borderSensing();
+        fixedup();
+    }
+
+    void keyboardController(){
         float speed = 0;
 
-        fixedup();
         if (Input.GetKey(KeyCode.E))
         {
             turn_mode = !turn_mode;
         }
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        h = Input.GetAxisRaw("Horizontal");
+        v = Input.GetAxisRaw("Vertical");
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -48,6 +74,38 @@ public class SpiderController : MonoBehaviour
         }
     }
 
+    void initParameter(){
+        TargetWalkingSpeed = Random.Range(0f, 2.0f);
+        turn_mode = Random.Range(0, 2) == 1? true : false; 
+        do{
+            h = Random.Range(-1, 2) ;
+            v = Random.Range(-1, 2) ;
+		}while(h == 0 && v == 0);
+    }
+
+    void changeParameter(){
+        float num = Random.Range(0.0f, 1.0f);
+        if (num < 0.001){
+            TargetWalkingSpeed = Random.Range(0f, m_maxWalkingSpeed);
+            turn_mode = Random.Range(0, 2) == 1? true : false; 
+            h = Random.Range(-1, 2) ;
+            v = Random.Range(-1, 2) ;
+        }
+    }
+
+    void randomController(){
+        changeParameter();
+
+        if (turn_mode)
+        {
+            turn_move(h, v, TargetWalkingSpeed); 
+        }
+        else
+        {
+            move(h, v, TargetWalkingSpeed);
+        }
+    }
+
     void move(float h, float v, float speed)
     {
         movement.Set(h, 0f, v);
@@ -55,9 +113,33 @@ public class SpiderController : MonoBehaviour
         transform.Translate(movement);
     }
 
+    void borderSensing(){
+        raycastSensing(transform.forward);
+        raycastSensing(-transform.forward);
+        raycastSensing(transform.right);
+        raycastSensing(-transform.right);
+        raycastSensing(transform.forward+transform.right);
+        raycastSensing(-transform.forward+transform.right);
+        raycastSensing(transform.forward-transform.right);
+        raycastSensing(-transform.forward-transform.right);
+    }
+
+    Vector3 raycastSensing(Vector3 axis){
+        int layerMask = 1 << LayerMask.NameToLayer("Border");
+        Ray ray = new Ray(transform.position, axis);
+        if (Physics.Raycast(ray, out RaycastHit hit, 1, layerMask))
+        {
+            Debug.DrawRay(transform.position, axis * hit.distance, Color.red);
+            h = axis.x == 1 ?  -axis.x : h;
+            v = axis.z == 1 ?  -axis.z : v;
+            
+        }
+        Debug.DrawRay(transform.position, axis * 1f, Color.blue);
+        return axis;
+    }
+
     void turn_move(float h, float v, float speed)
     {
-        
         if (h != 0)
         {
             look_target.Rotate(look_target.up * (speed * _trun_gain * Time.deltaTime * h));

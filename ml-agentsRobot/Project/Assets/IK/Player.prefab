@@ -844,8 +844,8 @@ MonoBehaviour:
   - {fileID: 8233896887493917927}
   - {fileID: 5675288309502320714}
   - {fileID: 8090955452395828941}
-  stepSize: 0.2
+  stepSize: 0.1
   smoothness: 8
-  stepHeight: 0.2
+  stepHeight: 0.1
   bodyOrientation: 1
   look_target: {fileID: 0}

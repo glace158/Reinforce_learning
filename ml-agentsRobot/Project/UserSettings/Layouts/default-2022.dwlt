@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1848
     height: 991
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Scene
   m_RootView: {fileID: 4}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -40,9 +40,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 476
+    y: 475
     width: 615
-    height: 465
+    height: 466
   m_MinSize: {x: 232, y: 271}
   m_MaxSize: {x: 10002, y: 10021}
   m_ActualView: {fileID: 16}
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 52
+  controlID: 28
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -215,7 +215,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 615
-    height: 476
+    height: 475
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 14}
@@ -268,7 +268,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 854
-    height: 649
+    height: 439
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 18}
@@ -292,9 +292,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 649
+    y: 439
     width: 854
-    height: 292
+    height: 502
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 17}
@@ -361,7 +361,7 @@ MonoBehaviour:
     x: 926
     y: 119
     width: 613
-    height: 455
+    height: 454
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -375,20 +375,20 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: a6f9ffff
-      m_LastClickedID: -1626
-      m_ExpandedIDs: 08f9ffff68f9ffff6cf9ffff70f9ffff74f9ffff80f9ffff86f9ffff24fbffff26fbffff
+      m_SelectedIDs: e4f3ffff
+      m_LastClickedID: -3100
+      m_ExpandedIDs: 1cf4ffff26fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Armature
-        m_OriginalName: Armature
+        m_Name: Directional Light
+        m_OriginalName: Directional Light
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -1676
+        m_UserData: 23868
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
@@ -471,9 +471,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 926
-    y: 595
+    y: 594
     width: 613
-    height: 444
+    height: 445
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -495,7 +495,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/IK
+    - Assets
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -503,15 +503,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 68
   m_LastFolders:
-  - Assets/IK
+  - Assets
   m_LastFoldersGridSize: 68
   m_LastProjectPath: /home/ubuntu/Github/Reinforce_learning/ml-agentsRobot/Project
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 7c670000
-    m_LastClickedID: 26492
+    m_SelectedIDs: 68670000
+    m_LastClickedID: 26472
     m_ExpandedIDs: 00000000686700006a6700006c6700006e670000706700007267000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -618,9 +618,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 72
-    y: 768
+    y: 558
     width: 853
-    height: 271
+    height: 481
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 853, y: 250}
+  m_TargetSize: {x: 853, y: 460}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -654,8 +654,8 @@ MonoBehaviour:
     vZoomLockedByDefault: 0
     m_HBaseRangeMin: -426.5
     m_HBaseRangeMax: 426.5
-    m_VBaseRangeMin: -125
-    m_VBaseRangeMax: 125
+    m_VBaseRangeMin: -230
+    m_VBaseRangeMax: 230
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -674,9 +674,9 @@ MonoBehaviour:
       x: 0
       y: 21
       width: 853
-      height: 250
+      height: 460
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 426.5, y: 125}
+    m_Translation: {x: 426.5, y: 230}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
@@ -684,12 +684,12 @@ MonoBehaviour:
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
       x: -426.5
-      y: -125
+      y: -230
       width: 853
-      height: 250
+      height: 460
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 853, y: 271}
+  m_LastWindowPixelSize: {x: 853, y: 481}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -719,7 +719,7 @@ MonoBehaviour:
     x: 72
     y: 119
     width: 853
-    height: 628
+    height: 418
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1020,11 +1020,11 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 48, y: 48}
+      snapOffset: {x: 48, y: 10}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: UnityEditor.SceneViewCameraOverlay
-      index: 9
+      index: 10
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
@@ -1052,9 +1052,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 13.04586, y: -12.287371, z: -0.35390577}
+    m_Target: {x: 48.372543, y: 2.6421342, z: 7.9751315}
     speed: 2
-    m_Value: {x: 13.04586, y: -12.287371, z: -0.35390577}
+    m_Value: {x: 48.372543, y: 2.6421342, z: 7.9751315}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1100,13 +1100,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.27808627, y: -0.6622757, z: 0.29337025, w: -0.6304945}
+    m_Target: {x: -0.3953333, y: -0.20148936, z: 0.09041225, w: -0.89133126}
     speed: 2
-    m_Value: {x: -0.27815157, y: -0.6624312, z: 0.29343915, w: -0.63064253}
+    m_Value: {x: -0.39656895, y: -0.20142046, z: 0.09069158, w: -0.8910319}
   m_Size:
-    m_Target: 10.365614
+    m_Target: 1.7995229
     speed: 2
-    m_Value: 10.365614
+    m_Value: 1.7220315
   m_Ortho:
     m_Target: 0
     speed: 2
