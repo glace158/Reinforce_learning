@@ -30,8 +30,8 @@ public class SpiderController : MonoBehaviour
     Vector3 movement;
     private bool turn_mode = true;
 
-    float h;
-    float v;
+    public float h;
+    public float v;
     void Start(){
         initParameter();
     }
@@ -78,18 +78,20 @@ public class SpiderController : MonoBehaviour
         TargetWalkingSpeed = Random.Range(0f, 2.0f);
         turn_mode = Random.Range(0, 2) == 1? true : false; 
         do{
-            h = Random.Range(-1, 2) ;
-            v = Random.Range(-1, 2) ;
+            h = Random.Range(-1f, 1f) ;
+            v = Random.Range(-1f, 1f) ;
 		}while(h == 0 && v == 0);
     }
 
     void changeParameter(){
         float num = Random.Range(0.0f, 1.0f);
-        if (num < 0.001){
+        if (num < 0.01){
             TargetWalkingSpeed = Random.Range(0f, m_maxWalkingSpeed);
             turn_mode = Random.Range(0, 2) == 1? true : false; 
-            h = Random.Range(-1, 2) ;
-            v = Random.Range(-1, 2) ;
+            do{
+                h = Random.Range(-1f, 2f) ;
+                v = Random.Range(-1f, 2f) ;
+		    }while(h == 0 && v == 0);
         }
     }
 
@@ -118,28 +120,29 @@ public class SpiderController : MonoBehaviour
         raycastSensing(-transform.forward);
         raycastSensing(transform.right);
         raycastSensing(-transform.right);
-        raycastSensing(transform.forward+transform.right);
-        raycastSensing(-transform.forward+transform.right);
-        raycastSensing(transform.forward-transform.right);
-        raycastSensing(-transform.forward-transform.right);
+        raycastSensing((transform.forward+transform.right).normalized);
+        raycastSensing((-transform.forward+transform.right).normalized);
+        raycastSensing((transform.forward-transform.right).normalized);
+        raycastSensing((-transform.forward-transform.right).normalized);
     }
 
-    Vector3 raycastSensing(Vector3 axis){
+    void raycastSensing(Vector3 axis){
+        Debug.Log(h.ToString() + " " +v.ToString() );
         int layerMask = 1 << LayerMask.NameToLayer("Border");
-        Ray ray = new Ray(transform.position, axis);
-        if (Physics.Raycast(ray, out RaycastHit hit, 1, layerMask))
+        Ray ray = new Ray(transform.position, transform.TransformDirection(axis));
+        if (Physics.Raycast(ray, out RaycastHit hit, 1f, layerMask))
         {
-            Debug.DrawRay(transform.position, axis * hit.distance, Color.red);
-            h = axis.x == 1 ?  -axis.x : h;
-            v = axis.z == 1 ?  -axis.z : v;
+            Debug.DrawRay(transform.position, transform.TransformDirection(axis), Color.red);
+            Debug.Log("detect" + axis.ToString());
+            h = Mathf.Abs(axis.x) != 0 ?  -h : h;
+            v = Mathf.Abs(axis.z) != 0 ?  -v : v;
             
         }
-        Debug.DrawRay(transform.position, axis * 1f, Color.blue);
-        return axis;
+        Debug.DrawRay(transform.position, transform.TransformDirection(axis), Color.blue); 
     }
 
     void turn_move(float h, float v, float speed)
-    {
+    {                                   
         if (h != 0)
         {
             look_target.Rotate(look_target.up * (speed * _trun_gain * Time.deltaTime * h));
