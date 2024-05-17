@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.MLAgentsExamples;
+using Unity.MLAgents;
 
 namespace Unity.MLAgentsRobot{
 
@@ -10,13 +12,21 @@ namespace Unity.MLAgentsRobot{
 
         public int startingAngle;
 
+        [Header("Ground & Target Contact")]
+        [Space(10)]
+        public GroundContact groundContact;
 
-        public void Reset(){
-            var mo_drive = motor.xDrive;
+        public void Reset(Motor m){
+            var mo_drive = m.motor.xDrive;
             
             mo_drive.target = startingAngle;
 
-            motor.xDrive = mo_drive;
+            m.motor.xDrive = mo_drive;
+
+            if (m.groundContact)
+            {
+                m.groundContact.touchingGround = false;
+            }
         }
 
         public void SetMotorTarget(float targetAngle){
@@ -32,6 +42,7 @@ namespace Unity.MLAgentsRobot{
     {
 
         [HideInInspector] public Dictionary<Transform, Motor> motorsDict = new Dictionary<Transform, Motor>();
+        [HideInInspector] public Dictionary<Transform, Motor> linkDict = new Dictionary<Transform, Motor>();
         
         public void SetupMotor(Transform t){
             var mo = new Motor
@@ -40,7 +51,39 @@ namespace Unity.MLAgentsRobot{
                 startingAngle = 0
             };
 
+            mo.groundContact = t.GetComponent<GroundContact>();
+            if (!mo.groundContact)
+            {
+                mo.groundContact = t.gameObject.AddComponent<GroundContact>();
+                mo.groundContact.agent = gameObject.GetComponent<Agent>();
+            }
+            else
+            {
+                mo.groundContact.agent = gameObject.GetComponent<Agent>();
+            }
+
             motorsDict.Add(t, mo);
+        }
+
+        public void SetupLink(Transform t){
+            var mo = new Motor
+            {
+                motor = t.GetComponent<ArticulationBody>(),
+                startingAngle = 0
+            };
+
+            mo.groundContact = t.GetComponent<GroundContact>();
+            if (!mo.groundContact)
+            {
+                mo.groundContact = t.gameObject.AddComponent<GroundContact>();
+                mo.groundContact.agent = gameObject.GetComponent<Agent>();
+            }
+            else
+            {
+                mo.groundContact.agent = gameObject.GetComponent<Agent>();
+            }
+
+            linkDict.Add(t, mo);
         }
 
         public List<float> GetVelocity(){

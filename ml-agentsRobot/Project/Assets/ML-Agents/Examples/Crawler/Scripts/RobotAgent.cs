@@ -23,18 +23,23 @@ public class RobotAgent : Agent
     public ArticulationBody body;
     
     [Header("Body Parts")][Space(12)] 
+    public Transform bodyLink;
     public Transform FRHip;
-    public Transform FRlegUpper;
-    public Transform FRlegLower;
+    public Transform FRLegUpper;
+    public Transform FRLegLower;
+    public Transform FRFoot;
     public Transform FLHip;
-    public Transform FLlegUpper;
-    public Transform FLlegLower;
+    public Transform FLLegUpper;
+    public Transform FLLegLower;
+    public Transform FLFoot;
     public Transform RRHip;
-    public Transform RRlegUpper;
-    public Transform RRlegLower;
+    public Transform RRLegUpper;
+    public Transform RRLegLower;
+    public Transform RRFoot;
     public Transform RLHip;
-    public Transform RLlegUpper;
-    public Transform RLlegLower;
+    public Transform RLLegUpper;
+    public Transform RLLegLower;
+    public Transform RLFoot;
 
     OrientationCubeController m_OrientationCube;
     DirectionIndicator m_DirectionIndicator;
@@ -47,38 +52,74 @@ public class RobotAgent : Agent
         m_MoController = GetComponent<MotorController>();
 
         m_MoController.SetupMotor(FRHip);
-        m_MoController.SetupMotor(FRlegUpper);
-        m_MoController.SetupMotor(FRlegLower);
+        m_MoController.SetupMotor(FRLegUpper);
+        m_MoController.SetupMotor(FRLegLower);
         m_MoController.SetupMotor(FLHip);
-        m_MoController.SetupMotor(FLlegUpper);
-        m_MoController.SetupMotor(FLlegLower);
+        m_MoController.SetupMotor(FLLegUpper);
+        m_MoController.SetupMotor(FLLegLower);
         m_MoController.SetupMotor(RRHip);
-        m_MoController.SetupMotor(RRlegUpper);
-        m_MoController.SetupMotor(RRlegLower);
+        m_MoController.SetupMotor(RRLegUpper);
+        m_MoController.SetupMotor(RRLegLower);
         m_MoController.SetupMotor(RLHip);
-        m_MoController.SetupMotor(RLlegUpper);
-        m_MoController.SetupMotor(RLlegLower);
+        m_MoController.SetupMotor(RLLegUpper);
+        m_MoController.SetupMotor(RLLegLower);
+
+        m_MoController.SetupLink(bodyLink);
+        m_MoController.SetupLink(FRFoot);
+        m_MoController.SetupLink(FLFoot);
+        m_MoController.SetupLink(RRFoot);
+        m_MoController.SetupLink(RLFoot);
     }
 
     public override void OnEpisodeBegin()
     {
         foreach (var motor in m_MoController.motorsDict.Values)
         {
-            motor.Reset();
+            motor.Reset(motor);
         }
 
-        body.TeleportRoot( new Vector3(0f,1f,0f), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
+        body.TeleportRoot( new Vector3(0f,transform.position.y,0f), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
 
         TargetWalkingSpeed = Random.Range(0.1f, m_maxWalkingSpeed);
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        var rootVel = body.velocity;
+        foreach(var angle in m_MoController.GetPosition()){
+            sensor.AddObservation(angle);
+        }
+        sensor.AddObservation(bodyLink.rotation.eulerAngles.x);
+        sensor.AddObservation(bodyLink.rotation.eulerAngles.y);
+        sensor.AddObservation(bodyLink.rotation.eulerAngles.z);
+
+        foreach (var link in m_MoController.linkDict.Keys)
+        {
+            if (link != bodyLink){
+                sensor.AddObservation(m_MoController.linkDict[link].groundContact);
+            }
+        }
     }
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
+        var moDict = m_MoController.motorsDict;
+        var continuousActions = actionBuffers.ContinuousActions;
+        var i = -1;
 
+        moDict[FRHip].SetMotorTarget(continuousActions[++i]);
+        moDict[FRLegUpper].SetMotorTarget(continuousActions[++i]);
+        moDict[FRLegLower].SetMotorTarget(continuousActions[++i]);
+        moDict[FLHip].SetMotorTarget(continuousActions[++i]);
+        moDict[FLLegUpper].SetMotorTarget(continuousActions[++i]);
+        moDict[FLLegLower].SetMotorTarget(continuousActions[++i]);
+        moDict[RRHip].SetMotorTarget(continuousActions[++i]);
+        moDict[RRLegUpper].SetMotorTarget(continuousActions[++i]);
+        moDict[RRLegLower].SetMotorTarget(continuousActions[++i]);
+        moDict[RLHip].SetMotorTarget(continuousActions[++i]);
+        moDict[RLLegUpper].SetMotorTarget(continuousActions[++i]);
+        moDict[RLLegLower].SetMotorTarget(continuousActions[++i]);
+    }
+    void FixedUpdate(){
+        
     }
 }

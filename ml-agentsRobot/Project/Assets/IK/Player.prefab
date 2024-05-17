@@ -352,7 +352,7 @@ Transform:
   m_Children:
   - {fileID: 8205575990906962170}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3611734715698660394
 MonoBehaviour:
@@ -366,12 +366,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a1ad199a1674794ca0c26c938e96545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TargetWalkingSpeed: 1.2
   _walk_speed: 0.5
   _run_speed: 0.7
   _trun_gain: 80
   smoothness: 5
   look_target: {fileID: 0}
-  defaultup: 0.335
+  defaultUp: 0.33
+  h: 0
+  v: 0
 --- !u!1 &8140785645345252945
 GameObject:
   m_ObjectHideFlags: 0
