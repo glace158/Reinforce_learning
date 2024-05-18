@@ -41,14 +41,18 @@ public class RobotAgent : Agent
     public Transform RLLegLower;
     public Transform RLFoot;
 
-    OrientationCubeController m_OrientationCube;
-    DirectionIndicator m_DirectionIndicator;
+    [Header("Target body")][Space(12)] 
+    public Transform targetBody;
+    public Transform targetPlayer;  
+    public Transform m_OrientationCube;
+    public Transform targetFRFoot;
+    public Transform targetFLFoot;
+    public Transform targetRRFoot;
+    public Transform targetRLFoot;
     MotorController m_MoController;
 
     public override void Initialize()
     {
-        m_OrientationCube = GetComponentInChildren<OrientationCubeController>();
-        m_DirectionIndicator = GetComponentInChildren<DirectionIndicator>();
         m_MoController = GetComponent<MotorController>();
 
         m_MoController.SetupMotor(FRHip);
@@ -78,8 +82,8 @@ public class RobotAgent : Agent
             motor.Reset(motor);
         }
 
-        body.TeleportRoot( new Vector3(0f,transform.position.y,0f), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
-
+        //body.TeleportRoot( new Vector3(0f,transform.position.y,0f), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
+        body.TeleportRoot( targetBody.position + targetBody.TransformDirection(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(targetPlayer.rotation.eulerAngles.x,m_OrientationCube.rotation.eulerAngles.y,targetPlayer.rotation.eulerAngles.z));
         TargetWalkingSpeed = Random.Range(0.1f, m_maxWalkingSpeed);
     }
 
@@ -121,5 +125,24 @@ public class RobotAgent : Agent
     }
     void FixedUpdate(){
         
+    }
+
+    float GetMatchingFootPosition(){
+        float distance = Mathf.Abs(Vector3.Distance(new Vector3(targetFRFoot.position.x, targetFRFoot.position.y-0.02f, targetFRFoot.position.z),FRFoot.position));
+        distance += Mathf.Abs(Vector3.Distance(new Vector3(targetFLFoot.position.x, targetFLFoot.position.y-0.02f, targetFLFoot.position.z),FLFoot.position));
+        distance += Mathf.Abs(Vector3.Distance(new Vector3(targetRRFoot.position.x, targetRRFoot.position.y-0.02f, targetRRFoot.position.z),RRFoot.position));
+        distance += Mathf.Abs(Vector3.Distance(new Vector3(targetRLFoot.position.x, targetRLFoot.position.y-0.02f, targetRLFoot.position.z),RLFoot.position)); 
+        
+        return -40 * distance;
+    }
+
+    float GetMatchingRootPosition(){
+        float distance = Vector3.Distance(new Vector3(targetBody.position.x, targetBody.position.y-0.02f, targetBody.position.z),bodyLink.position); 
+        return -20 * Mathf.Abs(distance);
+    }
+
+    float GetMatchingRootAngle(){
+        float distance = Vector3.Distance(new Vector3(targetBody.position.x, targetBody.position.y-0.02f, targetBody.position.z),bodyLink.position); 
+        return -10 * Mathf.Abs(distance);
     }
 }

@@ -644,6 +644,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1621027986}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1204067529 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8205575990906962170, guid: a3d6cdec0e8f86006b4cce1154ade803,
+    type: 3}
+  m_PrefabInstance: {fileID: 208796518}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1374759536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2181,6 +2187,13 @@ MonoBehaviour:
   RLLegUpper: {fileID: 1606946303}
   RLLegLower: {fileID: 758401752}
   RLFoot: {fileID: 1789693980}
+  targetBody: {fileID: 1989383224}
+  targetPlayer: {fileID: 1204067529}
+  m_OrientationCube: {fileID: 1045870385}
+  targetFRFoot: {fileID: 0}
+  targetFLFoot: {fileID: 0}
+  targetRRFoot: {fileID: 0}
+  targetRLFoot: {fileID: 0}
 --- !u!114 &1621027992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2334,6 +2347,12 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!4 &1989383224 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1311961275359164737, guid: a3d6cdec0e8f86006b4cce1154ade803,
+    type: 3}
+  m_PrefabInstance: {fileID: 208796518}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2014879175 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2224567448051086980, guid: 1315a129b5c02b0fcac1de0988243f6f,

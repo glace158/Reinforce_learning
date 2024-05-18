@@ -47,8 +47,8 @@ public class SpiderController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //keyboardController();
-        randomController();
+        keyboardController();
+        //randomController();
         borderSensing();
         fixedup();
         //directionEvent.Invoke(h, v);
