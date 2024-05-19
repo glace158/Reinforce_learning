@@ -41,10 +41,12 @@ public class RobotAgent : Agent
     public Transform RLLegLower;
     public Transform RLFoot;
 
+    public Transform m_OrientationCube;
+
     [Header("Target body")][Space(12)] 
     public Transform targetBody;
     public Transform targetPlayer;  
-    public Transform m_OrientationCube;
+    public Transform TargetOrientationCube;
     public Transform targetFRFoot;
     public Transform targetFLFoot;
     public Transform targetRRFoot;
@@ -83,7 +85,8 @@ public class RobotAgent : Agent
         }
 
         //body.TeleportRoot( new Vector3(0f,transform.position.y,0f), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
-        body.TeleportRoot( targetBody.position + targetBody.TransformDirection(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(targetPlayer.rotation.eulerAngles.x,m_OrientationCube.rotation.eulerAngles.y,targetPlayer.rotation.eulerAngles.z));
+        
+        body.TeleportRoot( targetBody.position + targetBody.TransformDirection(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(targetPlayer.rotation.eulerAngles.x,TargetOrientationCube.rotation.eulerAngles.y,targetPlayer.rotation.eulerAngles.z));
         TargetWalkingSpeed = Random.Range(0.1f, m_maxWalkingSpeed);
     }
 
@@ -124,9 +127,12 @@ public class RobotAgent : Agent
         moDict[RLLegLower].SetMotorTarget(continuousActions[++i]);
     }
     void FixedUpdate(){
-        
+        OrientationCubeUpdate();    
     }
-
+    void OrientationCubeUpdate(){
+        
+        m_OrientationCube.rotation = Quaternion.Euler(0f, bodyLink.rotation.eulerAngles.y, 0f);
+    }
     float GetMatchingFootPosition(){
         float distance = Mathf.Abs(Vector3.Distance(new Vector3(targetFRFoot.position.x, targetFRFoot.position.y-0.02f, targetFRFoot.position.z),FRFoot.position));
         distance += Mathf.Abs(Vector3.Distance(new Vector3(targetFLFoot.position.x, targetFLFoot.position.y-0.02f, targetFLFoot.position.z),FLFoot.position));
@@ -142,7 +148,7 @@ public class RobotAgent : Agent
     }
 
     float GetMatchingRootAngle(){
-        float distance = Vector3.Distance(new Vector3(targetBody.position.x, targetBody.position.y-0.02f, targetBody.position.z),bodyLink.position); 
-        return -10 * Mathf.Abs(distance);
+        float angle = Vector2.Angle(new Vector2(TargetOrientationCube.forward.x, TargetOrientationCube.forward.z), new Vector2(m_OrientationCube.forward.x, m_OrientationCube.forward.z));
+        return -10 * Mathf.Abs(angle);
     }
 }

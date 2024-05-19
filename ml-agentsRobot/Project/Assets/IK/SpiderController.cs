@@ -55,6 +55,11 @@ public class SpiderController : MonoBehaviour
         //Debug.Log(GetSpeed());
     }
 
+    public void reset(){
+        transform.rotation = Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0);
+        transform.position = new Vector3(0, 0.85f,0);
+    }
+
     void keyboardController(){
         float speed = 0;
 

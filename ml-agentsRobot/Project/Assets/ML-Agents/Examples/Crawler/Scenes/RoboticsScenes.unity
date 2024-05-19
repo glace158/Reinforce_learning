@@ -264,6 +264,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 208796518}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &231650016 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3087403061247947709, guid: a3d6cdec0e8f86006b4cce1154ade803,
+    type: 3}
+  m_PrefabInstance: {fileID: 208796518}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &382065596 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4021779020145582011, guid: 1315a129b5c02b0fcac1de0988243f6f,
@@ -334,6 +340,12 @@ ArticulationBody:
   m_CorrespondingSourceObject: {fileID: 583966209561896123, guid: 1315a129b5c02b0fcac1de0988243f6f,
     type: 3}
   m_PrefabInstance: {fileID: 1621027986}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &755060819 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7491221804730326738, guid: a3d6cdec0e8f86006b4cce1154ade803,
+    type: 3}
+  m_PrefabInstance: {fileID: 208796518}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &758401752 stripped
 Transform:
@@ -456,6 +468,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2591864627249999504, guid: 72f745913c5a34df5aaadd5c1f0024cb,
     type: 3}
   m_PrefabInstance: {fileID: 1170487270}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1058197201 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7019712540784192021, guid: a3d6cdec0e8f86006b4cce1154ade803,
+    type: 3}
+  m_PrefabInstance: {fileID: 208796518}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1086289275 stripped
 GameObject:
@@ -907,6 +925,12 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!4 &1445604214 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 282954629000284336, guid: a3d6cdec0e8f86006b4cce1154ade803,
+    type: 3}
+  m_PrefabInstance: {fileID: 208796518}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1481808307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2187,13 +2211,14 @@ MonoBehaviour:
   RLLegUpper: {fileID: 1606946303}
   RLLegLower: {fileID: 758401752}
   RLFoot: {fileID: 1789693980}
+  m_OrientationCube: {fileID: 1374759537}
   targetBody: {fileID: 1989383224}
   targetPlayer: {fileID: 1204067529}
-  m_OrientationCube: {fileID: 1045870385}
-  targetFRFoot: {fileID: 0}
-  targetFLFoot: {fileID: 0}
-  targetRRFoot: {fileID: 0}
-  targetRLFoot: {fileID: 0}
+  TargetOrientationCube: {fileID: 1045870385}
+  targetFRFoot: {fileID: 1445604214}
+  targetFLFoot: {fileID: 755060819}
+  targetRRFoot: {fileID: 231650016}
+  targetRLFoot: {fileID: 1058197201}
 --- !u!114 &1621027992
 MonoBehaviour:
   m_ObjectHideFlags: 0
