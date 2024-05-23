@@ -7,17 +7,22 @@ using Unity.MLAgents;
 namespace Unity.MLAgentsRobot{
 
     [System.Serializable]
-    public class Motor{
+    public class RobotPart{
         public ArticulationBody motor;
 
         public int startingAngle;
+
+        private float lowerLimit = 0f;
+        private float upperLimit = 0f;
 
         [Header("Ground & Target Contact")]
         [Space(10)]
         public GroundContact groundContact;
 
-        public void Reset(Motor m){
+        public void Reset(RobotPart m){
             var mo_drive = m.motor.xDrive;
+            lowerLimit = mo_drive.lowerLimit;
+            upperLimit = mo_drive.upperLimit;
             
             mo_drive.target = startingAngle;
 
@@ -30,9 +35,13 @@ namespace Unity.MLAgentsRobot{
         }
 
         public void SetMotorTarget(float targetAngle){
+            float value = (targetAngle + 1f) * 0.5f;
+
+            var rot = Mathf.Lerp(lowerLimit, upperLimit, value);
+
             var mo_drive = motor.xDrive;
 
-            mo_drive.target = targetAngle;
+            mo_drive.target = rot;
 
             motor.xDrive = mo_drive;
         }
@@ -41,11 +50,11 @@ namespace Unity.MLAgentsRobot{
     public class MotorController : MonoBehaviour
     {
 
-        [HideInInspector] public Dictionary<Transform, Motor> motorsDict = new Dictionary<Transform, Motor>();
-        [HideInInspector] public Dictionary<Transform, Motor> linkDict = new Dictionary<Transform, Motor>();
+        [HideInInspector] public Dictionary<Transform, RobotPart> motorsDict = new Dictionary<Transform, RobotPart>();
+        [HideInInspector] public Dictionary<Transform, RobotPart> linkDict = new Dictionary<Transform, RobotPart>();
         
         public void SetupMotor(Transform t){
-            var mo = new Motor
+            var mo = new RobotPart
             {
                 motor = t.GetComponent<ArticulationBody>(),
                 startingAngle = 0
@@ -66,7 +75,7 @@ namespace Unity.MLAgentsRobot{
         }
 
         public void SetupLink(Transform t){
-            var mo = new Motor
+            var mo = new RobotPart
             {
                 motor = t.GetComponent<ArticulationBody>(),
                 startingAngle = 0

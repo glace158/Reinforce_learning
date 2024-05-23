@@ -44,18 +44,15 @@ public class RobotAgent : Agent
     public Transform m_OrientationCube;
 
     [Header("Target body")][Space(12)] 
-    public Transform targetBody;
-    public Transform targetPlayer;  
-    public Transform TargetOrientationCube;
-    public Transform targetFRFoot;
-    public Transform targetFLFoot;
-    public Transform targetRRFoot;
-    public Transform targetRLFoot;
+    public Transform targetAnim;
+    private ProceduralAnimBody proceduralAnimBody;
+
     MotorController m_MoController;
 
     public override void Initialize()
     {
         m_MoController = GetComponent<MotorController>();
+        proceduralAnimBody = targetAnim.GetComponent<ProceduralAnimBody>();
 
         m_MoController.SetupMotor(FRHip);
         m_MoController.SetupMotor(FRLegUpper);
@@ -85,8 +82,9 @@ public class RobotAgent : Agent
         }
 
         //body.TeleportRoot( new Vector3(0f,transform.position.y,0f), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
-        
-        body.TeleportRoot( targetBody.position + targetBody.TransformDirection(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(targetPlayer.rotation.eulerAngles.x,TargetOrientationCube.rotation.eulerAngles.y,targetPlayer.rotation.eulerAngles.z));
+        transform.position = new Vector3(0, 0.85f,0);
+        body.TeleportRoot(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), proceduralAnimBody.GetRootRotation());
+        //body.TeleportRoot( targetBody.position + targetBody.TransformDirection(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(targetPlayer.rotation.eulerAngles.x,TargetOrientationCube.rotation.eulerAngles.y,targetPlayer.rotation.eulerAngles.z));
         TargetWalkingSpeed = Random.Range(0.1f, m_maxWalkingSpeed);
     }
 
@@ -128,27 +126,40 @@ public class RobotAgent : Agent
     }
     void FixedUpdate(){
         OrientationCubeUpdate();    
+
+        body.TeleportRoot(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), proceduralAnimBody.GetRootRotation());
+        Debug.Log(proceduralAnimBody.GetRootPosition(new Vector3(0f, -0.05f, -0.01f))-bodyLink.position);
+        var footReward = GetMatchingFootPosition();
+        var rootReward = GetMatchingRootPosition();
+        var rootAngleReward = GetMatchingRootAngle();
+
+        AddReward(footReward + rootReward + rootAngleReward);
     }
     void OrientationCubeUpdate(){
         
         m_OrientationCube.rotation = Quaternion.Euler(0f, bodyLink.rotation.eulerAngles.y, 0f);
     }
     float GetMatchingFootPosition(){
-        float distance = Mathf.Abs(Vector3.Distance(new Vector3(targetFRFoot.position.x, targetFRFoot.position.y-0.02f, targetFRFoot.position.z),FRFoot.position));
-        distance += Mathf.Abs(Vector3.Distance(new Vector3(targetFLFoot.position.x, targetFLFoot.position.y-0.02f, targetFLFoot.position.z),FLFoot.position));
-        distance += Mathf.Abs(Vector3.Distance(new Vector3(targetRRFoot.position.x, targetRRFoot.position.y-0.02f, targetRRFoot.position.z),RRFoot.position));
-        distance += Mathf.Abs(Vector3.Distance(new Vector3(targetRLFoot.position.x, targetRLFoot.position.y-0.02f, targetRLFoot.position.z),RLFoot.position)); 
+        float distance = 0f;
+        for (int i = 0; i < 4; i++){
+            distance += Mathf.Abs(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,-0.02f,0f)),FRFoot.position));
+        }
+        //distance += Mathf.Abs(Vector3.Distance(new Vector3(targetFLFoot.position.x, targetFLFoot.position.y-0.02f, targetFLFoot.position.z),FLFoot.position));
+        //distance += Mathf.Abs(Vector3.Distance(new Vector3(targetRRFoot.position.x, targetRRFoot.position.y-0.02f, targetRRFoot.position.z),RRFoot.position));
+        //distance += Mathf.Abs(Vector3.Distance(new Vector3(targetRLFoot.position.x, targetRLFoot.position.y-0.02f, targetRLFoot.position.z),RLFoot.position)); 
         
         return -40 * distance;
     }
 
     float GetMatchingRootPosition(){
-        float distance = Vector3.Distance(new Vector3(targetBody.position.x, targetBody.position.y-0.02f, targetBody.position.z),bodyLink.position); 
+        float distance = Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),bodyLink.position); 
+        //Debug.Log(distance);
+        //float distance = Vector3.Distance(new Vector3(targetBody.position.x, targetBody.position.y-0.02f, targetBody.position.z),bodyLink.position); 
         return -20 * Mathf.Abs(distance);
     }
 
     float GetMatchingRootAngle(){
-        float angle = Vector2.Angle(new Vector2(TargetOrientationCube.forward.x, TargetOrientationCube.forward.z), new Vector2(m_OrientationCube.forward.x, m_OrientationCube.forward.z));
+        float angle = Vector2.Angle(proceduralAnimBody.GetOrientationRotation(), new Vector2(m_OrientationCube.forward.x, m_OrientationCube.forward.z));
         return -10 * Mathf.Abs(angle);
     }
 }

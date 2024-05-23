@@ -330,7 +330,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8949702291428260898}
-  - component: {fileID: 3611734715698660394}
+  - component: {fileID: 1521564906558385605}
+  - component: {fileID: 3294994188714050059}
   m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
@@ -354,7 +355,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3611734715698660394
+--- !u!114 &1521564906558385605
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,18 +364,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 6882573179210141370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1ad199a1674794ca0c26c938e96545, type: 3}
+  m_Script: {fileID: 11500000, guid: 878267fb7e7a86716b6bb7e1a7f7ab52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_TargetWalkingSpeed: 1.2
-  _walk_speed: 0.5
-  _run_speed: 0.7
   _trun_gain: 80
-  smoothness: 5
   look_target: {fileID: 0}
   defaultUp: 0.33
+  turn_mode: 1
+  walkMode: 0
+  useKeyboard: 0
   h: 0
   v: 0
+--- !u!114 &3294994188714050059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6882573179210141370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee5c935717da32e2b6eeb0e6cbcc5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root: {fileID: 1311961275359164737}
+  rootOffset: {x: 0, y: 0.05, z: 0.01}
+  animModel: {fileID: 8205575990906962170}
+  OrientationCube: {fileID: 0}
+  FRFoot: {fileID: 282954629000284336}
+  FLFoot: {fileID: 7491221804730326738}
+  RRFoot: {fileID: 3087403061247947709}
+  RLFoot: {fileID: 7019712540784192021}
+  footOffset: {x: 0, y: -0.02, z: 0}
 --- !u!1 &8140785645345252945
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +770,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7643979002566304303}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1311961275359164737 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8656441520869317486, guid: 9f3499120ff6a8e4baa9e5ab3f096b1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7643979002566304303}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1989803110271031814 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8181330807419205673, guid: 9f3499120ff6a8e4baa9e5ab3f096b1b,
@@ -852,3 +880,4 @@ MonoBehaviour:
   stepHeight: 0.1
   bodyOrientation: 1
   look_target: {fileID: 0}
+  walkMode: -1
