@@ -9,69 +9,19 @@ using UnityEngine;
 
 public class RobotAgent : Agent
 {
-    [Header("Walk Speed")]
-    [Range(0.1f, m_maxWalkingSpeed)]
-    private float m_TargetWalkingSpeed = m_maxWalkingSpeed;
+    [Header("Robot Controller")]
+    MotorController m_MoController;
 
-    const float m_maxWalkingSpeed = 1; 
-    public float TargetWalkingSpeed
-    {
-        get { return m_TargetWalkingSpeed; }
-        set { m_TargetWalkingSpeed = Mathf.Clamp(value, .1f, m_maxWalkingSpeed); }
-    }
-
-    public ArticulationBody body;
-    
-    [Header("Body Parts")][Space(12)] 
-    public Transform bodyLink;
-    public Transform FRHip;
-    public Transform FRLegUpper;
-    public Transform FRLegLower;
-    public Transform FRFoot;
-    public Transform FLHip;
-    public Transform FLLegUpper;
-    public Transform FLLegLower;
-    public Transform FLFoot;
-    public Transform RRHip;
-    public Transform RRLegUpper;
-    public Transform RRLegLower;
-    public Transform RRFoot;
-    public Transform RLHip;
-    public Transform RLLegUpper;
-    public Transform RLLegLower;
-    public Transform RLFoot;
-
-    public Transform m_OrientationCube;
-
-    [Header("Target body")][Space(12)] 
+    [Header("Target Animation")]
     public Transform targetAnim;
     private ProceduralAnimBody proceduralAnimBody;
 
-    MotorController m_MoController;
 
     public override void Initialize()
     {
         m_MoController = GetComponent<MotorController>();
         proceduralAnimBody = targetAnim.GetComponent<ProceduralAnimBody>();
 
-        m_MoController.SetupMotor(FRHip);
-        m_MoController.SetupMotor(FRLegUpper);
-        m_MoController.SetupMotor(FRLegLower);
-        m_MoController.SetupMotor(FLHip);
-        m_MoController.SetupMotor(FLLegUpper);
-        m_MoController.SetupMotor(FLLegLower);
-        m_MoController.SetupMotor(RRHip);
-        m_MoController.SetupMotor(RRLegUpper);
-        m_MoController.SetupMotor(RRLegLower);
-        m_MoController.SetupMotor(RLHip);
-        m_MoController.SetupMotor(RLLegUpper);
-        m_MoController.SetupMotor(RLLegLower);
-
-        m_MoController.SetupLink(bodyLink);
-        m_MoController.SetupLink(FRFoot);
-        m_MoController.SetupLink(FLFoot);
-        m_MoController.SetupLink(RRFoot);
-        m_MoController.SetupLink(RLFoot);
     }
 
     public override void OnEpisodeBegin()
@@ -81,36 +31,38 @@ public class RobotAgent : Agent
             motor.Reset(motor);
         }
 
-        //body.TeleportRoot( new Vector3(0f,transform.position.y,0f), Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0));
         transform.position = new Vector3(0, 0.85f,0);
-        body.TeleportRoot(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), proceduralAnimBody.GetRootRotation());
-        //body.TeleportRoot( targetBody.position + targetBody.TransformDirection(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(targetPlayer.rotation.eulerAngles.x,TargetOrientationCube.rotation.eulerAngles.y,targetPlayer.rotation.eulerAngles.z));
-        TargetWalkingSpeed = Random.Range(0.1f, m_maxWalkingSpeed);
+
+        m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), proceduralAnimBody.GetRootRotation());
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        foreach(var angle in m_MoController.GetPosition()){
+        foreach(var angle in m_MoController.GetJointAngles()){
             sensor.AddObservation(angle);
         }
-        sensor.AddObservation(bodyLink.rotation.eulerAngles.x);
-        sensor.AddObservation(bodyLink.rotation.eulerAngles.y);
-        sensor.AddObservation(bodyLink.rotation.eulerAngles.z);
+        sensor.AddObservation(m_MoController.GetRootRotation().x);
+        sensor.AddObservation(m_MoController.GetRootRotation().y);
+        sensor.AddObservation(m_MoController.GetRootRotation().z);
 
-        foreach (var link in m_MoController.linkDict.Keys)
-        {
-            if (link != bodyLink){
-                sensor.AddObservation(m_MoController.linkDict[link].groundContact);
-            }
+        for (int i = 0; i < 4; i++){
+            sensor.AddObservation(m_MoController.GetFootContact(i));
         }
     }
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
-        var moDict = m_MoController.motorsDict;
+        //var moDict = m_MoController.motorsDict;
         var continuousActions = actionBuffers.ContinuousActions;
         var i = -1;
 
+        for (i = 0; i < 12; i++){
+            m_MoController.SetMotorAngle(i,continuousActions[i]);
+        }
+
+
+
+        /*
         moDict[FRHip].SetMotorTarget(continuousActions[++i]);
         moDict[FRLegUpper].SetMotorTarget(continuousActions[++i]);
         moDict[FRLegLower].SetMotorTarget(continuousActions[++i]);
@@ -123,26 +75,21 @@ public class RobotAgent : Agent
         moDict[RLHip].SetMotorTarget(continuousActions[++i]);
         moDict[RLLegUpper].SetMotorTarget(continuousActions[++i]);
         moDict[RLLegLower].SetMotorTarget(continuousActions[++i]);
+        */
     }
-    void FixedUpdate(){
-        OrientationCubeUpdate();    
-
-        body.TeleportRoot(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), proceduralAnimBody.GetRootRotation());
-        Debug.Log(proceduralAnimBody.GetRootPosition(new Vector3(0f, -0.05f, -0.01f))-bodyLink.position);
+    void FixedUpdate(){  
+        
         var footReward = GetMatchingFootPosition();
         var rootReward = GetMatchingRootPosition();
         var rootAngleReward = GetMatchingRootAngle();
 
         AddReward(footReward + rootReward + rootAngleReward);
     }
-    void OrientationCubeUpdate(){
-        
-        m_OrientationCube.rotation = Quaternion.Euler(0f, bodyLink.rotation.eulerAngles.y, 0f);
-    }
+
     float GetMatchingFootPosition(){
         float distance = 0f;
         for (int i = 0; i < 4; i++){
-            distance += Mathf.Abs(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,-0.02f,0f)),FRFoot.position));
+            distance += Mathf.Abs(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,-0.02f,0f)),m_MoController.GetFootPosition(i)));
         }
         //distance += Mathf.Abs(Vector3.Distance(new Vector3(targetFLFoot.position.x, targetFLFoot.position.y-0.02f, targetFLFoot.position.z),FLFoot.position));
         //distance += Mathf.Abs(Vector3.Distance(new Vector3(targetRRFoot.position.x, targetRRFoot.position.y-0.02f, targetRRFoot.position.z),RRFoot.position));
@@ -152,14 +99,14 @@ public class RobotAgent : Agent
     }
 
     float GetMatchingRootPosition(){
-        float distance = Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),bodyLink.position); 
+        float distance = Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()); 
         //Debug.Log(distance);
         //float distance = Vector3.Distance(new Vector3(targetBody.position.x, targetBody.position.y-0.02f, targetBody.position.z),bodyLink.position); 
         return -20 * Mathf.Abs(distance);
     }
 
     float GetMatchingRootAngle(){
-        float angle = Vector2.Angle(proceduralAnimBody.GetOrientationRotation(), new Vector2(m_OrientationCube.forward.x, m_OrientationCube.forward.z));
+        float angle = Vector2.Angle(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation());
         return -10 * Mathf.Abs(angle);
     }
 }
