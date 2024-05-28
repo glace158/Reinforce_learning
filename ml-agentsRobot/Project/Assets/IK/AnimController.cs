@@ -39,14 +39,30 @@ public class AnimController : MonoBehaviour
         public bool useKeyboard = false;
 
         [SerializeField]
-        private float h;
+        private float h = 0;
         [SerializeField]
-        private float v;
+        private float v = 0;
 
-        void Start(){
+        private Vector3 startingPos = new Vector3(0, 0, 0);
+
+        void Awake(){
             proceduralAnimation = GetComponentInChildren<ProceduralAnimation>();
             walkMode = proceduralAnimation.GetWalkMode();
-            randParameter();
+            startingPos = transform.position;
+            Debug.Log(startingPos);
+            //randParameter();
+        }
+
+        public Vector2 GetDirection(){
+            return new Vector2(h, v);
+        }
+
+        public float GetTargetSpeed(){
+            return TargetWalkingSpeed;
+        }
+
+        public bool GetTurnMode(){
+            return turn_mode;
         }
 
         void FixedUpdate()
@@ -63,8 +79,12 @@ public class AnimController : MonoBehaviour
         }
 
         public void reset(){
-            transform.rotation = Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0);
-            transform.position = new Vector3(0, 0.85f,0);
+            //transform.rotation = Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0);
+            look_target.rotation = Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0);
+            transform.position = startingPos;
+            proceduralAnimation.reset(); 
+            v = 0;
+            h = 0;   
         }
 
         void keyboardController(){
@@ -117,11 +137,11 @@ public class AnimController : MonoBehaviour
 
         void randParameter(){
                 TargetWalkingSpeed = Random.Range(0f, m_maxWalkingSpeed);
-                turn_mode = Random.Range(0, 2) == 1? true : false; 
-                do{
-                    h = Random.Range(-1f, 2f) ;
-                    v = Random.Range(-1f, 2f) ;
-                }while(h == 0 && v == 0);
+                turn_mode = Random.Range(0, 2) == 1? true : false;
+                h = Random.Range(-1f, 2f) ;
+                v = Random.Range(-1f, 2f) ;
+                //do{  
+                //}while(h == 0 && v == 0);
         }
 
         

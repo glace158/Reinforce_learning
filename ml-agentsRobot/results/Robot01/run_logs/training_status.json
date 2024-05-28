@@ -2,22 +2,22 @@
     "Robot": {
         "checkpoints": [
             {
-                "steps": 4714,
-                "file_path": "results/Robot01/Robot/Robot-4714.onnx",
-                "reward": -6313750.8,
-                "creation_time": 1716388236.2208297,
+                "steps": 0,
+                "file_path": "results/Robot01/Robot/Robot-0.onnx",
+                "reward": null,
+                "creation_time": 1716869328.0966315,
                 "auxillary_file_paths": [
-                    "results/Robot01/Robot/Robot-4714.pt"
+                    "results/Robot01/Robot/Robot-0.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 4714,
+            "steps": 0,
             "file_path": "results/Robot01/Robot.onnx",
-            "reward": -6313750.8,
-            "creation_time": 1716388236.2208297,
+            "reward": null,
+            "creation_time": 1716869328.0966315,
             "auxillary_file_paths": [
-                "results/Robot01/Robot/Robot-4714.pt"
+                "results/Robot01/Robot/Robot-0.pt"
             ]
         }
     },

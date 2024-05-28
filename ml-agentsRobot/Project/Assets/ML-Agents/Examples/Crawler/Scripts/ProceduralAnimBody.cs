@@ -33,11 +33,11 @@ namespace Unity.MLAgentsRobot{
         public Vector3 GetFootPosition(int num, Vector3 footOffset){
             switch (num){
                 case 0:
-                    return new Vector3(FRFoot.position.x,FRFoot.position.y,FRFoot.position.z) + footOffset;
-                case 1:
                     return new Vector3(FLFoot.position.x,FLFoot.position.y,FLFoot.position.z) + footOffset;
-                case 2:
+                case 1:
                     return new Vector3(RRFoot.position.x,RRFoot.position.y,RRFoot.position.z) + footOffset;
+                case 2:
+                    return new Vector3(FRFoot.position.x,FRFoot.position.y,FRFoot.position.z) + footOffset;
                 case 3:
                     return new Vector3(RLFoot.position.x,RLFoot.position.y,RLFoot.position.z) + footOffset;
             }

@@ -29,11 +29,13 @@ namespace Unity.MLAgentsExamples
                 touchingGround = true;
                 if (penalizeGroundContact)
                 {
+                    //Debug.Log("penalty");
                     agent.SetReward(groundContactPenalty);
                 }
 
                 if (agentDoneOnGroundContact)
                 {
+                    //Debug.Log("end");
                     agent.EndEpisode();
                 }
             }

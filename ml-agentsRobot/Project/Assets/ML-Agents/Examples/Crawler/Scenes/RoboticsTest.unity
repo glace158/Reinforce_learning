@@ -129,12 +129,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1100211912}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &235849927 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4659580877439064821, guid: 1315a129b5c02b0fcac1de0988243f6f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2087220891}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &287257543 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7196613393364423547, guid: 1315a129b5c02b0fcac1de0988243f6f,
@@ -153,6 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da40f8fcccd380dfb02439c25697651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cubeA: {fileID: 663880716}
+  cubeB: {fileID: 696513163}
+  targetAnim: {fileID: 128917849}
+  is_reset: 0
 --- !u!4 &287257547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7782580906044905710, guid: 1315a129b5c02b0fcac1de0988243f6f,
@@ -171,7 +169,7 @@ GameObject:
   - component: {fileID: 663880719}
   - component: {fileID: 663880718}
   - component: {fileID: 663880717}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pointa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +185,7 @@ Transform:
   m_GameObject: {fileID: 663880715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1475629785}
@@ -208,7 +206,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -381,7 +379,7 @@ GameObject:
   - component: {fileID: 696513166}
   - component: {fileID: 696513165}
   - component: {fileID: 696513164}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pointb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +395,7 @@ Transform:
   m_GameObject: {fileID: 696513162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1475629785}
@@ -418,7 +416,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -664,6 +662,11 @@ PrefabInstance:
       propertyPath: look_target
       value: 
       objectReference: {fileID: 2117698872}
+    - target: {fileID: 9048095241792676708, guid: a3d6cdec0e8f86006b4cce1154ade803,
+        type: 3}
+      propertyPath: useKeyboard
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -742,19 +745,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72f745913c5a34df5aaadd5c1f0024cb, type: 3}
---- !u!114 &1372701208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 235849927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f4d6cc0f4704784fb8f0ac14b62981b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  touchingGround: 0
 --- !u!4 &1475629785 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 839922442615925678, guid: d6fc96a99a9754f07b48abf1e0d55a5c,
@@ -2305,10 +2295,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 287257544}
-    - targetCorrespondingSourceObject: {fileID: 4659580877439064821, guid: 1315a129b5c02b0fcac1de0988243f6f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1372701208}
   m_SourcePrefab: {fileID: 100100000, guid: 1315a129b5c02b0fcac1de0988243f6f, type: 3}
 --- !u!1001 &2116070742
 PrefabInstance:

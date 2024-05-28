@@ -8,6 +8,7 @@ namespace Unity.MLAgentsRobot{
 
     [System.Serializable]
     public class RobotMotor{
+        
         public ArticulationBody motor;
 
         public int startingAngle;
@@ -16,7 +17,7 @@ namespace Unity.MLAgentsRobot{
         private float upperLimit = 0f;
 
         public GroundContact groundContact;
-
+        
         public void Reset(RobotMotor m){
             var mo_drive = m.motor.xDrive;
             lowerLimit = mo_drive.lowerLimit;
@@ -33,10 +34,11 @@ namespace Unity.MLAgentsRobot{
         }
 
         public void SetMotorTarget(float targetAngle){
+            
             float value = (targetAngle + 1f) * 0.5f;
 
             var rot = Mathf.Lerp(lowerLimit, upperLimit, value);
-
+            //Debug.Log(upperLimit);
             var mo_drive = motor.xDrive;
 
             mo_drive.target = rot;
@@ -47,6 +49,7 @@ namespace Unity.MLAgentsRobot{
 
     [System.Serializable]
     public class RobotLink{
+
         public Transform link;
 
         public ArticulationBody articulationLink;
@@ -67,6 +70,12 @@ namespace Unity.MLAgentsRobot{
 
     public class MotorController : MonoBehaviour
     {
+        //[Header("angle")]
+        //[Range(-1f, 1f)]
+        //[SerializeField]
+        //private float Tangle = 0f;
+
+        //public int targetJoint = 0;
 
         [Header("Body Parts")][Space(12)] 
         public Transform bodyLink;
@@ -109,9 +118,9 @@ namespace Unity.MLAgentsRobot{
             SetupMotor(RLLegLower);
 
             SetupLink(bodyLink);
-            SetupLink(FRFoot);
             SetupLink(FLFoot);
             SetupLink(RRFoot);
+            SetupLink(FRFoot);
             SetupLink(RLFoot);
         }
 
@@ -148,6 +157,7 @@ namespace Unity.MLAgentsRobot{
                 mo.groundContact.agent = gameObject.GetComponent<Agent>();
             }
 
+            mo.Reset(mo);
             motorsDict.Add(t, mo);
         }
 
@@ -168,7 +178,7 @@ namespace Unity.MLAgentsRobot{
             {
                 li.groundContact.agent = gameObject.GetComponent<Agent>();
             }
-
+            
             linkDict.Add(t, li);
         }
 
@@ -204,7 +214,13 @@ namespace Unity.MLAgentsRobot{
         }
 
         public Vector3 GetRootRotation(){
-            return bodyLink.rotation.eulerAngles;
+            var x = bodyLink.rotation.eulerAngles.x;
+            var y = bodyLink.rotation.eulerAngles.y;
+            var z = bodyLink.rotation.eulerAngles.z;
+            x = x -180.0f > 0f ? (x -180.0f) -180f : (x -180.0f) + 180f;
+            y = y -180.0f > 0f ? (y -180.0f) -180f : (y -180.0f) + 180f;
+            z = z -180.0f > 0f ? (z -180.0f) -180f : (z -180.0f) + 180f;
+            return new Vector3(x, y, z);
         }
 
         public Vector3 GetRootPosition(){
@@ -216,7 +232,7 @@ namespace Unity.MLAgentsRobot{
             foreach (var link in linkDict.Values){
                 foots.Add(link);
             }
-            return foots[index + 1].groundContact;
+            return foots[index + 1].groundContact.touchingGround;
         }
 
         public Vector3 GetFootPosition(int index){
@@ -228,7 +244,12 @@ namespace Unity.MLAgentsRobot{
         }
         
         public void SetMotorAngle(int index, float angle){
-            List<RobotMotor> moList = new List<RobotMotor> (motorsDict.Values);
+            List<RobotMotor> moList = new List<RobotMotor>();
+            foreach (var motor in motorsDict.Values){
+                moList.Add(motor);
+            }
+
+            //List<RobotMotor> moList = new List<RobotMotor> (motorsDict.Values);
             moList[index].SetMotorTarget(angle);
         }
 
@@ -241,7 +262,8 @@ namespace Unity.MLAgentsRobot{
         }
 
         void FixedUpdate(){
-            OrientationCubeUpdate();    
+            OrientationCubeUpdate();
+            //SetMotorAngle(targetJoint, Tangle);
         }
     }
 }
