@@ -5085,7 +5085,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 0.2254485
-  m_ParentAnchorPosition: {x: 0.0065000057, y: -0.19820562, z: 0.16970496}
+  m_ParentAnchorPosition: {x: 0.0065000057, y: -0.19820559, z: 0.16970496}
   m_ParentAnchorRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
   m_AnchorRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
@@ -5206,6 +5206,7 @@ GameObject:
   - component: {fileID: 90533050671918380}
   - component: {fileID: 2384654538118873861}
   - component: {fileID: 2713805201701670029}
+  - component: {fileID: 3487626514080035344}
   m_Layer: 2
   m_Name: hotdog
   m_TagString: robot
@@ -5260,7 +5261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 19
+    VectorObservationSize: 23
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 12
@@ -5348,6 +5349,21 @@ MonoBehaviour:
   torque: 25
   acceleration: 5
   highLightColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &3487626514080035344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7196613393364423547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 0
 --- !u!1 &7236138501612253821
 GameObject:
   m_ObjectHideFlags: 0

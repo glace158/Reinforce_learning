@@ -90,18 +90,28 @@ public class RobotAgent : Agent
     float GetMatchingFootPosition(){
         float distance = 0f;
         for (int i = 0; i < 4; i++){
-            distance += Mathf.Abs(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i)));
+            //distance += Mathf.Abs(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i)));
+            distance += Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i)), 0f, 1f);
         }
-        return -40 * distance;
+        distance = Mathf.Pow(1 - Mathf.Pow(distance / 4f, 2), 2);
+        return distance;
     }
 
     float GetMatchingRootPosition(){
-        float distance = Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()); 
-        return -20 * Mathf.Abs(distance);
+        //float distance = Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()); 
+        var positionMagnitude = Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()), 0f, 1f);
+        float distance = Mathf.Pow(1 - Mathf.Pow(positionMagnitude / 1f, 2), 2);
+        return distance;
     }
 
     float GetMatchingRootAngle(){
-        float angle = Vector2.Angle(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation());
-        return -10 * Mathf.Abs(angle);
+        float lookAtTargetReward = (Vector3.Dot(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation()) + 1) * .5F;
+
+        //float angle = Vector2.Angle(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation());
+        return lookAtTargetReward;
+    }
+
+    public override void Heuristic(in ActionBuffers actionsOut){
+
     }
 }

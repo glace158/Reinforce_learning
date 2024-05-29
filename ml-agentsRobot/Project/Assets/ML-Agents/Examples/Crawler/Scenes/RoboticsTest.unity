@@ -665,7 +665,12 @@ PrefabInstance:
     - target: {fileID: 9048095241792676708, guid: a3d6cdec0e8f86006b4cce1154ade803,
         type: 3}
       propertyPath: useKeyboard
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9048095241792676708, guid: a3d6cdec0e8f86006b4cce1154ade803,
+        type: 3}
+      propertyPath: m_TargetWalkingSpeed
+      value: 0.287
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

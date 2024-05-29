@@ -198,11 +198,11 @@ public class AnimController : MonoBehaviour
             Ray ray = new Ray(transform.position, -transform.up);
             if (Physics.Raycast(ray, out RaycastHit info, 100))
             {
-                if (Mathf.Abs(defaultUp - Vector3.Distance(transform.localPosition, info.point)) > 0.0025)
+                if (Mathf.Abs(defaultUp - Vector3.Distance(transform.position, info.point)) > 0.0025)
                 {
-                    float dis = defaultUp - Vector3.Distance(transform.localPosition, info.point);
-                    Vector3 pos = Vector3.Lerp(transform.localPosition, transform.localPosition + (transform.up * dis), Time.deltaTime * 6.0f);
-                    transform.localPosition = pos;
+                    float dis = defaultUp - Vector3.Distance(transform.position, info.point);
+                    Vector3 pos = Vector3.Lerp(transform.position, transform.position + (transform.up * dis), Time.deltaTime * 6.0f);
+                    transform.position = pos;
                 }
             }
         }
