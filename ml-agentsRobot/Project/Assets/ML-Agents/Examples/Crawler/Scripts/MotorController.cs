@@ -38,7 +38,7 @@ namespace Unity.MLAgentsRobot{
             float value = (targetAngle + 1f) * 0.5f;
 
             var rot = Mathf.Lerp(lowerLimit, upperLimit, value);
-            //Debug.Log(upperLimit);
+            
             var mo_drive = motor.xDrive;
 
             mo_drive.target = rot;
@@ -225,6 +225,10 @@ namespace Unity.MLAgentsRobot{
 
         public Vector3 GetRootPosition(){
             return bodyLink.position;
+        }
+
+        public Vector3 GetRootForward(){
+            return bodyLink.forward;
         }
 
         public bool GetFootContact(int index){

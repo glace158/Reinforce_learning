@@ -22,12 +22,16 @@ namespace Unity.MLAgentsRobot{
             return new Vector3(root.position.x, root.position.y, root.position.z) + root.TransformDirection(rootOffset);
         }
 
-        public Quaternion GetRootRotation(){
-            return Quaternion.Euler(animModel.rotation.eulerAngles.x,OrientationCube.rotation.eulerAngles.y,animModel.rotation.eulerAngles.z);
+        public Vector3 GetRootRotation(){
+            return new Vector3(animModel.rotation.eulerAngles.x,OrientationCube.rotation.eulerAngles.y,animModel.rotation.eulerAngles.z);
         }
 
         public Vector2 GetOrientationRotation(){
             return new Vector2(OrientationCube.forward.x, OrientationCube.forward.z);
+        }
+
+        public Vector3 GetRootForward(){
+            return root.up;
         }
 
         public Vector3 GetFootPosition(int num, Vector3 footOffset){

@@ -38,7 +38,8 @@ public class TestScript : MonoBehaviour
         }
         //m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), proceduralAnimBody.GetRootRotation());  
         //FootContact() ;
-        RootPositionCompare();
+        RootAngleCompare();
+        //GetBobyHeight();
         timer += Time.deltaTime;
         if(timer > waitingTime)
         {
@@ -50,7 +51,7 @@ public class TestScript : MonoBehaviour
     void EpisodeReset(){
         animController.reset();
 
-        m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), proceduralAnimBody.GetRootRotation());    
+        m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));    
     }
     void FootPositionCompare(){
         cubeA.position = proceduralAnimBody.GetFootPosition(0, new Vector3(0f,0.00f,0f));
@@ -59,17 +60,20 @@ public class TestScript : MonoBehaviour
     }
 
     void RootPositionCompare(){
-        //float distance = Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()); 
-        var positionMagnitude = Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()), 0f, 1f);
-        float distance = Mathf.Pow(1 - Mathf.Pow(positionMagnitude / 1f, 2), 2);
+        float distance = Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()); 
+        //var positionMagnitude = Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()), 0f, 1f);
+        //float distance = Mathf.Pow(1 - Mathf.Pow(positionMagnitude / 1f, 2), 2);
+        distance = Mathf.Exp(-20 * Mathf.Pow(distance,2));
         Debug.Log(distance);
     }
 
     void RootAngleCompare(){
-        float lookAtTargetReward = (Vector3.Dot(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation()) + 1) * .5F;
-
-        float angle = Vector2.Angle(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation());
-        Debug.Log(lookAtTargetReward);
+        //float angle = (Vector3.Dot(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation()) + 1) * .5F;
+        //float angle = Vector3.Dot(proceduralAnimBody.GetRootRotation(), m_MoController.GetRootRotation());
+        //float angle = Vector2.Angle(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation());
+        //angle = Mathf.Exp(-0.1f *  angle);
+        float angle = (Vector3.Dot(proceduralAnimBody.GetRootForward(), m_MoController.GetRootForward()) + 1) * .5f;
+        Debug.Log(angle);
     }
     void CheckRootRotation(){
         Debug.Log(m_MoController.GetRootRotation().x.ToString()+ " "+ m_MoController.GetRootRotation().y.ToString() + " "+ m_MoController.GetRootRotation().z.ToString());
@@ -78,12 +82,19 @@ public class TestScript : MonoBehaviour
 
     void FootContact(){
         Debug.Log(m_MoController.GetFootContact(0) + " " + m_MoController.GetFootContact(1) + " " + m_MoController.GetFootContact(2) + " " +m_MoController.GetFootContact(3));
-        
     }
     int value = 0;
     void RandomRot(){
         m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(Random.Range(0.0f, 360f), value++, Random.Range(0.0f, 360f)));
     
         //m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(0f, Random.Range(0.0f, 360f), 0f));
+    }
+
+    void GetBobyHeight(){
+        Ray ray = new Ray(transform.position, -transform.up);
+        if (Physics.Raycast(ray, out RaycastHit info, 100))
+        {
+            Debug.Log(Vector3.Distance(transform.position, info.point));
+        }
     }
 }

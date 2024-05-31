@@ -14,7 +14,7 @@ public class AnimController : MonoBehaviour
         [SerializeField]
         private float m_TargetWalkingSpeed = m_maxWalkingSpeed;
         
-        const float m_maxWalkingSpeed = 1.2f; //The max walking speed
+        const float m_maxWalkingSpeed = 1f; //The max walking speed
 
         private ProceduralAnimation proceduralAnimation;
 
@@ -49,7 +49,7 @@ public class AnimController : MonoBehaviour
             proceduralAnimation = GetComponentInChildren<ProceduralAnimation>();
             walkMode = proceduralAnimation.GetWalkMode();
             startingPos = transform.position;
-            Debug.Log(startingPos);
+            //Debug.Log(startingPos);
             //randParameter();
         }
 
@@ -130,7 +130,7 @@ public class AnimController : MonoBehaviour
 
         void changeParameter(){
             float num = Random.Range(0.0f, 1.0f);
-            if (num < 0.01){
+            if (num < 0.001f){
                 randParameter();
             }
         }
