@@ -21,7 +21,7 @@ public class RobotAgent : Agent
     private ProceduralAnimBody proceduralAnimBody;
     private AnimController animController;
 
-    private float[] previousActions = new float[12] {0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f};
+    //private float[] previousActions = new float[12] {0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f};
     private float[] currentActions = new float[12] {0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f};
 
     public override void Initialize()
@@ -40,9 +40,16 @@ public class RobotAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        foreach(var angle in m_MoController.GetJointAngles()){
+        foreach(var angle in m_MoController.GetMotorAngles()){
             sensor.AddObservation(angle);//12
         }
+        //foreach(var angle in m_MoController.GetJointAngles()){
+        //    sensor.AddObservation(angle);//12
+        //}
+
+        //for (int i = 0; i < previousActions.Length; i++){//12
+        //    sensor.AddObservation(previousActions[i]);
+        //}
 
         sensor.AddObservation(m_MoController.GetRootRotation().x);//1
         sensor.AddObservation(m_MoController.GetRootRotation().y);//1
@@ -57,9 +64,6 @@ public class RobotAgent : Agent
         sensor.AddObservation(animController.GetTargetSpeed());//1
         sensor.AddObservation(animController.GetTurnMode());//1
 
-        for (int i = 0; i < previousActions.Length; i++){//12
-            sensor.AddObservation(previousActions[i]);
-        }
     }
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
@@ -97,12 +101,14 @@ public class RobotAgent : Agent
         var footReward = GetMatchingFootPosition();
         var rootReward = GetMatchingRootPosition();
         var rootAngleReward = GetMatchingRootAngle();
+        var jointReward = GetJointAngleCompare();
 
         var actionPenalty = GetActionPenalty();
         
         AddReward(footReward);
         AddReward(rootReward);
         AddReward(rootAngleReward);
+        AddReward(jointReward);
         AddReward(-actionPenalty);
     }
     void FixedUpdate(){  
@@ -114,10 +120,19 @@ public class RobotAgent : Agent
         } 
         
         var positionMagnitude = Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()), 0f, 10f);
-        float distance = Mathf.Pow(1 - Mathf.Pow(positionMagnitude / 10f, 2), 2);
+        float distance = Mathf.Pow(1 - Mathf.Pow(positionMagnitude / 1f, 2), 2);
         if (distance < 0.01){
             SetReward(-1f);
-            EndEpisode();
+            SetMatchingAngle();
+        }
+    }
+
+    public void SetMatchingAngle(){
+        m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
+            
+        for (int i = 0; i < 12; i++){
+            var targetAngle = proceduralAnimBody.GetJointAngle()[i];
+            m_MoController.SetJointAngle(i, targetAngle);
         }
     }
 
@@ -128,7 +143,7 @@ public class RobotAgent : Agent
             //distance += Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i)), 0f, 1f);
         }
         //distance = Mathf.Pow(1 - Mathf.Pow(distance / 4f, 2), 2);
-        distance = Mathf.Exp(-40 * Mathf.Pow(distance,2));
+        distance = Mathf.Exp(-20 * Mathf.Pow(distance,2));
         return distance;
     }
 
@@ -151,13 +166,21 @@ public class RobotAgent : Agent
     float GetActionPenalty(){
         float penalty = 0f; 
         for (int i = 0; i < currentActions.Length; i++){
-            penalty += Mathf.Pow(currentActions[i] - previousActions[i], 2);
+            penalty += Mathf.Pow(currentActions[i] - m_MoController.GetMotorAngles()[i], 2);
         }
         //Debug.Log(penalty);
-        previousActions = currentActions.ToArray();
-        
+        //previousActions = currentActions.ToArray();
+        penalty = 0.5f * penalty;
         //Mathf.Pow(1 - Mathf.Pow(penalty / 12f, 2), 2);
         return penalty;
+    }
+
+    float GetJointAngleCompare(){
+        var angle = 0f;
+        for (int i = 0; i < 12; i++){
+            angle += m_MoController.GetJointAngles()[i] - proceduralAnimBody.GetJointAngle()[i];
+        }
+        return Mathf.Exp(-0.1f * Mathf.Pow(angle,2));
     }
 
     public override void Heuristic(in ActionBuffers actionsOut){

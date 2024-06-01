@@ -45,6 +45,7 @@ public class AnimController : MonoBehaviour
 
         private Vector3 startingPos = new Vector3(0, 0, 0);
 
+        private float randomRate = 0.01f;
         void Awake(){
             proceduralAnimation = GetComponentInChildren<ProceduralAnimation>();
             walkMode = proceduralAnimation.GetWalkMode();
@@ -81,8 +82,10 @@ public class AnimController : MonoBehaviour
         public void reset(){
             //transform.rotation = Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0);
             look_target.rotation = Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0);
+            transform.rotation = look_target.rotation;
             transform.position = startingPos;
             proceduralAnimation.reset(); 
+            randomRate = 0.01f;
             v = 0;
             h = 0;   
         }
@@ -130,7 +133,9 @@ public class AnimController : MonoBehaviour
 
         void changeParameter(){
             float num = Random.Range(0.0f, 1.0f);
-            if (num < 0.001f){
+            if (num < randomRate){
+                if (randomRate != 0.001f){randomRate = 0.001f;}
+
                 randParameter();
             }
         }
@@ -143,8 +148,6 @@ public class AnimController : MonoBehaviour
                 //do{  
                 //}while(h == 0 && v == 0);
         }
-
-        
 
         void move(float h, float v, float speed)
         {
@@ -191,8 +194,6 @@ public class AnimController : MonoBehaviour
                 v = Mathf.Abs(axis.z) != 0 ?  -v : v;
             }
         }
-
-        
 
         void fixedup() {
             Ray ray = new Ray(transform.position, -transform.up);

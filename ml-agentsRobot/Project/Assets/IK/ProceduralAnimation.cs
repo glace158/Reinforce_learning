@@ -25,7 +25,7 @@ namespace Unity.MLAgentsRobot{
         private Vector3 lastBodyPos;
 
         [SerializeField]
-        private int walkMode = 0;
+        private int walkMode = 1;
 
         private float velocityMultiplier = 15f;
 
@@ -190,7 +190,6 @@ namespace Unity.MLAgentsRobot{
             }
             else
             {
-
                 CrawlWalk(indexToMove, desiredPositions);
             }
 

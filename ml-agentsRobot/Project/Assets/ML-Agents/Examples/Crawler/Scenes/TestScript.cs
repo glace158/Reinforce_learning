@@ -33,37 +33,69 @@ public class TestScript : MonoBehaviour
     private void FixedUpdate() {
         //CheckRootRotation();
         if (is_reset){
-            EpisodeReset();
+            //EpisodeReset();
+            GetAnimJointAngle();
             is_reset = false;
         }
-        //m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), proceduralAnimBody.GetRootRotation());  
+        //proceduralAnimBody.initSet();
+        //m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
         //FootContact() ;
-        RootAngleCompare();
+        //RootAngleCompare();
         //GetBobyHeight();
+        //RootPositionCompare();
+        //FootPositionCompare();
+        //GetAnimJointAngle();
+        AngleCompare();
         timer += Time.deltaTime;
         if(timer > waitingTime)
         {
             //RandomRot();
         timer = 0;
-        }    
-    }
+        }
 
+        
+    }
+    
+    void GetAnimJointAngle(){
+        m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));    
+    
+        //Debug.Log(targetAngle);
+        //Debug.Log("3: " + proceduralAnimBody.GetJointAngle()[3]);
+        for (int i = 0; i < 12; i++){
+            var targetAngle = proceduralAnimBody.GetJointAngle()[i];
+            m_MoController.SetJointAngle(i, targetAngle);
+        }
+    }
     void EpisodeReset(){
         animController.reset();
 
         m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));    
     }
     void FootPositionCompare(){
-        cubeA.position = proceduralAnimBody.GetFootPosition(0, new Vector3(0f,0.00f,0f));
-        cubeB.position = m_MoController.GetFootPosition(0);
-        Debug.Log(Vector3.Distance(proceduralAnimBody.GetFootPosition(0, new Vector3(0f,-0.02f,0f)), m_MoController.GetFootPosition(0)));
+        float distance = 0f;
+        for (int i = 0; i < 4; i++){
+            distance += Mathf.Abs(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i)));
+            //distance += Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i)), 0f, 1f);
+        }
+        //distance = Mathf.Pow(1 - Mathf.Pow(distance / 4f, 2), 2);
+        distance = Mathf.Exp(-10 * Mathf.Pow(distance,2));
+        Debug.Log(distance);
+    }
+
+    void AngleCompare(){
+        var targetAngle = 0f;
+        for (int i = 0; i < 12; i++){
+            targetAngle += m_MoController.GetJointAngles()[i] - proceduralAnimBody.GetJointAngle()[i];
+        }
+
+        Debug.Log(Mathf.Exp(-0.1f * Mathf.Pow(targetAngle,2)));//12
     }
 
     void RootPositionCompare(){
         float distance = Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()); 
         //var positionMagnitude = Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()), 0f, 1f);
         //float distance = Mathf.Pow(1 - Mathf.Pow(positionMagnitude / 1f, 2), 2);
-        distance = Mathf.Exp(-20 * Mathf.Pow(distance,2));
+        distance = Mathf.Exp(-40f * Mathf.Pow(distance,2));
         Debug.Log(distance);
     }
 

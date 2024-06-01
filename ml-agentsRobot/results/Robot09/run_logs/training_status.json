@@ -1,0 +1,65 @@
+{
+    "Robot": {
+        "checkpoints": [
+            {
+                "steps": 6999706,
+                "file_path": "results/Robot09/Robot/Robot-6999706.onnx",
+                "reward": 45.710989191828965,
+                "creation_time": 1717232453.2498534,
+                "auxillary_file_paths": [
+                    "results/Robot09/Robot/Robot-6999706.pt"
+                ]
+            },
+            {
+                "steps": 7499796,
+                "file_path": "results/Robot09/Robot/Robot-7499796.onnx",
+                "reward": 129.57953689098358,
+                "creation_time": 1717235128.9095855,
+                "auxillary_file_paths": [
+                    "results/Robot09/Robot/Robot-7499796.pt"
+                ]
+            },
+            {
+                "steps": 7999996,
+                "file_path": "results/Robot09/Robot/Robot-7999996.onnx",
+                "reward": 111.52496005626435,
+                "creation_time": 1717237800.5474591,
+                "auxillary_file_paths": [
+                    "results/Robot09/Robot/Robot-7999996.pt"
+                ]
+            },
+            {
+                "steps": 8499821,
+                "file_path": "results/Robot09/Robot/Robot-8499821.onnx",
+                "reward": 83.75508025288582,
+                "creation_time": 1717240458.3929853,
+                "auxillary_file_paths": [
+                    "results/Robot09/Robot/Robot-8499821.pt"
+                ]
+            },
+            {
+                "steps": 8713033,
+                "file_path": "results/Robot09/Robot/Robot-8713033.onnx",
+                "reward": 124.69878295160109,
+                "creation_time": 1717241600.0035346,
+                "auxillary_file_paths": [
+                    "results/Robot09/Robot/Robot-8713033.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 8713033,
+            "file_path": "results/Robot09/Robot.onnx",
+            "reward": 124.69878295160109,
+            "creation_time": 1717241600.0035346,
+            "auxillary_file_paths": [
+                "results/Robot09/Robot/Robot-8713033.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.8.1+cu111"
+    }
+}

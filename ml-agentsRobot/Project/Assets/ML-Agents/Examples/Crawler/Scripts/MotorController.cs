@@ -34,7 +34,6 @@ namespace Unity.MLAgentsRobot{
         }
 
         public void SetMotorTarget(float targetAngle){
-            
             float value = (targetAngle + 1f) * 0.5f;
 
             var rot = Mathf.Lerp(lowerLimit, upperLimit, value);
@@ -44,6 +43,18 @@ namespace Unity.MLAgentsRobot{
             mo_drive.target = rot;
 
             motor.xDrive = mo_drive;
+        }
+
+        public void SetJointAngle(float angle){
+            var mo_drive = motor.xDrive;
+
+            mo_drive.target = angle;
+
+            motor.xDrive = mo_drive;
+        }
+
+        public float GetTargetValue(){
+            return Mathf.InverseLerp(lowerLimit, upperLimit, motor.jointPosition[0] * 180 / Mathf.PI);
         }
     }
 
@@ -204,6 +215,15 @@ namespace Unity.MLAgentsRobot{
             return torqueList;
         }
 
+        public List<float> GetMotorAngles(){
+            List<float> positionList = new List<float>();
+            foreach (var motor in motorsDict.Values)
+            {
+                positionList.Add(motor.GetTargetValue());
+            }
+            return positionList;
+        }
+
         public List<float> GetJointAngles (){
             List<float> positionList = new List<float>();
             foreach (var motor in motorsDict.Values)
@@ -252,9 +272,17 @@ namespace Unity.MLAgentsRobot{
             foreach (var motor in motorsDict.Values){
                 moList.Add(motor);
             }
-
+            //Debug.Log(angle);
             //List<RobotMotor> moList = new List<RobotMotor> (motorsDict.Values);
             moList[index].SetMotorTarget(angle);
+        }
+
+        public void SetJointAngle(int index, float angle){
+            List<RobotMotor> moList = new List<RobotMotor>();
+            foreach (var motor in motorsDict.Values){
+                moList.Add(motor);
+            }
+            moList[index].SetJointAngle(angle);
         }
 
         public Vector2 GetOrientationRotation(){

@@ -3,16 +3,141 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Unity.MLAgentsRobot{
+
+    public enum AXIS{ X, Y, Z }
+
+    [System.Serializable]
+    public class AnimJoint{
+        public Transform t;
+        public float offset = 0f;
+        public int axis;
+        
+        public bool isInverse = false;
+
+        private int val = 1;
+
+        public AnimJoint(Transform t, int axis, bool isInverse){
+            this.t = t;
+            this.axis = axis;
+            this.isInverse = isInverse;
+            val = isInverse ? -1 : 1;
+            
+            
+            
+            switch (axis){
+                case 0:
+                    this.offset = t.rotation.eulerAngles.x;
+                    break;
+                case 1:
+                    this.offset = t.rotation.eulerAngles.y;
+                    break;
+                case 2:
+                    this.offset = t.rotation.eulerAngles.z;
+                    break;
+            }
+
+            
+        }
+        
+        public float GetAngle(){
+            switch (axis){
+                case 0:
+                    return (t.rotation.eulerAngles.x - offset) * val;
+                case 1:
+                    return (t.rotation.eulerAngles.y - offset) * val;
+                case 2:
+                    return (t.rotation.eulerAngles.z - offset) * val;
+                default:
+                    return 0f;
+            }
+        }
+    }
+
     public class ProceduralAnimBody : MonoBehaviour
     {
         public Transform root;
         public Transform animModel;
         public Transform OrientationCube;
 
+        public Transform FRHip;
+        public Transform FRLegUpper;
+        public Transform FRLegLower;
         public Transform FRFoot;
+        public Transform FLHip;
+        public Transform FLLegUpper;
+        public Transform FLLegLower;
         public Transform FLFoot;
+        public Transform RRHip;
+        public Transform RRLegUpper;
+        public Transform RRLegLower;
         public Transform RRFoot;
+        public Transform RLHip;
+        public Transform RLLegUpper;
+        public Transform RLLegLower;
         public Transform RLFoot;
+
+        private List<AnimJoint> jointList = new List<AnimJoint>();
+
+        private float FLOffset;
+        private float RLOffset;
+
+        private void Start(){
+            initSet();
+        }
+        public void initSet(){
+            jointList.Clear();
+            SetupJoint(FRHip, (int)AXIS.Z,false);
+            SetupJoint(FRLegUpper, (int)AXIS.X,true);
+            SetupJoint(FRLegLower, (int)AXIS.X,true);
+
+            SetupJoint(FLHip, (int)AXIS.X, true);
+            SetupJoint(FLLegUpper, (int)AXIS.X, true);
+            SetupJoint(FLLegLower, (int)AXIS.X,true);
+
+            SetupJoint(RRHip, (int)AXIS.Z,false);
+            SetupJoint(RRLegUpper, (int)AXIS.X,true);
+            SetupJoint(RRLegLower, (int)AXIS.X,true);
+
+            SetupJoint(RLHip, (int)AXIS.X, true);
+            SetupJoint(RLLegUpper, (int)AXIS.X, true);
+            SetupJoint(RLLegLower, (int)AXIS.X, true);
+
+
+            FLOffset = FLHip.localEulerAngles.x;
+            RLOffset = RLHip.localEulerAngles.x;
+        }
+
+        void SetupJoint(Transform t, int axis, bool isInverse){
+            var joint = new AnimJoint(t, axis, isInverse);
+            jointList.Add(joint);
+        }
+        
+        public List<float> GetJointAngle(){            
+            List<float> jointAngles = new List<float>();
+
+            foreach(var joint in jointList){
+                var angle = joint.GetAngle();
+
+                if(joint.t == FLHip){
+                    var a = (FLHip.localEulerAngles.x - FLOffset) % 360;
+                    if(a >180)
+                        a = a - 360;
+                    //Debug.Log(a );
+                    angle = (0 < a) ? angle : -angle;
+                }
+                else if(joint.t == RLHip){
+                    var a = (RLHip.localEulerAngles.x - RLOffset) % 360;
+                    if(a >180)
+                        a = a - 360;
+                    
+                    angle = (0 < a) ? -angle : angle;
+                }
+
+                jointAngles.Add(angle);
+            }
+            return jointAngles;
+        }
+        
 
         public Vector3 GetInitPosition(Vector3 offSet){
             return root.position + root.TransformDirection(offSet);
