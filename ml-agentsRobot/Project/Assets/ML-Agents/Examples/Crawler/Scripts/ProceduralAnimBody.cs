@@ -84,6 +84,7 @@ namespace Unity.MLAgentsRobot{
         private void Start(){
             initSet();
         }
+        
         public void initSet(){
             jointList.Clear();
             SetupJoint(FRHip, (int)AXIS.Z,false);
@@ -105,6 +106,10 @@ namespace Unity.MLAgentsRobot{
 
             FLOffset = FLHip.localEulerAngles.x;
             RLOffset = RLHip.localEulerAngles.x;
+        }
+
+        public void SetOrientationCube(Transform t){
+            OrientationCube = t;
         }
 
         void SetupJoint(Transform t, int axis, bool isInverse){

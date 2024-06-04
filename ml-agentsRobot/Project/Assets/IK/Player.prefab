@@ -370,9 +370,21 @@ MonoBehaviour:
   root: {fileID: 1311961275359164737}
   animModel: {fileID: 8205575990906962170}
   OrientationCube: {fileID: 0}
+  FRHip: {fileID: 6703801193803221133}
+  FRLegUpper: {fileID: 172221333573212702}
+  FRLegLower: {fileID: 3232814472345535372}
   FRFoot: {fileID: 282954629000284336}
+  FLHip: {fileID: 3839465681544336541}
+  FLLegUpper: {fileID: 6563768384760383090}
+  FLLegLower: {fileID: 349173575012538076}
   FLFoot: {fileID: 7491221804730326738}
+  RRHip: {fileID: 334896364649217058}
+  RRLegUpper: {fileID: 594057571375419118}
+  RRLegLower: {fileID: 3772933118993633068}
   RRFoot: {fileID: 3087403061247947709}
+  RLHip: {fileID: 7628580844453125837}
+  RLLegUpper: {fileID: 4284363198338214198}
+  RLLegLower: {fileID: 1989803110271031814}
   RLFoot: {fileID: 7019712540784192021}
 --- !u!114 &9048095241792676708
 MonoBehaviour:
@@ -386,12 +398,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 878267fb7e7a86716b6bb7e1a7f7ab52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TargetWalkingSpeed: 1.2
+  m_TargetWalkingSpeed: 0.287
   _trun_gain: 80
   look_target: {fileID: 0}
   defaultUp: 0.33
-  turn_mode: 1
-  walkMode: 0
+  turn_mode: 0
+  walkMode: 1
   useKeyboard: 0
   h: 0
   v: 0
@@ -750,6 +762,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6556856243865840402}
   m_SourcePrefab: {fileID: 100100000, guid: 9f3499120ff6a8e4baa9e5ab3f096b1b, type: 3}
+--- !u!4 &172221333573212702 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7527489720836847665, guid: 9f3499120ff6a8e4baa9e5ab3f096b1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7643979002566304303}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &282954629000284336 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7636310407667198623, guid: 9f3499120ff6a8e4baa9e5ab3f096b1b,
@@ -765,6 +783,12 @@ Transform:
 --- !u!4 &349173575012538076 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7983859469112128755, guid: 9f3499120ff6a8e4baa9e5ab3f096b1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7643979002566304303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &594057571375419118 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7073565471017331905, guid: 9f3499120ff6a8e4baa9e5ab3f096b1b,
     type: 3}
   m_PrefabInstance: {fileID: 7643979002566304303}
   m_PrefabAsset: {fileID: 0}
@@ -801,6 +825,18 @@ Transform:
 --- !u!4 &3839465681544336541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6871468109719582386, guid: 9f3499120ff6a8e4baa9e5ab3f096b1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7643979002566304303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4284363198338214198 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5864183445574830873, guid: 9f3499120ff6a8e4baa9e5ab3f096b1b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7643979002566304303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6563768384760383090 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3531929277129253981, guid: 9f3499120ff6a8e4baa9e5ab3f096b1b,
     type: 3}
   m_PrefabInstance: {fileID: 7643979002566304303}
   m_PrefabAsset: {fileID: 0}
@@ -873,9 +909,15 @@ MonoBehaviour:
   - {fileID: 8233896887493917927}
   - {fileID: 5675288309502320714}
   - {fileID: 8090955452395828941}
-  stepSize: 0.1
+  foots:
+  - {fileID: 7491221804730326738}
+  - {fileID: 3087403061247947709}
+  - {fileID: 282954629000284336}
+  - {fileID: 7019712540784192021}
+  rig: {fileID: 7816998355122470269}
+  stepSize: 0.15
   smoothness: 8
-  stepHeight: 0.1
+  stepHeight: 0.15
   bodyOrientation: 1
   look_target: {fileID: 0}
-  walkMode: -1
+  walkMode: 1

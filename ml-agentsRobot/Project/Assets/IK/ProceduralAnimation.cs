@@ -11,11 +11,14 @@ namespace Unity.MLAgentsRobot{
         public int smoothness = 8;
         public float stepHeight = 0.15f;
         public bool bodyOrientation = true;
-        public Transform look_target;
+        private Transform look_target;
 
         private float raycastRange = 1f;
         private Vector3[] defaultLegPositions;
         private Vector3[] lastLegPositions;
+
+        private Vector3[] initLegPositions;
+
         private Vector3 lastBodyUp;
         private bool[] legMoving;
         private int nbLegs;
@@ -29,14 +32,16 @@ namespace Unity.MLAgentsRobot{
 
         private float velocityMultiplier = 15f;
 
-        private bool is_reset = false;
-
         public int GetWalkMode(){
             return walkMode;
         }
         public void SetWalkMode(int walkMode){
             this.walkMode = walkMode;
-        }   
+        } 
+
+        public void SetLookTarget(Transform t){
+            look_target = t;
+        }
 
         static Vector3[] MatchToSurfaceFromAbove(Vector3 point, float halfRange, Vector3 up)
         {
@@ -65,11 +70,13 @@ namespace Unity.MLAgentsRobot{
 
             nbLegs = legTargets.Length;
             defaultLegPositions = new Vector3[nbLegs];
+            initLegPositions = new Vector3[nbLegs];
             lastLegPositions = new Vector3[nbLegs];
 
             legMoving = new bool[nbLegs];
             for (int i = 0; i < nbLegs; ++i)
             {
+                initLegPositions[i] = legTargets[i].position;
                 defaultLegPositions[i] = legTargets[i].localPosition;
                 lastLegPositions[i] = legTargets[i].position;
                 legMoving[i] = false;
@@ -124,29 +131,6 @@ namespace Unity.MLAgentsRobot{
             }
         }
 
-        public void reset(){
-            Vector3[] desiredPositions = new Vector3[nbLegs];
-            is_reset = true;
-            for (int i = 0; i < nbLegs; ++i)
-            {
-                desiredPositions[i] = transform.TransformPoint(defaultLegPositions[i]);
-
-                Vector3 targetPoint = desiredPositions[i] + Mathf.Clamp(velocity.magnitude * velocityMultiplier, 0.0f, 1.5f) * (desiredPositions[i] - legTargets[i].position) + velocity * velocityMultiplier;
-                Vector3[] positionAndNormal = MatchToSurfaceFromAbove(targetPoint, raycastRange, transform.up);
-                
-                StartCoroutine(PerformStep(i, positionAndNormal[0]));
-                //legTargets[i].position = positionAndNormal[0];
-                //lastLegPositions[i] = legTargets[i].position;
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, look_target.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
-            }
-            //is_reset =false;
-            Invoke("resetEnd", 0.1f);
-        }
-
-        void resetEnd(){
-            is_reset =false;
-        }
-
         void Step(int indexToMove , Vector3 desiredPosition)
         {
             Vector3 targetPoint = desiredPosition + Mathf.Clamp(velocity.magnitude * velocityMultiplier, 0.0f, 1.5f) * (desiredPosition - legTargets[indexToMove].position) + velocity * velocityMultiplier;
@@ -175,7 +159,7 @@ namespace Unity.MLAgentsRobot{
                 desiredPositions[i] = transform.TransformPoint(defaultLegPositions[i]);
 
                 float distance = Vector3.ProjectOnPlane(desiredPositions[i] + velocity * velocityMultiplier - lastLegPositions[i], transform.up).magnitude;
-                if (distance > maxDistance && !is_reset)
+                if (distance > maxDistance)
                 {
                     maxDistance = distance;
                     indexToMove = i;
@@ -195,7 +179,7 @@ namespace Unity.MLAgentsRobot{
 
             //몸통 기울기 조정
             lastBodyPos = transform.position;
-            if (nbLegs > 3 && bodyOrientation && !is_reset) 
+            if (nbLegs > 3 && bodyOrientation) 
             {
                 Vector3 v1 = legTargets[0].localPosition - legTargets[1].localPosition;
                 Vector3 v2 = legTargets[2].localPosition - legTargets[3].localPosition;

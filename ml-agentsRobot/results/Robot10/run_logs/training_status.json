@@ -2,22 +2,58 @@
     "Robot": {
         "checkpoints": [
             {
-                "steps": 4213,
-                "file_path": "results/Robot10/Robot/Robot-4213.onnx",
-                "reward": 2.228787282902127,
-                "creation_time": 1717268040.0314496,
+                "steps": 2999767,
+                "file_path": "results/Robot10/Robot/Robot-2999767.onnx",
+                "reward": 166.40006754450175,
+                "creation_time": 1717282073.2740495,
                 "auxillary_file_paths": [
-                    "results/Robot10/Robot/Robot-4213.pt"
+                    "results/Robot10/Robot/Robot-2999767.pt"
+                ]
+            },
+            {
+                "steps": 3499732,
+                "file_path": "results/Robot10/Robot/Robot-3499732.onnx",
+                "reward": 230.52335586547852,
+                "creation_time": 1717284321.2567196,
+                "auxillary_file_paths": [
+                    "results/Robot10/Robot/Robot-3499732.pt"
+                ]
+            },
+            {
+                "steps": 3999912,
+                "file_path": "results/Robot10/Robot/Robot-3999912.onnx",
+                "reward": 109.26459024349849,
+                "creation_time": 1717286586.22414,
+                "auxillary_file_paths": [
+                    "results/Robot10/Robot/Robot-3999912.pt"
+                ]
+            },
+            {
+                "steps": 4499700,
+                "file_path": "results/Robot10/Robot/Robot-4499700.onnx",
+                "reward": 180.88588558334902,
+                "creation_time": 1717288857.4363594,
+                "auxillary_file_paths": [
+                    "results/Robot10/Robot/Robot-4499700.pt"
+                ]
+            },
+            {
+                "steps": 4864527,
+                "file_path": "results/Robot10/Robot/Robot-4864527.onnx",
+                "reward": 213.24266815185547,
+                "creation_time": 1717290506.8874493,
+                "auxillary_file_paths": [
+                    "results/Robot10/Robot/Robot-4864527.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 4213,
+            "steps": 4864527,
             "file_path": "results/Robot10/Robot.onnx",
-            "reward": 2.228787282902127,
-            "creation_time": 1717268040.0314496,
+            "reward": 213.24266815185547,
+            "creation_time": 1717290506.8874493,
             "auxillary_file_paths": [
-                "results/Robot10/Robot/Robot-4213.pt"
+                "results/Robot10/Robot/Robot-4864527.pt"
             ]
         }
     },

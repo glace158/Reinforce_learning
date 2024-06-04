@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgentsExamples;
 using Unity.MLAgents;
-
+using System.Linq;
 namespace Unity.MLAgentsRobot{
 
     [System.Serializable]
@@ -261,9 +261,7 @@ namespace Unity.MLAgentsRobot{
 
         public Vector3 GetFootPosition(int index){
             List<RobotLink> foots = new List<RobotLink>();
-            foreach (var link in linkDict.Values){
-                foots.Add(link);
-            }
+            foots = linkDict.Values.ToList();
             return foots[index + 1].link.position;
         }
         

@@ -48,6 +48,9 @@ public class CrawlerAgent : Agent
     public Transform leg3Upper;
     public Transform leg3Lower;
 
+    private int countFrames = 0;
+    private float timer2 = 0.0f;
+
     //This will be used as a stabilized model space reference point for observations
     //Because ragdolls can move erratically during training, using a stabilized reference transform improves learning
     OrientationCubeController m_OrientationCube;
@@ -195,6 +198,17 @@ public class CrawlerAgent : Agent
         bpDict[leg1Lower].SetJointStrength(continuousActions[++i]);
         bpDict[leg2Lower].SetJointStrength(continuousActions[++i]);
         bpDict[leg3Lower].SetJointStrength(continuousActions[++i]);
+
+        countFrames++;
+        Debug.Log(continuousActions[i]);
+        //Debug.Log(countFrames);
+        timer2 += Time.deltaTime;
+        if(timer2 > 1f)
+        {
+            Debug.Log(countFrames);
+            countFrames = 0;
+            timer2 = 0;
+        } 
     }
 
     void FixedUpdate()

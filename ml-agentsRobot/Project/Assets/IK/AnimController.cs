@@ -17,7 +17,6 @@ public class AnimController : MonoBehaviour
         const float m_maxWalkingSpeed = 1f; //The max walking speed
 
         private ProceduralAnimation proceduralAnimation;
-
         //The current target walking speed. Clamped because a value of zero will cause NaNs
         public float TargetWalkingSpeed
         {
@@ -48,10 +47,13 @@ public class AnimController : MonoBehaviour
         private float randomRate = 0.01f;
         void Awake(){
             proceduralAnimation = GetComponentInChildren<ProceduralAnimation>();
+
             walkMode = proceduralAnimation.GetWalkMode();
             startingPos = transform.position;
-            //Debug.Log(startingPos);
-            //randParameter();
+        }
+
+        void Start(){
+            transform.rotation = look_target.rotation;
         }
 
         public Vector2 GetDirection(){
@@ -78,16 +80,10 @@ public class AnimController : MonoBehaviour
             borderSensing();
             fixedup();
         }
-
-        public void reset(){
-            //transform.rotation = Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0);
-            look_target.rotation = Quaternion.Euler(0, Random.Range(0.0f, 360.0f), 0);
-            transform.rotation = look_target.rotation;
-            transform.position = startingPos;
-            proceduralAnimation.reset(); 
-            randomRate = 0.01f;
-            v = 0;
-            h = 0;   
+        
+        public void SetLookTarget(Transform t){
+            look_target = t;
+            proceduralAnimation.SetLookTarget(look_target);
         }
 
         void keyboardController(){
@@ -132,7 +128,7 @@ public class AnimController : MonoBehaviour
 
 
         void changeParameter(){
-            float num = Random.Range(0.0f, 1.0f);
+            float num = Random.Range(0.1f, 1.0f);
             if (num < randomRate){
                 if (randomRate != 0.001f){randomRate = 0.001f;}
 
@@ -145,8 +141,10 @@ public class AnimController : MonoBehaviour
                 turn_mode = Random.Range(0, 2) == 1? true : false;
                 h = Random.Range(-1f, 2f) ;
                 v = Random.Range(-1f, 2f) ;
-                //do{  
-                //}while(h == 0 && v == 0);
+
+                if (h == 0f && v == 0f){
+                    TargetWalkingSpeed = 0f;
+                }
         }
 
         void move(float h, float v, float speed)

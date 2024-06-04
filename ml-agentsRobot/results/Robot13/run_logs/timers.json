@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1717514399",
+        "python_version": "3.8.10 (default, Nov 22 2023, 10:22:35) \n[GCC 9.4.0]",
+        "command_line_arguments": "/home/ubuntu/ml-venv/ml-venv/bin/mlagents-learn config/ppo/Robot.yaml --run-id=Robot13",
+        "mlagents_version": "0.28.0",
+        "mlagents_envs_version": "0.28.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.8.1+cu111",
+        "numpy_version": "1.20.0",
+        "end_time_seconds": "1717514459"
+    },
+    "total": 60.092751187999994,
+    "count": 1,
+    "self": 0.005790794999988691,
+    "children": {
+        "run_training.setup": {
+            "total": 0.007906338000005064,
+            "count": 1,
+            "self": 0.007906338000005064
+        },
+        "TrainerController.start_learning": {
+            "total": 60.079054055,
+            "count": 1,
+            "self": 0.000103384999995626,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 60.076346546,
+                    "count": 1,
+                    "self": 60.076346546
+                },
+                "TrainerController._save_models": {
+                    "total": 0.0026041240000012067,
+                    "count": 1,
+                    "self": 0.0026041240000012067
+                }
+            }
+        }
+    }
+}
