@@ -83,7 +83,7 @@ public class AnimController : MonoBehaviour
         
         public void SetLookTarget(Transform t){
             look_target = t;
-            proceduralAnimation.SetLookTarget(look_target);
+            proceduralAnimation.SetLookTarget(t);
         }
 
         void keyboardController(){

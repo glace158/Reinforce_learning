@@ -11,7 +11,7 @@ namespace Unity.MLAgentsRobot{
         public int smoothness = 8;
         public float stepHeight = 0.15f;
         public bool bodyOrientation = true;
-        private Transform look_target;
+        public Transform look_target;
 
         private float raycastRange = 1f;
         private Vector3[] defaultLegPositions;
