@@ -135,6 +135,8 @@ namespace Unity.MLAgentsRobot{
             SetupLink(RLFoot);
         }
 
+
+
         public void RobotReset(Vector3 postion, Quaternion rotation){
             foreach (var motor in motorsDict.Values)
             {
@@ -293,6 +295,7 @@ namespace Unity.MLAgentsRobot{
 
         void FixedUpdate(){
             OrientationCubeUpdate();
+            //linkDict[bodyLink].articulationLink.AddForce((bodyLink.right + bodyLink.up) * 100f, ForceMode.Force);
             //SetMotorAngle(targetJoint, Tangle);
         }
     }

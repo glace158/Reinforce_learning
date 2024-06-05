@@ -59,7 +59,7 @@ public class TestScript : MonoBehaviour
         timer = 0;
         }
 
-        Debug.Log(m_MoController.GetJointVelocity()[2]);
+        //Debug.Log(m_MoController.GetJointVelocity()[2]);
     }
     
     void GetAnimJointAngle(){
@@ -119,8 +119,8 @@ public class TestScript : MonoBehaviour
         //float angle = (Vector3.Dot(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation()) + 1) * .5F;
         //float angle = Vector3.Dot(proceduralAnimBody.GetRootRotation(), m_MoController.GetRootRotation());
         float angle = Vector2.Angle(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation());
-        Debug.Log(angle);
-        angle = Mathf.Exp(-0.01f * angle);
+        //Debug.Log(angle);
+        angle = Mathf.Exp(-0.01f * Mathf.Pow(angle,2));
         //float angle = (Vector3.Dot(proceduralAnimBody.GetRootForward(), m_MoController.GetRootForward()) + 1) * .5f;
         Debug.Log(angle);
     }
