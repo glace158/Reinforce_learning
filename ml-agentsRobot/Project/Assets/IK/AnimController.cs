@@ -77,7 +77,7 @@ public class AnimController : MonoBehaviour
                 randomController();
             }
 
-            borderSensing();
+            //borderSensing();
             fixedup();
         }
         
@@ -128,7 +128,7 @@ public class AnimController : MonoBehaviour
 
 
         void changeParameter(){
-            float num = Random.Range(0.1f, 1.0f);
+            float num = Random.Range(0f, 1.0f);
             if (num < randomRate){
                 if (randomRate != 0.001f){randomRate = 0.001f;}
 
@@ -137,7 +137,7 @@ public class AnimController : MonoBehaviour
         }
 
         void randParameter(){
-                TargetWalkingSpeed = Random.Range(0f, m_maxWalkingSpeed);
+                TargetWalkingSpeed = Random.Range(0.1f, m_maxWalkingSpeed);
                 turn_mode = Random.Range(0, 2) == 1? true : false;
                 h = Random.Range(-1f, 2f) ;
                 v = Random.Range(-1f, 2f) ;

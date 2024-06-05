@@ -123,7 +123,6 @@ namespace Unity.MLAgentsRobot{
                 if (i != indexToMove && (i+1) != indexToMove || -1 == indexToMove)//움직이지 않은 다리 고정
                     legTargets[i].position = lastLegPositions[i];
             
-            //Debug.Log(indexToMove.ToString() + " " + legMoving[0].ToString() + " "+ legMoving[1].ToString() + " " + legMoving[2].ToString() + " " + legMoving[3].ToString());
             if (indexToMove != -1 && !legMoving[0])//어느 다리가 움직여야하지만 legMoving이 false인 상태
             {
                 Step(indexToMove, desiredPositions[indexToMove]);
@@ -141,7 +140,6 @@ namespace Unity.MLAgentsRobot{
 
         void FixedUpdate()
         {
-        
             velocity = transform.position - lastBodyPos;
             velocity = (velocity + smoothness * lastVelocity) / (smoothness + 1f);
 
@@ -165,8 +163,6 @@ namespace Unity.MLAgentsRobot{
                     indexToMove = i;
                 }
             }
-
-            //walkMode = Input.GetKey(KeyCode.M) ? walkMode * -1 : walkMode;
             
             if (walkMode == 1)
             {

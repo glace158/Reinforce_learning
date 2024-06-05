@@ -138,6 +138,7 @@ namespace Unity.MLAgentsRobot{
 
 
         public void RobotReset(Vector3 postion, Quaternion rotation){
+            
             foreach (var motor in motorsDict.Values)
             {
                 motor.Reset(motor);

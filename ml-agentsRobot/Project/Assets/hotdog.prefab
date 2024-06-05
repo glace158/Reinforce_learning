@@ -555,6 +555,7 @@ GameObject:
   - component: {fileID: 7845072403752281629}
   - component: {fileID: 3128793660654435902}
   - component: {fileID: 6202866697871959061}
+  - component: {fileID: 2704022404480793905}
   m_Layer: 2
   m_Name: LR_foot
   m_TagString: robot
@@ -657,7 +658,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &7845072403752281629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,6 +710,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &2704022404480793905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698280113516986377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &764687679865621836
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,6 +829,7 @@ GameObject:
   - component: {fileID: 5340482749468537545}
   - component: {fileID: 8252726455734075447}
   - component: {fileID: 8368868338306911549}
+  - component: {fileID: 3847763681962268555}
   m_Layer: 2
   m_Name: front_right_lower_leg
   m_TagString: robot
@@ -916,7 +933,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &8252726455734075447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,6 +967,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &3847763681962268555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786100624627615106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &787224342149600993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,6 +1177,7 @@ GameObject:
   - component: {fileID: 5506423428334254841}
   - component: {fileID: 3560462198035653579}
   - component: {fileID: 5441115076908333033}
+  - component: {fileID: 1729582379258854417}
   m_Layer: 2
   m_Name: RF_foot
   m_TagString: robot
@@ -1247,7 +1280,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &5506423428334254841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1299,6 +1332,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &1729582379258854417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1790904377555776316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &1815875809609296649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1449,6 +1497,7 @@ GameObject:
   - component: {fileID: 2047895568635534721}
   - component: {fileID: 6072943604614431303}
   - component: {fileID: 4238307548729580814}
+  - component: {fileID: 2498881393481900051}
   m_Layer: 2
   m_Name: front_left_upper_leg
   m_TagString: robot
@@ -1552,7 +1601,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &6072943604614431303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1586,6 +1635,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &2498881393481900051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083957702548251945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &2138444947928806049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1689,6 +1753,7 @@ GameObject:
   - component: {fileID: 552989166403147334}
   - component: {fileID: 2980671147907609544}
   - component: {fileID: 4381604014631254101}
+  - component: {fileID: 7578698353749479615}
   m_Layer: 2
   m_Name: rear_right_hip
   m_TagString: robot
@@ -1792,7 +1857,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &2980671147907609544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1826,6 +1891,21 @@ MonoBehaviour:
   penalizeGroundContact: 1
   groundContactPenalty: -1
   touchingGround: 0
+--- !u!114 &7578698353749479615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2453531809736755580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &2532554465391888407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1839,6 +1919,7 @@ GameObject:
   - component: {fileID: 9185042893326354965}
   - component: {fileID: 4602560415887175883}
   - component: {fileID: 787393089097752702}
+  - component: {fileID: 2467569096728320276}
   m_Layer: 2
   m_Name: rear_right_upper_leg
   m_TagString: robot
@@ -1942,7 +2023,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &4602560415887175883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1976,6 +2057,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &2467569096728320276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2532554465391888407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &2547761583883914686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2171,6 +2267,7 @@ GameObject:
   - component: {fileID: 6612035856338962164}
   - component: {fileID: 2288942351932275162}
   - component: {fileID: 3264493785114250972}
+  - component: {fileID: 4160815468074566124}
   m_Layer: 2
   m_Name: rear_left_upper_leg
   m_TagString: robot
@@ -2274,7 +2371,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &2288942351932275162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2308,6 +2405,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &4160815468074566124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2659920479098584920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &2687421104036550190
 GameObject:
   m_ObjectHideFlags: 0
@@ -2366,6 +2478,7 @@ GameObject:
   - component: {fileID: 2066069456218536402}
   - component: {fileID: 6911934728675586460}
   - component: {fileID: 9055980768238321579}
+  - component: {fileID: 8834415914442421216}
   m_Layer: 2
   m_Name: front_right_upper_leg
   m_TagString: robot
@@ -2469,7 +2582,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &6911934728675586460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2503,6 +2616,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &8834415914442421216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756076868286629285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &2795071050642905865
 GameObject:
   m_ObjectHideFlags: 0
@@ -2562,6 +2690,7 @@ GameObject:
   - component: {fileID: 9012291053658643744}
   - component: {fileID: 6794979207891042023}
   - component: {fileID: 4149446484922965216}
+  - component: {fileID: 1728588981520907195}
   m_Layer: 2
   m_Name: front_left_lower_leg
   m_TagString: robot
@@ -2665,7 +2794,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &6794979207891042023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2699,6 +2828,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &1728588981520907195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3220043768194787967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &3363317834795982988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2803,6 +2947,7 @@ GameObject:
   - component: {fileID: 3256756052367259055}
   - component: {fileID: 3592264387445065834}
   - component: {fileID: 4227800157939655330}
+  - component: {fileID: 7084085765247706106}
   m_Layer: 2
   m_Name: front_right_hip
   m_TagString: robot
@@ -2906,7 +3051,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &3592264387445065834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2940,6 +3085,21 @@ MonoBehaviour:
   penalizeGroundContact: 1
   groundContactPenalty: -1
   touchingGround: 0
+--- !u!114 &7084085765247706106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3455634743543797254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &3491908177995340633
 GameObject:
   m_ObjectHideFlags: 0
@@ -3358,6 +3518,7 @@ GameObject:
   - component: {fileID: 7244440914999784110}
   - component: {fileID: 5038298801894774648}
   - component: {fileID: 5207914027357148323}
+  - component: {fileID: 1987005952771790581}
   m_Layer: 2
   m_Name: rear_left_lower_leg
   m_TagString: robot
@@ -3461,7 +3622,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &5038298801894774648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3495,6 +3656,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &1987005952771790581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4021779020145582011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &4124973811098396876
 GameObject:
   m_ObjectHideFlags: 0
@@ -3841,7 +4017,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &1856087875633017636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4068,6 +4244,7 @@ GameObject:
   - component: {fileID: 4330859501412673698}
   - component: {fileID: 810397224448173465}
   - component: {fileID: 6720665818720428501}
+  - component: {fileID: 8011697045709782858}
   m_Layer: 2
   m_Name: rear_left_hip
   m_TagString: robot
@@ -4171,7 +4348,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &810397224448173465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4205,6 +4382,21 @@ MonoBehaviour:
   penalizeGroundContact: 1
   groundContactPenalty: -1
   touchingGround: 0
+--- !u!114 &8011697045709782858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5386896900526461936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &5633781290331464644
 GameObject:
   m_ObjectHideFlags: 0
@@ -4491,6 +4683,7 @@ GameObject:
   - component: {fileID: 4934693004408178276}
   - component: {fileID: 6289459698052003245}
   - component: {fileID: 6179445867872362653}
+  - component: {fileID: 7110972472168323447}
   m_Layer: 2
   m_Name: LF_foot
   m_TagString: robot
@@ -4593,7 +4786,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &4934693004408178276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4645,6 +4838,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &7110972472168323447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6210829434552593237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &6317808094366477123
 GameObject:
   m_ObjectHideFlags: 0
@@ -4842,6 +5050,7 @@ GameObject:
   - component: {fileID: 956992868029384774}
   - component: {fileID: 1444407930744443497}
   - component: {fileID: 6403679266592467870}
+  - component: {fileID: 1736626252887940647}
   m_Layer: 2
   m_Name: front_left_hip
   m_TagString: robot
@@ -4945,7 +5154,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &1444407930744443497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4979,6 +5188,21 @@ MonoBehaviour:
   penalizeGroundContact: 1
   groundContactPenalty: -1
   touchingGround: 0
+--- !u!114 &1736626252887940647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6778082161569059751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &6910779964276970024
 GameObject:
   m_ObjectHideFlags: 0
@@ -5038,6 +5262,7 @@ GameObject:
   - component: {fileID: 6877457147451775666}
   - component: {fileID: 4034263183700341009}
   - component: {fileID: 5401970623740766617}
+  - component: {fileID: 917477409481015789}
   m_Layer: 2
   m_Name: RR_foot
   m_TagString: robot
@@ -5140,7 +5365,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &6877457147451775666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5192,6 +5417,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &917477409481015789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7149818133330820362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &7196613393364423547
 GameObject:
   m_ObjectHideFlags: 0
@@ -6061,6 +6301,7 @@ GameObject:
   - component: {fileID: 6848085618057754308}
   - component: {fileID: 3241896611799858617}
   - component: {fileID: 8534059134095825113}
+  - component: {fileID: 258027089605397536}
   m_Layer: 2
   m_Name: rear_right_lower_leg
   m_TagString: robot
@@ -6164,7 +6405,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 0
+  m_CollisionDetectionMode: 3
 --- !u!114 &3241896611799858617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6198,6 +6439,21 @@ MonoBehaviour:
   penalizeGroundContact: 0
   groundContactPenalty: 0
   touchingGround: 0
+--- !u!114 &258027089605397536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9007242660861472874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63c6fd66f981dbb01ba622d65f7c63b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  groundBodyPenalty: -0.01
+  touchingbody: 0
 --- !u!1 &9075864269021542960
 GameObject:
   m_ObjectHideFlags: 0

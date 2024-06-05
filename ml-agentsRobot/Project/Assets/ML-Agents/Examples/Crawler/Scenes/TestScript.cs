@@ -22,7 +22,6 @@ public class TestScript : MonoBehaviour
     public Transform lookTargetCube;
     private ProceduralAnimBody proceduralAnimBody;
     private AnimController animController;
-
     public bool is_reset =false;
     private void Awake()
     {
@@ -38,17 +37,19 @@ public class TestScript : MonoBehaviour
     private void FixedUpdate() {
         //CheckRootRotation();
         if (is_reset){
+            Physics.IgnoreLayerCollision(2, 2, true);
             EpisodeReset();
             
             is_reset = false;
             GetAnimJointAngle();
+            Physics.IgnoreLayerCollision(2, 2, false);
         }
         //proceduralAnimBody.initSet();
         //m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
         //FootContact() ;
         //RootAngleCompare();
         //GetBobyHeight();
-        //RootPositionCompare();
+        RootPositionCompare();
         //FootPositionCompare();
         //GetAnimJointAngle();
         //AngleCompare();
@@ -98,10 +99,10 @@ public class TestScript : MonoBehaviour
         var targetAngle = 0f;
         Debug.Log("=====================");
         for (int i = 0; i < 12; i++){
-            targetAngle += Mathf.Pow(Mathf.Abs(m_MoController.GetJointAngles()[i] - proceduralAnimBody.GetJointAngle()[i]),2);
+            targetAngle += Mathf.Pow(m_MoController.GetJointAngles()[i] - proceduralAnimBody.GetJointAngle()[i],2);
         }
         //Debug.Log(proceduralAnimBody.GetJointAngle()[0]);
-        Debug.Log(Mathf.Exp(-0.02f * targetAngle));//12
+        Debug.Log(Mathf.Exp(-0.01f * targetAngle));//12
     }
 
     void RootPositionCompare(){

@@ -26,10 +26,7 @@ public class RobotAgent : Agent
     private Vector3 initAnimPos;
 
     private bool animReset = false;
-
     
-
-    //private float[] previousActions = new float[12] {0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f};
     private float[] currentActions = new float[12] {0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f};
 
     public override void Initialize()
@@ -42,8 +39,8 @@ public class RobotAgent : Agent
 
     public override void OnEpisodeBegin()
     {
+        Physics.IgnoreLayerCollision(2, 2, true);
         if (animReset){
-            //animController.reset();
             Destroy(targetAnim.gameObject);
             targetAnim = Instantiate(AnimCharator, initAnimPos, Quaternion.Euler(0,0,0)).transform;
             targetAnim.SetParent(this.transform.parent);
@@ -60,6 +57,7 @@ public class RobotAgent : Agent
         else{
             SetMatchingAngle();
         }
+        Physics.IgnoreLayerCollision(2, 2, false);
     }
 
     public void SetMatchingAngle(){
@@ -82,13 +80,6 @@ public class RobotAgent : Agent
         foreach(var angle in m_MoController.GetMotorAngles()){
             sensor.AddObservation(angle);//12
         }
-        //foreach(var angle in m_MoController.GetJointAngles()){
-        //    sensor.AddObservation(angle);//12
-        //}
-
-        //for (int i = 0; i < previousActions.Length; i++){//12
-        //    sensor.AddObservation(previousActions[i]);
-        //}
 
         sensor.AddObservation(m_MoController.GetRootRotation().x);//1
         sensor.AddObservation(m_MoController.GetRootRotation().y);//1
@@ -111,29 +102,29 @@ public class RobotAgent : Agent
         var i = -1;
 
         m_MoController.SetMotorAngle(0,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
         m_MoController.SetMotorAngle(1,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
         m_MoController.SetMotorAngle(2,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
         m_MoController.SetMotorAngle(3,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
         m_MoController.SetMotorAngle(4,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
         m_MoController.SetMotorAngle(5,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
         m_MoController.SetMotorAngle(6,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
         m_MoController.SetMotorAngle(7,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
         m_MoController.SetMotorAngle(8,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
         m_MoController.SetMotorAngle(9,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
         m_MoController.SetMotorAngle(10,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
         m_MoController.SetMotorAngle(11,continuousActions[++i]);
-        currentActions[i] = (continuousActions[i] + 1f) * 0.5f;
+        currentActions[i] = continuousActions[i];
 
         //Debug.Log(currentActions[2]);
 
@@ -172,7 +163,7 @@ public class RobotAgent : Agent
     float GetMatchingFootPosition(){
         float distance = 0f;
         for (int i = 0; i < 4; i++){
-            distance += Mathf.Pow(Mathf.Abs(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i))),2);
+            distance += Mathf.Pow(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i)),2);
         }
         return Mathf.Exp(-40 * distance);
     }
@@ -184,22 +175,17 @@ public class RobotAgent : Agent
     }
 
     float GetMatchingRootAngle(){
-        //float lookAtTargetReward = (Vector3.Dot(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation()) + 1) * .5F;
-        float angle = (Vector3.Dot(proceduralAnimBody.GetRootForward(), m_MoController.GetRootForward()) + 1) * .5F;
-        //float angle = Vector2.Angle(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation());
-        //angle = Mathf.Exp(-0.1f * angle);
+        float angle = Vector2.Angle(proceduralAnimBody.GetOrientationRotation(), m_MoController.GetOrientationRotation());
+        angle = Mathf.Exp(-0.01f * Mathf.Pow(angle,2));
         return angle;
     }
     
     float GetActionPenalty(){
         float penalty = 0f; 
         for (int i = 0; i < currentActions.Length; i++){
-            penalty += Mathf.Pow(currentActions[i] - m_MoController.GetMotorAngles()[i], 2);
+            penalty -= Mathf.Pow(currentActions[i], 2);
         }
-        //Debug.Log(penalty);
-        //previousActions = currentActions.ToArray();
-        penalty = 0.5f * penalty;
-        //Mathf.Pow(1 - Mathf.Pow(penalty / 12f, 2), 2);
+        penalty = 0.25f * penalty;
         return penalty;
     }
 
@@ -207,9 +193,9 @@ public class RobotAgent : Agent
         try{
             var angle = 0f;
             for (int i = 0; i < 12; i++){
-                angle += Mathf.Pow(Mathf.Abs(m_MoController.GetJointAngles()[i] - proceduralAnimBody.GetJointAngle()[i]),2);
+                angle += Mathf.Pow(m_MoController.GetJointAngles()[i] - proceduralAnimBody.GetJointAngle()[i],2);
             }
-            return Mathf.Exp(-0.02f * angle);
+            return Mathf.Exp(-0.01f * angle);
         }
         catch(Exception e)
         { 

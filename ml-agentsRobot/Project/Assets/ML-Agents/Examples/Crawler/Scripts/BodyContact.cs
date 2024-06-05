@@ -18,20 +18,25 @@ public class BodyContact : MonoBehaviour
 
         if (col.gameObject.CompareTag(k_body))
         {
+            //Physics.IgnoreLayerCollision(2, 2, true);
             touchingbody = true;
+
             //agent.AddReward(groundBodyPenalty);
-            Debug.Log("body touch");
+            Debug.Log(this.gameObject.name +" " + col.gameObject.name + " body touch");
         }
     }
 
     /// <summary>
     /// Check for end of ground collision and reset flag appropriately.
     /// </summary>
+    
     void OnCollisionExit(Collision other)
     {
-        if (other.transform.CompareTag(k_body))
+        if (other.gameObject.CompareTag(k_body))
         {
+            Debug.Log(this.gameObject.name +" " + other.gameObject.name + " body untouch");
             touchingbody = false;
+            //Physics.IgnoreLayerCollision(2, 2, false);
         }
     }
 }

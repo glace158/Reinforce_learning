@@ -81,6 +81,9 @@ namespace Unity.MLAgentsRobot{
         private float FLOffset;
         private float RLOffset;
 
+        Vector3 RLaxis = Vector3.zero;
+        Vector3 FLaxis = Vector3.zero;
+
         private void Start(){
             initSet();
         }
@@ -103,9 +106,11 @@ namespace Unity.MLAgentsRobot{
             SetupJoint(RLLegUpper, (int)AXIS.X, true);
             SetupJoint(RLLegLower, (int)AXIS.X, true);
 
+            FLHip.rotation.ToAngleAxis( out FLOffset, out FLaxis);
+            RLHip.rotation.ToAngleAxis( out RLOffset, out RLaxis);
 
-            FLOffset = FLHip.localEulerAngles.x;
-            RLOffset = RLHip.localEulerAngles.x;
+            FLaxis = FLHip.right;
+            RLaxis = RLHip.right;
         }
 
         public void SetOrientationCube(Transform t){
@@ -124,17 +129,15 @@ namespace Unity.MLAgentsRobot{
                 var angle = joint.GetAngle();
 
                 if(joint.t == FLHip){
-                    var a = (FLHip.localEulerAngles.x - FLOffset) % 360;
-                    if(a >180)
-                        a = a - 360;
-                    //Debug.Log(a );
+                    var a = 0f;
+                    FLHip.rotation.ToAngleAxis( out a, out FLaxis);
+                    a -= FLOffset;
                     angle = (0 < a) ? angle : -angle;
                 }
-                else if(joint.t == RLHip){
-                    var a = (RLHip.localEulerAngles.x - RLOffset) % 360;
-                    if(a >180)
-                        a = a - 360;
-                    
+                if(joint.t == RLHip){
+                    var a = 0f;
+                    RLHip.rotation.ToAngleAxis( out a, out RLaxis);
+                    a -= RLOffset;
                     angle = (0 < a) ? -angle : angle;
                 }
 
