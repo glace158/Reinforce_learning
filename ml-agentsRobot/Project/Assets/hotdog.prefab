@@ -5535,7 +5535,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
-  AnimCharator: {fileID: 0}
+  AnimCharator: {fileID: 6882573179210141370, guid: a3d6cdec0e8f86006b4cce1154ade803,
+    type: 3}
   targetAnim: {fileID: 0}
   lookTargetCube: {fileID: 0}
 --- !u!114 &2384654538118873861
@@ -5586,9 +5587,9 @@ MonoBehaviour:
   control: 0
   stiffness: 500
   damping: 5
-  forceLimit: 65
-  speed: 1000
-  torque: 25
+  forceLimit: 25
+  speed: 800
+  torque: 8
   acceleration: 5
   highLightColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &3487626514080035344
@@ -5603,7 +5604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 1
   DecisionStep: 0
   TakeActionsBetweenDecisions: 0
 --- !u!1 &7236138501612253821

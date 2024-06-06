@@ -44,12 +44,13 @@ public class TestScript : MonoBehaviour
             GetAnimJointAngle();
             Physics.IgnoreLayerCollision(2, 2, false);
         }
+        Debug.Log(m_MoController.GetMotorAngles(0));
         //proceduralAnimBody.initSet();
         //m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
         //FootContact() ;
         //RootAngleCompare();
         //GetBobyHeight();
-        RootPositionCompare();
+        //RootPositionCompare();
         //FootPositionCompare();
         //GetAnimJointAngle();
         //AngleCompare();
@@ -68,7 +69,7 @@ public class TestScript : MonoBehaviour
         //Debug.Log(targetAngle);
         //Debug.Log("3: " + proceduralAnimBody.GetJointAngle()[3]);
         for (int i = 0; i < 12; i++){
-            var targetAngle = proceduralAnimBody.GetJointAngle()[i];
+            var targetAngle = proceduralAnimBody.GetJointAngle(i);
             m_MoController.SetJointAngle(i, targetAngle);
         }
     }
@@ -91,7 +92,7 @@ public class TestScript : MonoBehaviour
             //distance += Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i)), 0f, 1f);
         }
         //distance = Mathf.Pow(1 - Mathf.Pow(distance / 4f, 2), 2);
-        distance = Mathf.Exp(-40 * distance);
+        distance = Mathf.Exp(-30 * distance);
         Debug.Log(distance);
     }
 
@@ -99,7 +100,7 @@ public class TestScript : MonoBehaviour
         var targetAngle = 0f;
         Debug.Log("=====================");
         for (int i = 0; i < 12; i++){
-            targetAngle += Mathf.Pow(m_MoController.GetJointAngles()[i] - proceduralAnimBody.GetJointAngle()[i],2);
+            targetAngle += Mathf.Pow(m_MoController.GetJointAngles(i) - proceduralAnimBody.GetJointAngle(i),2);
         }
         //Debug.Log(proceduralAnimBody.GetJointAngle()[0]);
         Debug.Log(Mathf.Exp(-0.01f * targetAngle));//12
@@ -111,7 +112,7 @@ public class TestScript : MonoBehaviour
         //float distance = Mathf.Pow(1 - Mathf.Pow(positionMagnitude / 1f, 2), 2);
         Debug.Log("=====================");
         //Debug.Log(distance);
-        distance = Mathf.Exp(-40f * Mathf.Pow(distance,2));
+        distance = Mathf.Exp(-45f * Mathf.Pow(distance,2));
         
         Debug.Log(distance);
     }

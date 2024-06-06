@@ -29,12 +29,16 @@ public class RobotAgent : Agent
     
     private float[] currentActions = new float[12] {0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f};
 
+    EnvironmentParameters m_ResetParams;
+        
     public override void Initialize()
     {
         m_MoController = GetComponent<MotorController>();
         proceduralAnimBody = targetAnim.GetComponent<ProceduralAnimBody>();
         animController = targetAnim.GetComponent<AnimController>();
         initAnimPos = targetAnim.position;
+
+        m_ResetParams = Academy.Instance.EnvironmentParameters;
     }
 
     public override void OnEpisodeBegin()
@@ -53,11 +57,17 @@ public class RobotAgent : Agent
 
             m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.00f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
             animReset = false;
+            ConfigureAgent();
         }
         else{
             SetMatchingAngle();
         }
+        
         Physics.IgnoreLayerCollision(2, 2, false);
+    }
+
+    void ConfigureAgent(){
+        animController.SetMaxSpeed(m_ResetParams.GetWithDefault("max_Speed", 1f));
     }
 
     public void SetMatchingAngle(){
@@ -65,7 +75,7 @@ public class RobotAgent : Agent
             m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.00f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
                 
             for (int i = 0; i < 12; i++){
-                var targetAngle = proceduralAnimBody.GetJointAngle()[i];
+                var targetAngle = proceduralAnimBody.GetJointAngle(i);
                 m_MoController.SetJointAngle(i, targetAngle);
             }
         }
@@ -77,8 +87,8 @@ public class RobotAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        foreach(var angle in m_MoController.GetMotorAngles()){
-            sensor.AddObservation(angle);//12
+        for (int i = 0; i < 12;i++){
+            sensor.AddObservation(m_MoController.GetMotorAngles(i));
         }
 
         sensor.AddObservation(m_MoController.GetRootRotation().x);//1
@@ -139,7 +149,7 @@ public class RobotAgent : Agent
         AddReward(rootReward);
         AddReward(rootAngleReward);
         AddReward(jointReward);
-        AddReward(-actionPenalty);
+        AddReward(actionPenalty);
     }
     void FixedUpdate(){  
         timer += Time.deltaTime;
@@ -165,13 +175,13 @@ public class RobotAgent : Agent
         for (int i = 0; i < 4; i++){
             distance += Mathf.Pow(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i)),2);
         }
-        return Mathf.Exp(-40 * distance);
+        return Mathf.Exp(-30 * distance);
     }
 
     float GetMatchingRootPosition(){
         float distance = Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()); 
         
-        return Mathf.Exp(-40 * Mathf.Pow(distance,2));
+        return Mathf.Exp(-45 * Mathf.Pow(distance,2));
     }
 
     float GetMatchingRootAngle(){
@@ -186,6 +196,7 @@ public class RobotAgent : Agent
             penalty -= Mathf.Pow(currentActions[i], 2);
         }
         penalty = 0.25f * penalty;
+        //Debug.Log(penalty);
         return penalty;
     }
 
@@ -193,7 +204,7 @@ public class RobotAgent : Agent
         try{
             var angle = 0f;
             for (int i = 0; i < 12; i++){
-                angle += Mathf.Pow(m_MoController.GetJointAngles()[i] - proceduralAnimBody.GetJointAngle()[i],2);
+                angle += Mathf.Pow(m_MoController.GetJointAngles(i) - proceduralAnimBody.GetJointAngle(i),2);
             }
             return Mathf.Exp(-0.01f * angle);
         }

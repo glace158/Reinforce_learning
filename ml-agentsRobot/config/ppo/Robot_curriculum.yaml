@@ -24,7 +24,7 @@ behaviors:
     time_horizon: 1000
     summary_freq: 30000
 environment_parameters:
-  num_tiles:
+  max_Speed:
     curriculum:
       - name: Lesson0 # The '-' is important as this is a list
         completion_criteria:
@@ -32,71 +32,63 @@ environment_parameters:
           behavior: Robot
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 0.3
-        value: 2.0
+          threshold: 0.4
+        value: 0.2
       - name: Lesson1
         completion_criteria:
           measure: progress
           behavior: Robot
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 0.4
-        value: 4.0
+          threshold: 0.5
+        value: 0.3
       - name: Lesson2
         completion_criteria:
           measure: progress
           behavior: Sorter
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 0.45
-        value: 6.0
+          threshold: 0.55
+        value: 0.4
       - name: Lesson3
         completion_criteria:
           measure: progress
           behavior: Robot
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 0.5
-        value: 8.0
+          threshold: 0.6
+        value: 0.5
       - name: Lesson4
         completion_criteria:
           measure: progress
           behavior: Robot
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 0.55
-        value: 10.0
+          threshold: 0.65
+        value: 0.6
       - name: Lesson5
         completion_criteria:
           measure: progress
           behavior: Robot
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 0.6
-        value: 12.0
+          threshold: 0.7
+        value: 0.7
       - name: Lesson6
         completion_criteria:
           measure: progress
           behavior: Robot
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 0.65
-        value: 14.0
+          threshold: 0.75
+        value: 0.8
       - name: Lesson7
         completion_criteria:
           measure: progress
           behavior: Robot
           signal_smoothing: true
           min_lesson_length: 100
-          threshold: 0.7
-        value: 16.0
+          threshold: 0.8
+        value: 0.9
       - name: Lesson8
-        completion_criteria:
-          measure: progress
-          behavior: Robot
-          signal_smoothing: true
-          min_lesson_length: 100
-          threshold: 0.75
-        value: 18.0
-      - name: Lesson9
-        value: 20.0
+        value: 1.0

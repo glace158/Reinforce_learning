@@ -200,40 +200,27 @@ namespace Unity.MLAgentsRobot{
             linkDict[t].SetRootPosition(position, rotation);
         }
 
-        public List<float> GetJointVelocity(){
-            List<float> velocityList = new List<float>();
-            foreach (var motor in motorsDict.Values)
-            {
-                velocityList.Add(motor.motor.jointVelocity[0]);
-            }
-            return velocityList;
+        public float GetJointVelocity(int index){
+            List<RobotMotor> velocityList = motorsDict.Values.ToList();
+
+            return velocityList[index].motor.jointVelocity[0];
         }
 
-        public List<float> GetJointTorque(){
-            List<float> torqueList = new List<float>();
-            foreach (var motor in motorsDict.Values)
-            {
-                torqueList.Add(motor.motor.driveForce[0]);
-            }
-            return torqueList;
+        public float GetJointTorque(int index){
+            List<RobotMotor> torqueList = motorsDict.Values.ToList();
+
+            return torqueList[index].motor.driveForce[0];
         }
 
-        public List<float> GetMotorAngles(){
-            List<float> positionList = new List<float>();
-            foreach (var motor in motorsDict.Values)
-            {
-                positionList.Add(motor.GetTargetValue());
-            }
-            return positionList;
+        public float GetMotorAngles(int index){
+            List<RobotMotor> positionList = motorsDict.Values.ToList();
+            return positionList[index].GetTargetValue();
         }
 
-        public List<float> GetJointAngles (){
-            List<float> positionList = new List<float>();
-            foreach (var motor in motorsDict.Values)
-            {
-                positionList.Add((motor.motor.jointPosition[0] * 180 / Mathf.PI));
-            }
-            return positionList;
+        public float GetJointAngles (int index){
+            List<RobotMotor> positionList = motorsDict.Values.ToList();
+
+            return positionList[index].motor.jointPosition[0] * 180 / Mathf.PI;
         }
 
         public Vector3 GetRootRotation(){
@@ -255,34 +242,22 @@ namespace Unity.MLAgentsRobot{
         }
 
         public bool GetFootContact(int index){
-            List<RobotLink> foots = new List<RobotLink>();
-            foreach (var link in linkDict.Values){
-                foots.Add(link);
-            }
+            List<RobotLink> foots = linkDict.Values.ToList();
             return foots[index + 1].groundContact.touchingGround;
         }
 
         public Vector3 GetFootPosition(int index){
-            List<RobotLink> foots = new List<RobotLink>();
-            foots = linkDict.Values.ToList();
+            List<RobotLink> foots = linkDict.Values.ToList();
             return foots[index + 1].link.position;
         }
         
         public void SetMotorAngle(int index, float angle){
-            List<RobotMotor> moList = new List<RobotMotor>();
-            foreach (var motor in motorsDict.Values){
-                moList.Add(motor);
-            }
-            //Debug.Log(angle);
-            //List<RobotMotor> moList = new List<RobotMotor> (motorsDict.Values);
+            List<RobotMotor> moList = motorsDict.Values.ToList();
             moList[index].SetMotorTarget(angle);
         }
 
         public void SetJointAngle(int index, float angle){
-            List<RobotMotor> moList = new List<RobotMotor>();
-            foreach (var motor in motorsDict.Values){
-                moList.Add(motor);
-            }
+            List<RobotMotor> moList = motorsDict.Values.ToList();
             moList[index].SetJointAngle(angle);
         }
 

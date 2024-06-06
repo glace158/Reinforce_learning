@@ -5,7 +5,7 @@ public class BodyContact : MonoBehaviour
 {
     [HideInInspector] public Agent agent;
 
-    public float groundBodyPenalty; // Penalty amount (ex: -1).
+    public float groundBodyPenalty =-0.01f; // Penalty amount (ex: -1).
     public bool touchingbody;
     const string k_body = "robot"; // Tag of ground object.
 
@@ -21,8 +21,8 @@ public class BodyContact : MonoBehaviour
             //Physics.IgnoreLayerCollision(2, 2, true);
             touchingbody = true;
 
-            //agent.AddReward(groundBodyPenalty);
-            Debug.Log(this.gameObject.name +" " + col.gameObject.name + " body touch");
+            agent.AddReward(groundBodyPenalty);
+            //Debug.Log(this.gameObject.name +" " + col.gameObject.name + " body touch");
         }
     }
 
@@ -34,7 +34,7 @@ public class BodyContact : MonoBehaviour
     {
         if (other.gameObject.CompareTag(k_body))
         {
-            Debug.Log(this.gameObject.name +" " + other.gameObject.name + " body untouch");
+            //Debug.Log(this.gameObject.name +" " + other.gameObject.name + " body untouch");
             touchingbody = false;
             //Physics.IgnoreLayerCollision(2, 2, false);
         }

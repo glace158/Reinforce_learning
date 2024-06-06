@@ -353,7 +353,7 @@ Transform:
   m_Children:
   - {fileID: 8205575990906962170}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3294994188714050059
 MonoBehaviour:
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 878267fb7e7a86716b6bb7e1a7f7ab52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TargetWalkingSpeed: 0.287
+  m_TargetWalkingSpeed: 0
   _trun_gain: 80
   look_target: {fileID: 0}
   defaultUp: 0.33
@@ -909,14 +909,8 @@ MonoBehaviour:
   - {fileID: 8233896887493917927}
   - {fileID: 5675288309502320714}
   - {fileID: 8090955452395828941}
-  foots:
-  - {fileID: 7491221804730326738}
-  - {fileID: 3087403061247947709}
-  - {fileID: 282954629000284336}
-  - {fileID: 7019712540784192021}
-  rig: {fileID: 7816998355122470269}
   stepSize: 0.15
-  smoothness: 8
+  smoothness: 10
   stepHeight: 0.15
   bodyOrientation: 1
   look_target: {fileID: 0}

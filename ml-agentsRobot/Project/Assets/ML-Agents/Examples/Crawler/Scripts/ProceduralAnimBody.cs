@@ -122,28 +122,23 @@ namespace Unity.MLAgentsRobot{
             jointList.Add(joint);
         }
         
-        public List<float> GetJointAngle(){            
-            List<float> jointAngles = new List<float>();
+        public float GetJointAngle(int index){            
+            var angle = jointList[index].GetAngle();
 
-            foreach(var joint in jointList){
-                var angle = joint.GetAngle();
-
-                if(joint.t == FLHip){
-                    var a = 0f;
-                    FLHip.rotation.ToAngleAxis( out a, out FLaxis);
-                    a -= FLOffset;
-                    angle = (0 < a) ? angle : -angle;
-                }
-                if(joint.t == RLHip){
-                    var a = 0f;
-                    RLHip.rotation.ToAngleAxis( out a, out RLaxis);
-                    a -= RLOffset;
-                    angle = (0 < a) ? -angle : angle;
-                }
-
-                jointAngles.Add(angle);
+            if(jointList[index].t == FLHip){
+                var a = 0f;
+                FLHip.rotation.ToAngleAxis( out a, out FLaxis);
+                a -= FLOffset;
+                angle = (0 < a) ? angle : -angle;
             }
-            return jointAngles;
+            if(jointList[index].t == RLHip){
+                var a = 0f;
+                RLHip.rotation.ToAngleAxis( out a, out RLaxis);
+                a -= RLOffset;
+                angle = (0 < a) ? -angle : angle;
+            }
+
+            return angle;
         }
         
 

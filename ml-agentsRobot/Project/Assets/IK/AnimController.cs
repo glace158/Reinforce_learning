@@ -13,7 +13,7 @@ public class AnimController : MonoBehaviour
 
         [SerializeField]
         private float m_TargetWalkingSpeed = m_maxWalkingSpeed;
-        
+        private float maxSpeed = m_maxWalkingSpeed;
         const float m_maxWalkingSpeed = 1f; //The max walking speed
 
         private ProceduralAnimation proceduralAnimation;
@@ -21,7 +21,7 @@ public class AnimController : MonoBehaviour
         public float TargetWalkingSpeed
         {
             get { return m_TargetWalkingSpeed; }
-            set { m_TargetWalkingSpeed = Mathf.Clamp(value, .1f, m_maxWalkingSpeed); }
+            set { m_TargetWalkingSpeed = Mathf.Clamp(value, .0f, m_maxWalkingSpeed); }
         }
 
         [SerializeField]
@@ -56,6 +56,9 @@ public class AnimController : MonoBehaviour
             transform.rotation = look_target.rotation;
         }
 
+        public void SetMaxSpeed(float speed){
+            maxSpeed = speed;
+        }
         public Vector2 GetDirection(){
             return new Vector2(h, v);
         }
@@ -137,7 +140,7 @@ public class AnimController : MonoBehaviour
         }
 
         void randParameter(){
-                TargetWalkingSpeed = Random.Range(0.1f, m_maxWalkingSpeed);
+                TargetWalkingSpeed = Random.Range(0.1f, maxSpeed);
                 turn_mode = Random.Range(0, 2) == 1? true : false;
                 h = Random.Range(-1f, 2f) ;
                 v = Random.Range(-1f, 2f) ;
