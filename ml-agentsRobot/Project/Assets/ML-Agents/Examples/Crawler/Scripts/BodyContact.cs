@@ -21,7 +21,7 @@ public class BodyContact : MonoBehaviour
             //Physics.IgnoreLayerCollision(2, 2, true);
             touchingbody = true;
 
-            agent.AddReward(groundBodyPenalty);
+            //agent.AddReward(groundBodyPenalty);
             //Debug.Log(this.gameObject.name +" " + col.gameObject.name + " body touch");
         }
     }

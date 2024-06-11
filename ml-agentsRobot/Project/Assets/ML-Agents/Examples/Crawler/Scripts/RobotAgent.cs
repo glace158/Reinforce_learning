@@ -142,6 +142,7 @@ public class RobotAgent : Agent
         var rootReward = GetMatchingRootPosition();
         var rootAngleReward = GetMatchingRootAngle();
         var jointReward = GetJointAngleCompare();
+        var jointVelocityReward = GetJointVelocityCompare();
 
         var actionPenalty = GetActionPenalty();
         
@@ -149,6 +150,7 @@ public class RobotAgent : Agent
         AddReward(rootReward);
         AddReward(rootAngleReward);
         AddReward(jointReward);
+        AddReward(jointVelocityReward);
         AddReward(actionPenalty);
     }
     void FixedUpdate(){  
@@ -162,7 +164,7 @@ public class RobotAgent : Agent
 
         
         var positionMagnitude = Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()), 0f, 10f);
-        float distance = Mathf.Pow(1 - Mathf.Pow(positionMagnitude / 1f, 2), 2);
+        float distance = Mathf.Pow(1 - Mathf.Pow(positionMagnitude / 2f, 2), 2);
         if (distance < 0.01){
             SetReward(-1f);
             EndEpisode();
@@ -213,6 +215,20 @@ public class RobotAgent : Agent
             var temp = e;
             return 0f; 
         } 
+    }
+
+    float GetJointVelocityCompare(){
+        try{
+            var velocity = 0f;
+            for(int i = 0;i < 12; i++){
+                velocity += Mathf.Pow(m_MoController.GetJointVelocity(i) - proceduralAnimBody.GetJointVelocity(i),2);
+            }
+            return Mathf.Exp(-0.01f * velocity);
+        }
+        catch (Exception e){
+            var temp = e;
+            return 0;
+        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut){

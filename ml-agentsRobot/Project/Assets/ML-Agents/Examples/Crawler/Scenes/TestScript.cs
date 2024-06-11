@@ -23,15 +23,13 @@ public class TestScript : MonoBehaviour
     private ProceduralAnimBody proceduralAnimBody;
     private AnimController animController;
     public bool is_reset =false;
-    private void Awake()
-    {
+
+    private void Start(){
         m_MoController = GetComponent<MotorController>();
         
         proceduralAnimBody = targetAnim.GetComponent<ProceduralAnimBody>();
         animController = targetAnim.GetComponent<AnimController>();
-    }
-    private void Start(){
-        EpisodeReset();
+        //EpisodeReset();
     }
 
     private void FixedUpdate() {

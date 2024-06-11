@@ -114,6 +114,8 @@ namespace Unity.MLAgentsRobot{
         [HideInInspector] public Dictionary<Transform, RobotMotor> motorsDict = new Dictionary<Transform, RobotMotor>();
         [HideInInspector] public Dictionary<Transform, RobotLink> linkDict = new Dictionary<Transform, RobotLink>();
         
+        private List<float> previousMotorRotationList = new List<float>();
+        
         private void Awake() {
             SetupMotor(FRHip);
             SetupMotor(FRLegUpper);
@@ -160,6 +162,8 @@ namespace Unity.MLAgentsRobot{
                 startingAngle = 0
             };
 
+            previousMotorRotationList.Add(0f);
+
             mo.groundContact = t.GetComponent<GroundContact>();
             if (!mo.groundContact)
             {
@@ -202,8 +206,13 @@ namespace Unity.MLAgentsRobot{
 
         public float GetJointVelocity(int index){
             List<RobotMotor> velocityList = motorsDict.Values.ToList();
+            var x = velocityList[index].motor.jointPosition[0] * 180 / Mathf.PI;
+            float deltaRotation = x - previousMotorRotationList[index];
+            previousMotorRotationList[index] = x;
 
-            return velocityList[index].motor.jointVelocity[0];
+            deltaRotation *= Mathf.Deg2Rad;
+            
+            return  Mathf.Abs((1.0f / Time.deltaTime) * deltaRotation);
         }
 
         public float GetJointTorque(int index){

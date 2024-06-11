@@ -658,7 +658,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &7845072403752281629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -878,7 +878,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 0.15
-  m_ParentAnchorPosition: {x: 0, y: -0.16971, z: -0.16971}
+  m_ParentAnchorPosition: {x: 0, y: -0.16970998, z: -0.16971}
   m_ParentAnchorRotation: {x: 0, y: 0, z: 0, w: 1}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
   m_AnchorRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -933,7 +933,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &8252726455734075447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,7 +1280,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &5506423428334254841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1601,7 +1601,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &6072943604614431303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1631,9 +1631,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  agentDoneOnGroundContact: 0
-  penalizeGroundContact: 0
-  groundContactPenalty: 0
+  agentDoneOnGroundContact: 1
+  penalizeGroundContact: 1
+  groundContactPenalty: -1
   touchingGround: 0
 --- !u!114 &2498881393481900051
 MonoBehaviour:
@@ -1857,7 +1857,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &2980671147907609544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2023,7 +2023,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &4602560415887175883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2053,9 +2053,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  agentDoneOnGroundContact: 0
-  penalizeGroundContact: 0
-  groundContactPenalty: 0
+  agentDoneOnGroundContact: 1
+  penalizeGroundContact: 1
+  groundContactPenalty: -1
   touchingGround: 0
 --- !u!114 &2467569096728320276
 MonoBehaviour:
@@ -2371,7 +2371,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &2288942351932275162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2401,9 +2401,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  agentDoneOnGroundContact: 0
-  penalizeGroundContact: 0
-  groundContactPenalty: 0
+  agentDoneOnGroundContact: 1
+  penalizeGroundContact: 1
+  groundContactPenalty: -1
   touchingGround: 0
 --- !u!114 &4160815468074566124
 MonoBehaviour:
@@ -2582,7 +2582,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &6911934728675586460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2612,9 +2612,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  agentDoneOnGroundContact: 0
-  penalizeGroundContact: 0
-  groundContactPenalty: 0
+  agentDoneOnGroundContact: 1
+  penalizeGroundContact: 1
+  groundContactPenalty: -1
   touchingGround: 0
 --- !u!114 &8834415914442421216
 MonoBehaviour:
@@ -2794,7 +2794,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &6794979207891042023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3051,7 +3051,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &3592264387445065834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3567,7 +3567,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 0.15
-  m_ParentAnchorPosition: {x: 0, y: -0.16971, z: -0.16970998}
+  m_ParentAnchorPosition: {x: 0, y: -0.16970998, z: -0.16970998}
   m_ParentAnchorRotation: {x: 0, y: 0, z: 0, w: 1}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
   m_AnchorRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -3622,7 +3622,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &5038298801894774648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4017,7 +4017,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &1856087875633017636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4348,7 +4348,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &810397224448173465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4786,7 +4786,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &4934693004408178276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5154,7 +5154,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &1444407930744443497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5310,7 +5310,7 @@ ArticulationBody:
   m_Enabled: 1
   serializedVersion: 5
   m_Mass: 0.2254485
-  m_ParentAnchorPosition: {x: 0.0065000057, y: -0.19820562, z: 0.16970496}
+  m_ParentAnchorPosition: {x: 0.0065000057, y: -0.19820559, z: 0.16970496}
   m_ParentAnchorRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_AnchorPosition: {x: 0, y: 0, z: 0}
   m_AnchorRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
@@ -5365,7 +5365,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &6877457147451775666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5470,7 +5470,7 @@ Transform:
   - {fileID: 7953097124552754249}
   - {fileID: 104966090982795399}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4378187373695930931
 MonoBehaviour:
@@ -6406,7 +6406,7 @@ ArticulationBody:
   m_ImplicitTensor: 1
   m_Immovable: 0
   m_UseGravity: 1
-  m_CollisionDetectionMode: 3
+  m_CollisionDetectionMode: 0
 --- !u!114 &3241896611799858617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6601,7 +6601,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 113890704722415864}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -6623,7 +6623,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 113890704722415864}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -6645,7 +6645,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 113890704722415864}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -11417,7 +11417,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2433755748890512218}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -11439,7 +11439,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2433755748890512218}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -11461,7 +11461,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2433755748890512218}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -15981,7 +15981,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5629478107578384138}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -16003,7 +16003,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5629478107578384138}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -16025,7 +16025,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5629478107578384138}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -16260,7 +16260,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949523994692489091}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -16282,7 +16282,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949523994692489091}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -16304,7 +16304,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949523994692489091}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8fb512988b6e8c9c2b032c84f5f39eab, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

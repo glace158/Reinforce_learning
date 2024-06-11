@@ -15,6 +15,7 @@ namespace Unity.MLAgentsRobot{
         public bool isInverse = false;
 
         private int val = 1;
+        float previousRotation; //전 프레임의 로테이션 값
 
         public AnimJoint(Transform t, int axis, bool isInverse){
             this.t = t;
@@ -50,6 +51,29 @@ namespace Unity.MLAgentsRobot{
                 default:
                     return 0f;
             }
+        }
+
+        public float GetAngularVelocity(){
+            var angle = 0f;
+            switch (axis){
+                case 0:
+                    angle = t.localEulerAngles.x;
+                    break;
+                case 1:
+                    angle =  t.localEulerAngles.y;
+                    break;
+                case 2:
+                    angle =  t.localEulerAngles.z;
+                    break;
+            }
+            float deltaRotation = angle - previousRotation;
+
+            previousRotation = angle;
+
+            //각도에서 라디안으로 변환
+            deltaRotation *= Mathf.Deg2Rad;
+
+            return Mathf.Abs((1.0f / Time.deltaTime) * deltaRotation);
         }
     }
 
@@ -139,6 +163,10 @@ namespace Unity.MLAgentsRobot{
             }
 
             return angle;
+        }
+
+        public float GetJointVelocity(int index){
+            return jointList[index].GetAngularVelocity();
         }
         
 
