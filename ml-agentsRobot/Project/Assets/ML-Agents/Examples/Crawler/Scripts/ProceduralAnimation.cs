@@ -70,13 +70,11 @@ namespace Unity.MLAgentsRobot{
 
             nbLegs = legTargets.Length;
             defaultLegPositions = new Vector3[nbLegs];
-            initLegPositions = new Vector3[nbLegs];
             lastLegPositions = new Vector3[nbLegs];
 
             legMoving = new bool[nbLegs];
             for (int i = 0; i < nbLegs; ++i)
             {
-                initLegPositions[i] = legTargets[i].position;
                 defaultLegPositions[i] = legTargets[i].localPosition;
                 lastLegPositions[i] = legTargets[i].position;
                 legMoving[i] = false;

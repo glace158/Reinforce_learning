@@ -42,11 +42,11 @@ public class TestScript : MonoBehaviour
             GetAnimJointAngle();
             Physics.IgnoreLayerCollision(2, 2, false);
         }
-        Debug.Log(m_MoController.GetMotorAngles(0));
+        //Debug.Log(m_MoController.GetMotorAngles(0));
         //proceduralAnimBody.initSet();
         //m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
         //FootContact() ;
-        //RootAngleCompare();
+        RootAngleCompare();
         //GetBobyHeight();
         //RootPositionCompare();
         //FootPositionCompare();

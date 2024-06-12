@@ -14,7 +14,11 @@ public class JointMaching : MonoBehaviour
     public ArticulationBody robotHip;
     public ArticulationBody robotUpper;
     public ArticulationBody robotLower;
-    // Start is called before the first frame update
+
+
+    float previousMotorRotation;
+    float previsousAngle;
+
     void Start()
     {
         offsetAngles[0] = UnityEditor.TransformUtils.GetInspectorRotation(animHip);
@@ -25,18 +29,19 @@ public class JointMaching : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(GetAnimJointAngle(animHip, Vector3.left, offsetAngles[0]));
         SetJointAngle(robotHip, GetAnimJointAngle(animHip, Vector3.left, offsetAngles[0]));
 
-        Debug.Log(GetAnimJointAngle(animUpper, Vector3.back, offsetAngles[1]));
         SetJointAngle(robotUpper, GetAnimJointAngle(animUpper, Vector3.back, offsetAngles[1]));
 
-        Debug.Log(GetAnimJointAngle(animLower, Vector3.left, offsetAngles[2]));
         SetJointAngle(robotLower, GetAnimJointAngle(animLower, Vector3.left, offsetAngles[2]));
+
+        var angularError = GetMotorAngularVelocity(robotLower) - GetAngularVelocity(animLower, Vector3.left);
+        //Debug.Log(Mathf.Exp(-0.1f * angularError));
     }
 
     float GetAnimJointAngle(Transform t, Vector3 axis, Vector3 offset){
         Vector3 axisAngle = (Vector3.Scale(UnityEditor.TransformUtils.GetInspectorRotation(t), axis) - Vector3.Scale(offset, axis));
+        //Vector3 axisAngle =UnityEditor.TransformUtils.GetInspectorRotation(t) - offset;
         if(Mathf.Abs(axis.x) == 1){//x
             return axisAngle.x;
         }
@@ -49,14 +54,52 @@ public class JointMaching : MonoBehaviour
         else{
             return -1f;
         }
-        
     }
 
     public void SetJointAngle(ArticulationBody motor, float angle){
-            var mo_drive = motor.xDrive;
+        var mo_drive = motor.xDrive;
 
-            mo_drive.target = angle;
+        mo_drive.target = angle;
 
-            motor.xDrive = mo_drive;
+        motor.xDrive = mo_drive;
+    }
+
+    public float GetMotorAngularVelocity(ArticulationBody motor){
+        var x = motor.jointPosition[0] * 180 / Mathf.PI;
+        float deltaRotation = x - previousMotorRotation;
+        previousMotorRotation = x;
+
+		//각도에서 라디안으로 변환
+        deltaRotation *= Mathf.Deg2Rad;
+
+        var motorAngularVelocity = (1.0f / Time.deltaTime) * deltaRotation;
+        return Mathf.Abs(motorAngularVelocity);        
+    }
+
+    public float GetAngularVelocity(Transform t, Vector3 axis)
+    {
+        var axisAngle = UnityEditor.TransformUtils.GetInspectorRotation(t);
+        var angle = -1f;
+        if(Mathf.Abs(axis.x) == 1){//x
+            angle = axisAngle.x;
         }
+        else if(Mathf.Abs(axis.y) == 1){//y
+            angle = axisAngle.y;
+        }
+        else if(Mathf.Abs(axis.z) == 1){//z
+            angle = axisAngle.z;
+        }
+
+        float deltaRotation = angle - previsousAngle;
+        previsousAngle = angle;
+
+        
+		//각도에서 라디안으로 변환
+        deltaRotation *= Mathf.Deg2Rad;
+
+        float Velocity = (1.0f / Time.deltaTime) * deltaRotation;
+
+		//각속도 반환
+        return Mathf.Abs(Velocity);
+    }
 }
