@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da40f8fcccd380dfb02439c25697651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TargetAngle: 0
   cubeA: {fileID: 663880716}
   cubeB: {fileID: 696513163}
   AnimCharator: {fileID: 4830251703265176931, guid: ed59cd560fbfe3d0db27a65e4786c504,
@@ -712,9 +713,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3206454971547646940, guid: ed59cd560fbfe3d0db27a65e4786c504,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3206454971547646940, guid: ed59cd560fbfe3d0db27a65e4786c504,
+        type: 3}
       propertyPath: look_target
       value: 
       objectReference: {fileID: 2117698872}
+    - target: {fileID: 3584989659934135673, guid: ed59cd560fbfe3d0db27a65e4786c504,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3584989659934135673, guid: ed59cd560fbfe3d0db27a65e4786c504,
         type: 3}
       propertyPath: turn_mode
@@ -733,7 +744,7 @@ PrefabInstance:
     - target: {fileID: 3584989659934135673, guid: ed59cd560fbfe3d0db27a65e4786c504,
         type: 3}
       propertyPath: m_TargetWalkingSpeed
-      value: 0.249
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4830251703265176931, guid: ed59cd560fbfe3d0db27a65e4786c504,
         type: 3}

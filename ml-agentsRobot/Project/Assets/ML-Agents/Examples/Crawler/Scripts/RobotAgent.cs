@@ -26,8 +26,8 @@ public class RobotAgent : Agent
     private Vector3 initAnimPos;
 
     private bool animReset = false;
-    
-    private float[] currentActions = new float[12] {0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f};
+
+    private float[] previousActions = new float[12] {0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f};
 
     EnvironmentParameters m_ResetParams;
         
@@ -55,7 +55,7 @@ public class RobotAgent : Agent
             animController.SetLookTarget(lookTargetCube);
             proceduralAnimBody.SetOrientationCube(lookTargetCube);
 
-            m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.00f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
+            m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.00f, 0.05f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
             animReset = false;
             ConfigureAgent();
         }
@@ -72,7 +72,7 @@ public class RobotAgent : Agent
 
     public void SetMatchingAngle(){
         try{
-            m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.00f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
+            m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.00f, 0.05f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
                 
             for (int i = 0; i < 12; i++){
                 var targetAngle = proceduralAnimBody.GetJointAngle(i);
@@ -110,48 +110,49 @@ public class RobotAgent : Agent
     {
         var continuousActions = actionBuffers.ContinuousActions;
         var i = -1;
+        var bata = 0.2f;
 
-        m_MoController.SetMotorAngle(0,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-        m_MoController.SetMotorAngle(1,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-        m_MoController.SetMotorAngle(2,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-        m_MoController.SetMotorAngle(3,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-        m_MoController.SetMotorAngle(4,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-        m_MoController.SetMotorAngle(5,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-        m_MoController.SetMotorAngle(6,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-        m_MoController.SetMotorAngle(7,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-        m_MoController.SetMotorAngle(8,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-        m_MoController.SetMotorAngle(9,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-        m_MoController.SetMotorAngle(10,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-        m_MoController.SetMotorAngle(11,continuousActions[++i]);
-        currentActions[i] = continuousActions[i];
-
-        //Debug.Log(currentActions[2]);
+        m_MoController.SetMotorAngle(0,LowPassFilter(bata, continuousActions[++i], previousActions[0]));
+        previousActions[i] = continuousActions[i];
+        m_MoController.SetMotorAngle(1,LowPassFilter(bata, continuousActions[++i], previousActions[1]));
+        previousActions[i] = continuousActions[i];
+        m_MoController.SetMotorAngle(2,LowPassFilter(bata, continuousActions[++i], previousActions[2]));
+        previousActions[i] = continuousActions[i];
+        m_MoController.SetMotorAngle(3,LowPassFilter(bata, continuousActions[++i], previousActions[3]));
+        previousActions[i] = continuousActions[i];
+        m_MoController.SetMotorAngle(4,LowPassFilter(bata, continuousActions[++i], previousActions[4]));
+        previousActions[i] = continuousActions[i];
+        m_MoController.SetMotorAngle(5,LowPassFilter(bata, continuousActions[++i], previousActions[5]));
+        previousActions[i] = continuousActions[i];
+        m_MoController.SetMotorAngle(6,LowPassFilter(bata, continuousActions[++i], previousActions[6]));
+        previousActions[i] = continuousActions[i];
+        m_MoController.SetMotorAngle(7,LowPassFilter(bata, continuousActions[++i], previousActions[7]));
+        previousActions[i] = continuousActions[i];
+        m_MoController.SetMotorAngle(8,LowPassFilter(bata, continuousActions[++i], previousActions[8]));
+        previousActions[i] = continuousActions[i];
+        m_MoController.SetMotorAngle(9,LowPassFilter(bata, continuousActions[++i], previousActions[9]));
+        previousActions[i] = continuousActions[i];
+        m_MoController.SetMotorAngle(10,LowPassFilter(bata, continuousActions[++i], previousActions[10]));
+        previousActions[i] = continuousActions[i];
+        m_MoController.SetMotorAngle(11,LowPassFilter(bata, continuousActions[++i], previousActions[11]));
+        previousActions[i] = continuousActions[i];
 
         var footReward = GetMatchingFootPosition();
         var rootReward = GetMatchingRootPosition();
         var rootAngleReward = GetMatchingRootAngle();
         var jointReward = GetJointAngleCompare();
         var jointVelocityReward = GetJointVelocityCompare();
+        var rootSpeedReward = GetMatchingRootSpeed();
 
-        var actionPenalty = GetActionPenalty();
+        //var actionPenalty = GetActionPenalty();
         
         AddReward(footReward);
         AddReward(rootReward);
         AddReward(rootAngleReward);
         AddReward(jointReward);
         AddReward(jointVelocityReward);
-        AddReward(actionPenalty);
+        AddReward(rootSpeedReward);
+        //AddReward(actionPenalty);
     }
     void FixedUpdate(){  
         timer += Time.deltaTime;
@@ -163,7 +164,7 @@ public class RobotAgent : Agent
         } 
 
         
-        var positionMagnitude = Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()), 0f, 10f);
+        var positionMagnitude = Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0f, -0.05f)),m_MoController.GetRootPosition()), 0f, 10f);
         float distance = Mathf.Pow(1 - Mathf.Pow(positionMagnitude / 2f, 2), 2);
         if (distance < 0.01){
             SetReward(-1f);
@@ -172,18 +173,22 @@ public class RobotAgent : Agent
     }
 
 
+    float LowPassFilter(float bata, float currentAction, float previousAction){
+        return bata * currentAction + (1f - bata) * previousAction;
+    }
+
     float GetMatchingFootPosition(){
         float distance = 0f;
         for (int i = 0; i < 4; i++){
-            distance += Mathf.Pow(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i)),2);
+            distance += Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i));
         }
-        return Mathf.Exp(-30 * distance);
+        return Mathf.Exp(-40 * distance);
     }
 
     float GetMatchingRootPosition(){
-        float distance = Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0.05f, 0.01f)),m_MoController.GetRootPosition()); 
+        float distance = Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0f, -0.05f)),m_MoController.GetRootPosition()); 
         
-        return Mathf.Exp(-45 * Mathf.Pow(distance,2));
+        return Mathf.Exp(-40 * distance);
     }
 
     float GetMatchingRootAngle(){
@@ -191,17 +196,20 @@ public class RobotAgent : Agent
         angle = Mathf.Exp(-0.01f * Mathf.Pow(angle,2));
         return angle;
     }
-    
-    float GetActionPenalty(){
-        float penalty = 0f; 
-        for (int i = 0; i < currentActions.Length; i++){
-            penalty -= Mathf.Pow(currentActions[i], 2);
-        }
-        penalty = 0.25f * penalty;
-        //Debug.Log(penalty);
-        return penalty;
-    }
 
+    float GetMatchingRootSpeed(){
+        return Mathf.Exp( -30 * Mathf.Pow(proceduralAnimBody.GetRootSpeed() - m_MoController.GetRootSpeed(), 2));
+    }
+    /*
+    float GetActionPenalty(){
+        float penalty = 0f;
+        for (int i = 0; i < currentActions.Length; i++){
+            //penalty += Mathf.Pow(currentActions[i] - m_MoController.GetMotorAngles(i), 2);
+            penalty += Mathf.Pow(currentActions[i], 2);
+        }
+        return Mathf.Exp(-0.01f * penalty);
+    }
+    */
     float GetJointAngleCompare(){
         try{
             var angle = 0f;
@@ -223,7 +231,7 @@ public class RobotAgent : Agent
             for(int i = 0;i < 12; i++){
                 velocity += Mathf.Pow(m_MoController.GetJointVelocity(i) - proceduralAnimBody.GetJointVelocity(i),2);
             }
-            return Mathf.Exp(-0.01f * velocity);
+            return Mathf.Exp(-0.1f * velocity);
         }
         catch (Exception e){
             var temp = e;

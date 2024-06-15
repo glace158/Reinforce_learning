@@ -6,6 +6,16 @@ using Unity.MLAgentsRobot;
 
 public class TestScript : MonoBehaviour
 {
+    [Header("TargetAngle")]
+    [Range(-1f, 1f)]
+
+    [SerializeField]
+    private float m_TargetAngle = 0f;
+    public float TargetAngle
+        {
+            get { return m_TargetAngle; }
+            set { m_TargetAngle = Mathf.Clamp(value, .0f, 1f); }
+        }
 
     public Transform cubeA;
     public Transform cubeB;
@@ -46,12 +56,15 @@ public class TestScript : MonoBehaviour
         //proceduralAnimBody.initSet();
         //m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.05f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
         //FootContact() ;
-        RootAngleCompare();
+        //RootAngleCompare();
         //GetBobyHeight();
         //RootPositionCompare();
         //FootPositionCompare();
         //GetAnimJointAngle();
         //AngleCompare();
+        //SetMotorAngle();
+        //Debug.Log(m_MoController.GetMotorAngles(0));
+        Debug.Log(m_MoController.GetRootSpeed());
         timer += Time.deltaTime;
         if(timer > waitingTime)
         {
@@ -62,8 +75,11 @@ public class TestScript : MonoBehaviour
         //Debug.Log(m_MoController.GetJointVelocity()[2]);
     }
     
+    void SetMotorAngle(){
+        m_MoController.SetMotorAngle(0, TargetAngle);
+    }
     void GetAnimJointAngle(){
-        m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.0f, 0.01f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));    
+        m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.0f, 0.05f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));    
         //Debug.Log(targetAngle);
         //Debug.Log("3: " + proceduralAnimBody.GetJointAngle()[3]);
         for (int i = 0; i < 12; i++){
@@ -89,6 +105,9 @@ public class TestScript : MonoBehaviour
             distance += Mathf.Pow(Mathf.Abs(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i))),2);
             //distance += Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i)), 0f, 1f);
         }
+        Debug.Log(proceduralAnimBody.GetFootPosition(1, new Vector3(0f,0f,0f)));
+
+        Debug.Log(m_MoController.GetFootPosition(1));
         //distance = Mathf.Pow(1 - Mathf.Pow(distance / 4f, 2), 2);
         distance = Mathf.Exp(-30 * distance);
         Debug.Log(distance);

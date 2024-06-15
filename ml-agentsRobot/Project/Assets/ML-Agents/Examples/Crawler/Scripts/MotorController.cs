@@ -54,7 +54,7 @@ namespace Unity.MLAgentsRobot{
         }
 
         public float GetTargetValue(){
-            return Mathf.InverseLerp(lowerLimit, upperLimit, motor.jointPosition[0] * 180 / Mathf.PI);
+            return 2f * Mathf.InverseLerp(lowerLimit, upperLimit, motor.jointPosition[0] * 180 / Mathf.PI) - 1f;
         }
     }
 
@@ -115,6 +115,8 @@ namespace Unity.MLAgentsRobot{
         [HideInInspector] public Dictionary<Transform, RobotLink> linkDict = new Dictionary<Transform, RobotLink>();
         
         private List<float> previousMotorRotationList = new List<float>();
+
+        private Vector3 m_LastPosition;
         
         private void Awake() {
             SetupMotor(FRHip);
@@ -250,6 +252,14 @@ namespace Unity.MLAgentsRobot{
             return bodyLink.forward;
         }
 
+        public float GetRootSpeed()
+        {
+            float speed = (((bodyLink.position - m_LastPosition).magnitude) / Time.deltaTime);
+            m_LastPosition = bodyLink.position;
+
+            return speed;
+        }
+
         public bool GetFootContact(int index){
             List<RobotLink> foots = linkDict.Values.ToList();
             return foots[index + 1].groundContact.touchingGround;
@@ -257,7 +267,9 @@ namespace Unity.MLAgentsRobot{
 
         public Vector3 GetFootPosition(int index){
             List<RobotLink> foots = linkDict.Values.ToList();
+            
             return foots[index + 1].link.position;
+            //return bodyLink.position - foots[index + 1].link.position;
         }
         
         public void SetMotorAngle(int index, float angle){

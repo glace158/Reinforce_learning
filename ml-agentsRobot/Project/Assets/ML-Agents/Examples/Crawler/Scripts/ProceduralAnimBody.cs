@@ -9,71 +9,59 @@ namespace Unity.MLAgentsRobot{
     [System.Serializable]
     public class AnimJoint{
         public Transform t;
-        public float offset = 0f;
-        public int axis;
-        
-        public bool isInverse = false;
+        public Vector3 offset;
+        public Vector3 axis;
 
-        private int val = 1;
-        float previousRotation; //전 프레임의 로테이션 값
+        float previsousAngle; //전 프레임의 로테이션 값
 
-        public AnimJoint(Transform t, int axis, bool isInverse){
+        public AnimJoint(Transform t, Vector3 axis){
             this.t = t;
             this.axis = axis;
-            this.isInverse = isInverse;
-            val = isInverse ? -1 : 1;
             
-            
-            
-            switch (axis){
-                case 0:
-                    this.offset = t.rotation.eulerAngles.x;
-                    break;
-                case 1:
-                    this.offset = t.rotation.eulerAngles.y;
-                    break;
-                case 2:
-                    this.offset = t.rotation.eulerAngles.z;
-                    break;
-            }
-
-            
+            this.offset = UnityEditor.TransformUtils.GetInspectorRotation(t);
         }
         
         public float GetAngle(){
-            switch (axis){
-                case 0:
-                    return (t.rotation.eulerAngles.x - offset) * val;
-                case 1:
-                    return (t.rotation.eulerAngles.y - offset) * val;
-                case 2:
-                    return (t.rotation.eulerAngles.z - offset) * val;
-                default:
-                    return 0f;
+            Vector3 axisAngle = (Vector3.Scale(UnityEditor.TransformUtils.GetInspectorRotation(t), axis) - Vector3.Scale(offset, axis));
+            
+            if(Mathf.Abs(axis.x) == 1){//x
+                return axisAngle.x;
+            }
+            else if(Mathf.Abs(axis.y) == 1){//y
+                return axisAngle.y;
+            }
+            else if(Mathf.Abs(axis.z) == 1){//z
+                return axisAngle.z;
+            }
+            else{
+                return -1f;
             }
         }
 
         public float GetAngularVelocity(){
-            var angle = 0f;
-            switch (axis){
-                case 0:
-                    angle = t.localEulerAngles.x;
-                    break;
-                case 1:
-                    angle =  t.localEulerAngles.y;
-                    break;
-                case 2:
-                    angle =  t.localEulerAngles.z;
-                    break;
+            var axisAngle = UnityEditor.TransformUtils.GetInspectorRotation(t);
+            var angle = -1f;
+            if(Mathf.Abs(axis.x) == 1){//x
+                angle = axisAngle.x;
             }
-            float deltaRotation = angle - previousRotation;
+            else if(Mathf.Abs(axis.y) == 1){//y
+                angle = axisAngle.y;
+            }
+            else if(Mathf.Abs(axis.z) == 1){//z
+                angle = axisAngle.z;
+            }
 
-            previousRotation = angle;
+            float deltaRotation = angle - previsousAngle;
+            previsousAngle = angle;
 
+            
             //각도에서 라디안으로 변환
             deltaRotation *= Mathf.Deg2Rad;
 
-            return Mathf.Abs((1.0f / Time.deltaTime) * deltaRotation);
+            float Velocity = (1.0f / Time.deltaTime) * deltaRotation;
+
+            //각속도 반환
+            return Mathf.Abs(Velocity);
         }
     }
 
@@ -101,12 +89,7 @@ namespace Unity.MLAgentsRobot{
         public Transform RLFoot;
 
         private List<AnimJoint> jointList = new List<AnimJoint>();
-
-        private float FLOffset;
-        private float RLOffset;
-
-        Vector3 RLaxis = Vector3.zero;
-        Vector3 FLaxis = Vector3.zero;
+        private Vector3 m_LastPosition;
 
         private void Start(){
             initSet();
@@ -114,61 +97,39 @@ namespace Unity.MLAgentsRobot{
         
         public void initSet(){
             jointList.Clear();
-            SetupJoint(FRHip, (int)AXIS.Z,false);
-            SetupJoint(FRLegUpper, (int)AXIS.X,true);
-            SetupJoint(FRLegLower, (int)AXIS.X,true);
+            SetupJoint(FRHip, Vector3.right);
+            SetupJoint(FRLegUpper, Vector3.forward);
+            SetupJoint(FRLegLower, Vector3.left);
 
-            SetupJoint(FLHip, (int)AXIS.X, true);
-            SetupJoint(FLLegUpper, (int)AXIS.X, true);
-            SetupJoint(FLLegLower, (int)AXIS.X,true);
+            SetupJoint(FLHip, Vector3.left);
+            SetupJoint(FLLegUpper, Vector3.back);
+            SetupJoint(FLLegLower, Vector3.left);
 
-            SetupJoint(RRHip, (int)AXIS.Z,false);
-            SetupJoint(RRLegUpper, (int)AXIS.X,true);
-            SetupJoint(RRLegLower, (int)AXIS.X,true);
+            SetupJoint(RRHip, Vector3.right);
+            SetupJoint(RRLegUpper, Vector3.forward);
+            SetupJoint(RRLegLower, Vector3.left);
 
-            SetupJoint(RLHip, (int)AXIS.X, true);
-            SetupJoint(RLLegUpper, (int)AXIS.X, true);
-            SetupJoint(RLLegLower, (int)AXIS.X, true);
-
-            FLHip.rotation.ToAngleAxis( out FLOffset, out FLaxis);
-            RLHip.rotation.ToAngleAxis( out RLOffset, out RLaxis);
-
-            FLaxis = FLHip.right;
-            RLaxis = RLHip.right;
+            SetupJoint(RLHip, Vector3.left);
+            SetupJoint(RLLegUpper, Vector3.back);
+            SetupJoint(RLLegLower, Vector3.left);
         }
 
         public void SetOrientationCube(Transform t){
             OrientationCube = t;
         }
 
-        void SetupJoint(Transform t, int axis, bool isInverse){
-            var joint = new AnimJoint(t, axis, isInverse);
+        void SetupJoint(Transform t, Vector3 axis){
+            var joint = new AnimJoint(t, axis);
             jointList.Add(joint);
         }
         
         public float GetJointAngle(int index){            
-            var angle = jointList[index].GetAngle();
-
-            if(jointList[index].t == FLHip){
-                var a = 0f;
-                FLHip.rotation.ToAngleAxis( out a, out FLaxis);
-                a -= FLOffset;
-                angle = (0 < a) ? angle : -angle;
-            }
-            if(jointList[index].t == RLHip){
-                var a = 0f;
-                RLHip.rotation.ToAngleAxis( out a, out RLaxis);
-                a -= RLOffset;
-                angle = (0 < a) ? -angle : angle;
-            }
-
-            return angle;
+            return jointList[index].GetAngle();
         }
 
         public float GetJointVelocity(int index){
             return jointList[index].GetAngularVelocity();
         }
-        
 
         public Vector3 GetInitPosition(Vector3 offSet){
             return root.position + root.TransformDirection(offSet);
@@ -182,6 +143,14 @@ namespace Unity.MLAgentsRobot{
             return new Vector3(animModel.rotation.eulerAngles.x,OrientationCube.rotation.eulerAngles.y,animModel.rotation.eulerAngles.z);
         }
 
+        public float GetRootSpeed()
+        {
+            float speed = (((root.position - m_LastPosition).magnitude) / Time.deltaTime);
+            m_LastPosition = root.position;
+
+            return speed;
+        }   
+
         public Vector2 GetOrientationRotation(){
             return new Vector2(OrientationCube.forward.x, OrientationCube.forward.z);
         }
@@ -193,13 +162,13 @@ namespace Unity.MLAgentsRobot{
         public Vector3 GetFootPosition(int num, Vector3 footOffset){
             switch (num){
                 case 0:
-                    return new Vector3(FLFoot.position.x,FLFoot.position.y,FLFoot.position.z) + footOffset;
+                    return FLFoot.position + footOffset;
                 case 1:
-                    return new Vector3(RRFoot.position.x,RRFoot.position.y,RRFoot.position.z) + footOffset;
+                    return RRFoot.position + footOffset;
                 case 2:
-                    return new Vector3(FRFoot.position.x,FRFoot.position.y,FRFoot.position.z) + footOffset;
+                    return FRFoot.position + footOffset;
                 case 3:
-                    return new Vector3(RLFoot.position.x,RLFoot.position.y,RLFoot.position.z) + footOffset;
+                    return RLFoot.position + footOffset;
             }
             return new Vector3(0f,0f,0f);  
         }

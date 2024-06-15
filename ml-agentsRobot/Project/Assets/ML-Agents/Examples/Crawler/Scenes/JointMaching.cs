@@ -29,14 +29,14 @@ public class JointMaching : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        SetJointAngle(robotHip, GetAnimJointAngle(animHip, Vector3.left, offsetAngles[0]));
+        //SetJointAngle(robotHip, GetAnimJointAngle(animHip, Vector3.right, offsetAngles[0]));
 
-        SetJointAngle(robotUpper, GetAnimJointAngle(animUpper, Vector3.back, offsetAngles[1]));
+        //SetJointAngle(robotUpper, GetAnimJointAngle(animUpper, Vector3.forward, offsetAngles[1]));
 
-        SetJointAngle(robotLower, GetAnimJointAngle(animLower, Vector3.left, offsetAngles[2]));
-
-        var angularError = GetMotorAngularVelocity(robotLower) - GetAngularVelocity(animLower, Vector3.left);
-        //Debug.Log(Mathf.Exp(-0.1f * angularError));
+        //SetJointAngle(robotLower, GetAnimJointAngle(animLower, Vector3.left, offsetAngles[2]));
+        var angleError = GetAnimJointAngle(animLower, Vector3.left, offsetAngles[2]) - robotLower.jointPosition[0] * 180 / Mathf.PI;
+        //var angularError = GetMotorAngularVelocity(robotLower) - GetAngularVelocity(animLower, Vector3.left);
+        Debug.Log(Mathf.Exp(-0.01f * Mathf.Pow(angleError,2)));
     }
 
     float GetAnimJointAngle(Transform t, Vector3 axis, Vector3 offset){

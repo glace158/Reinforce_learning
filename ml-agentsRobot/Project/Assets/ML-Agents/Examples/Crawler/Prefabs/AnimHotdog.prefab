@@ -277,19 +277,19 @@ MonoBehaviour:
   animModel: {fileID: 6284915186525461662}
   OrientationCube: {fileID: 0}
   FRHip: {fileID: 8921667529337607401}
-  FRLegUpper: {fileID: 2646802184558413434}
+  FRLegUpper: {fileID: 8921667529337607401}
   FRLegLower: {fileID: 722209066726776808}
   FRFoot: {fileID: 2681277094971331796}
   FLHip: {fileID: 1409639062955215097}
-  FLLegUpper: {fileID: 9065673904690829846}
+  FLLegUpper: {fileID: 1409639062955215097}
   FLLegLower: {fileID: 2449973004267309752}
   FLFoot: {fileID: 4696872302060077750}
   RRHip: {fileID: 2485217935590252614}
-  RRLegUpper: {fileID: 3379400411726451338}
+  RRLegUpper: {fileID: 2485217935590252614}
   RRLegLower: {fileID: 1334376508031570760}
   RRFoot: {fileID: 864733228984315865}
   RLHip: {fileID: 5694422601826255529}
-  RLLegUpper: {fileID: 2138527381395191122}
+  RLLegUpper: {fileID: 5694422601826255529}
   RLLegLower: {fileID: 4415143441711302242}
   RLFoot: {fileID: 5166624580390811249}
 --- !u!114 &3584989659934135673
@@ -308,7 +308,7 @@ MonoBehaviour:
   _trun_gain: 80
   look_target: {fileID: 0}
   defaultUp: 0.36
-  turn_mode: 1
+  turn_mode: 0
   walkMode: 0
   useKeyboard: 0
   h: 0
