@@ -180,7 +180,7 @@ public class RobotAgent : Agent
     float GetMatchingFootPosition(){
         float distance = 0f;
         for (int i = 0; i < 4; i++){
-            distance += Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,0f)),m_MoController.GetFootPosition(i));
+            distance += Vector3.Distance(proceduralAnimBody.GetFootPosition(i, new Vector3(0f,0f,-0.05f)),m_MoController.GetFootPosition(i));
         }
         return Mathf.Exp(-40 * distance);
     }

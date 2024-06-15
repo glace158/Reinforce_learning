@@ -1,0 +1,68 @@
+{
+    "max_Speed": {
+        "lesson_num": 0
+    },
+    "Robot": {
+        "checkpoints": [
+            {
+                "steps": 7499797,
+                "file_path": "results/Robot21/Robot/Robot-7499797.onnx",
+                "reward": 91.1725782637174,
+                "creation_time": 1718464493.2706633,
+                "auxillary_file_paths": [
+                    "results/Robot21/Robot/Robot-7499797.pt"
+                ]
+            },
+            {
+                "steps": 7999994,
+                "file_path": "results/Robot21/Robot/Robot-7999994.onnx",
+                "reward": 89.30135506689548,
+                "creation_time": 1718467141.8764098,
+                "auxillary_file_paths": [
+                    "results/Robot21/Robot/Robot-7999994.pt"
+                ]
+            },
+            {
+                "steps": 8499897,
+                "file_path": "results/Robot21/Robot/Robot-8499897.onnx",
+                "reward": 68.47939453125,
+                "creation_time": 1718469843.8329482,
+                "auxillary_file_paths": [
+                    "results/Robot21/Robot/Robot-8499897.pt"
+                ]
+            },
+            {
+                "steps": 8743647,
+                "file_path": "results/Robot21/Robot/Robot-8743647.onnx",
+                "reward": 13.712519405534595,
+                "creation_time": 1718471145.3636289,
+                "auxillary_file_paths": [
+                    "results/Robot21/Robot/Robot-8743647.pt"
+                ]
+            },
+            {
+                "steps": 8822663,
+                "file_path": "results/Robot21/Robot/Robot-8822663.onnx",
+                "reward": 84.22081039444758,
+                "creation_time": 1718471591.9780085,
+                "auxillary_file_paths": [
+                    "results/Robot21/Robot/Robot-8822663.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 8822663,
+            "file_path": "results/Robot21/Robot.onnx",
+            "reward": 84.22081039444758,
+            "creation_time": 1718471591.9780085,
+            "auxillary_file_paths": [
+                "results/Robot21/Robot/Robot-8822663.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.8.1+cu111"
+    }
+}

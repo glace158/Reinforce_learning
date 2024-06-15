@@ -8,13 +8,18 @@ public class JointMaching : MonoBehaviour
     public Transform animHip;
     public Transform animUpper;
     public Transform animLower;
+
+    public Transform animFoot;
     public Vector3[] offsetAngles = new Vector3[3]; 
 
     [Header("Robot Joint")]
     public ArticulationBody robotHip;
     public ArticulationBody robotUpper;
     public ArticulationBody robotLower;
+    public Transform robotFoot;
+    public Transform robotFootTarget;
 
+    Vector3 footOffset;
 
     float previousMotorRotation;
     float previsousAngle;
@@ -24,19 +29,26 @@ public class JointMaching : MonoBehaviour
         offsetAngles[0] = UnityEditor.TransformUtils.GetInspectorRotation(animHip);
         offsetAngles[1] = UnityEditor.TransformUtils.GetInspectorRotation(animUpper);
         offsetAngles[2] = UnityEditor.TransformUtils.GetInspectorRotation(animLower);
+
+        footOffset = robotFoot.position - robotFootTarget.position;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         //SetJointAngle(robotHip, GetAnimJointAngle(animHip, Vector3.right, offsetAngles[0]));
-
         //SetJointAngle(robotUpper, GetAnimJointAngle(animUpper, Vector3.forward, offsetAngles[1]));
-
         //SetJointAngle(robotLower, GetAnimJointAngle(animLower, Vector3.left, offsetAngles[2]));
         var angleError = GetAnimJointAngle(animLower, Vector3.left, offsetAngles[2]) - robotLower.jointPosition[0] * 180 / Mathf.PI;
+        
+        robotFootTarget.position = robotFoot.position - footOffset;
+        Vector3 robotFootPosition = robotFootTarget.localPosition;
+        Vector3 animFootPosition = animFoot.localPosition + new Vector3(0f, 0f,-0.05f);
+        Debug.Log(animFootPosition);
+        Debug.Log(robotFootPosition);
+        var footPositionError = Vector3.Distance(animFootPosition , robotFootPosition);
         //var angularError = GetMotorAngularVelocity(robotLower) - GetAngularVelocity(animLower, Vector3.left);
-        Debug.Log(Mathf.Exp(-0.01f * Mathf.Pow(angleError,2)));
+        Debug.Log(Mathf.Exp(-40f * footPositionError));
     }
 
     float GetAnimJointAngle(Transform t, Vector3 axis, Vector3 offset){

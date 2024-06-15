@@ -108,6 +108,12 @@ namespace Unity.MLAgentsRobot{
         public Transform RLFoot;
 
         [Header("Robot Config")][Space(12)] 
+        public Transform FRFootTarget;
+        public Transform FLFootTarget;
+        public Transform RRFootTarget;
+        public Transform RLFootTarget;
+        
+        [Header("Robot Config")][Space(12)] 
         public float defaultHeight = 0.85f;
         public Transform m_OrientationCube;
 
@@ -117,6 +123,11 @@ namespace Unity.MLAgentsRobot{
         private List<float> previousMotorRotationList = new List<float>();
 
         private Vector3 m_LastPosition;
+
+        Vector3 FRfootOffset;
+        Vector3 FLfootOffset;
+        Vector3 RRfootOffset;
+        Vector3 RLfootOffset;
         
         private void Awake() {
             SetupMotor(FRHip);
@@ -137,9 +148,15 @@ namespace Unity.MLAgentsRobot{
             SetupLink(RRFoot);
             SetupLink(FRFoot);
             SetupLink(RLFoot);
+
         }
 
-
+        private void Start(){
+            FRfootOffset = FRFoot.position - FRFootTarget.position;
+            FLfootOffset = FLFoot.position - FLFootTarget.position;
+            RRfootOffset = RRFoot.position - RRFootTarget.position;
+            RLfootOffset = RLFoot.position - RLFootTarget.position;
+        }
 
         public void RobotReset(Vector3 postion, Quaternion rotation){
             
@@ -266,10 +283,22 @@ namespace Unity.MLAgentsRobot{
         }
 
         public Vector3 GetFootPosition(int index){
-            List<RobotLink> foots = linkDict.Values.ToList();
+            //List<RobotLink> foots = linkDict.Values.ToList();
             
-            return foots[index + 1].link.position;
-            //return bodyLink.position - foots[index + 1].link.position;
+            //return foots[index + 1].link.position;
+
+            switch (index){
+                case 0:
+                    return FLFootTarget.localPosition;
+                case 1:
+                    return RRFootTarget.localPosition;
+                case 2:
+                    return FRFootTarget.localPosition;
+                case 3:
+                    return RLFootTarget.localPosition;
+            }
+
+            return Vector3.zero;
         }
         
         public void SetMotorAngle(int index, float angle){
@@ -290,8 +319,16 @@ namespace Unity.MLAgentsRobot{
             m_OrientationCube.rotation = Quaternion.Euler(0f, bodyLink.rotation.eulerAngles.y, 0f);
         }
 
+        void UpdateFootTargetPosition(){
+            FLFootTarget.position = FLFoot.position - FLfootOffset;
+            RRFootTarget.position = RRFoot.position - RRfootOffset;
+            FRFootTarget.position = FRFoot.position - FRfootOffset;
+            RLFootTarget.position = RLFoot.position - RLfootOffset;
+        }
+
         void FixedUpdate(){
             OrientationCubeUpdate();
+            UpdateFootTargetPosition();
             //linkDict[bodyLink].articulationLink.AddForce((bodyLink.right + bodyLink.up) * 100f, ForceMode.Force);
             //SetMotorAngle(targetJoint, Tangle);
         }

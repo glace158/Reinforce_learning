@@ -71,6 +71,7 @@ namespace Unity.MLAgentsRobot{
         public Transform animModel;
         public Transform OrientationCube;
 
+        [Header("Anime Joint")]
         public Transform FRHip;
         public Transform FRLegUpper;
         public Transform FRLegLower;
@@ -87,6 +88,12 @@ namespace Unity.MLAgentsRobot{
         public Transform RLLegUpper;
         public Transform RLLegLower;
         public Transform RLFoot;
+
+        [Header("Anime Foot Target")]
+        public Transform FRFootTarget;
+        public Transform FLFootTarget;
+        public Transform RRFootTarget;
+        public Transform RLFootTarget;
 
         private List<AnimJoint> jointList = new List<AnimJoint>();
         private Vector3 m_LastPosition;
@@ -160,6 +167,7 @@ namespace Unity.MLAgentsRobot{
         }
 
         public Vector3 GetFootPosition(int num, Vector3 footOffset){
+            /*
             switch (num){
                 case 0:
                     return FLFoot.position + footOffset;
@@ -169,7 +177,18 @@ namespace Unity.MLAgentsRobot{
                     return FRFoot.position + footOffset;
                 case 3:
                     return RLFoot.position + footOffset;
+            }*/
+            switch (num){
+                case 0:
+                    return FLFootTarget.localPosition + footOffset;
+                case 1:
+                    return RRFootTarget.localPosition + footOffset;
+                case 2:
+                    return FRFootTarget.localPosition + footOffset;
+                case 3:
+                    return RLFootTarget.localPosition + footOffset;
             }
+
             return new Vector3(0f,0f,0f);  
         }
     }
