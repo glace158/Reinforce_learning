@@ -292,6 +292,10 @@ MonoBehaviour:
   RLLegUpper: {fileID: 5694422601826255529}
   RLLegLower: {fileID: 4415143441711302242}
   RLFoot: {fileID: 5166624580390811249}
+  FRFootTarget: {fileID: 2282028760694431410}
+  FLFootTarget: {fileID: 3089446379598409792}
+  RRFootTarget: {fileID: 4499962797786347231}
+  RLFootTarget: {fileID: 4190568470143427627}
 --- !u!114 &3584989659934135673
 MonoBehaviour:
   m_ObjectHideFlags: 0

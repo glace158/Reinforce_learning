@@ -30,6 +30,7 @@ public class RobotAgent : Agent
     private float[] previousActions = new float[12] {0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,0f};
 
     EnvironmentParameters m_ResetParams;
+    StatsRecorder statsRecorder;
         
     public override void Initialize()
     {
@@ -39,11 +40,12 @@ public class RobotAgent : Agent
         initAnimPos = targetAnim.position;
 
         m_ResetParams = Academy.Instance.EnvironmentParameters;
+        statsRecorder = Academy.Instance.StatsRecorder;
     }
 
     public override void OnEpisodeBegin()
     {
-        Physics.IgnoreLayerCollision(2, 2, true);
+        //Physics.IgnoreLayerCollision(2, 2, true);
         if (animReset){
             Destroy(targetAnim.gameObject);
             targetAnim = Instantiate(AnimCharator, initAnimPos, Quaternion.Euler(0,0,0)).transform;
@@ -55,19 +57,19 @@ public class RobotAgent : Agent
             animController.SetLookTarget(lookTargetCube);
             proceduralAnimBody.SetOrientationCube(lookTargetCube);
 
-            m_MoController.RobotReset(proceduralAnimBody.GetInitPosition(new Vector3(0f, 0.00f, 0.05f)), Quaternion.Euler(proceduralAnimBody.GetRootRotation()));
             animReset = false;
+            SetMatchingAngle();
             ConfigureAgent();
         }
         else{
             SetMatchingAngle();
         }
         
-        Physics.IgnoreLayerCollision(2, 2, false);
+        //Physics.IgnoreLayerCollision(2, 2, false);
     }
 
     void ConfigureAgent(){
-        animController.SetMaxSpeed(m_ResetParams.GetWithDefault("max_Speed", 1f));
+        animController.SetMaxSpeed(m_ResetParams.GetWithDefault("max_Speed", 0.5f));
     }
 
     public void SetMatchingAngle(){
@@ -110,7 +112,7 @@ public class RobotAgent : Agent
     {
         var continuousActions = actionBuffers.ContinuousActions;
         var i = -1;
-        var bata = 0.2f;
+        var bata = 0.1f;
 
         m_MoController.SetMotorAngle(0,LowPassFilter(bata, continuousActions[++i], previousActions[0]));
         previousActions[i] = continuousActions[i];
@@ -147,11 +149,17 @@ public class RobotAgent : Agent
         //var actionPenalty = GetActionPenalty();
         
         AddReward(footReward);
+        statsRecorder.Add("footReward", footReward);
         AddReward(rootReward);
+        statsRecorder.Add("rootReward", rootReward);
         AddReward(rootAngleReward);
+        statsRecorder.Add("rootAngleReward", rootAngleReward);
         AddReward(jointReward);
+        statsRecorder.Add("jointReward", jointReward);
         AddReward(jointVelocityReward);
+        statsRecorder.Add("jointVelocityReward", jointVelocityReward);
         AddReward(rootSpeedReward);
+        statsRecorder.Add("rootSpeedReward", rootSpeedReward);
         //AddReward(actionPenalty);
     }
     void FixedUpdate(){  
@@ -164,12 +172,14 @@ public class RobotAgent : Agent
         } 
 
         
+        /*
         var positionMagnitude = Mathf.Clamp(Vector3.Distance(proceduralAnimBody.GetRootPosition(new Vector3(0f, 0f, -0.05f)),m_MoController.GetRootPosition()), 0f, 10f);
         float distance = Mathf.Pow(1 - Mathf.Pow(positionMagnitude / 2f, 2), 2);
         if (distance < 0.01){
             SetReward(-1f);
             EndEpisode();
         }
+        */
     }
 
 

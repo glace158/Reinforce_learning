@@ -14,7 +14,7 @@ public class AnimController : MonoBehaviour
         [SerializeField]
         private float m_TargetWalkingSpeed = m_maxWalkingSpeed;
         private float maxSpeed = m_maxWalkingSpeed;
-        const float m_maxWalkingSpeed = 1f; //The max walking speed
+        const float m_maxWalkingSpeed = 0.5f; //The max walking speed
 
         private ProceduralAnimation proceduralAnimation;
         //The current target walking speed. Clamped because a value of zero will cause NaNs
