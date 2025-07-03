@@ -1,4 +1,15 @@
 # Reinforce_learning
+
+<img src="images/image.png" width="auto" height="500px" alt=""></img>
+
+### Create Procedural_animation
+<img src="images/Procedural_animation01.png" width="auto" height="500px" alt=""></img>
+<img src="images/Procedural_animation02.png" width="auto" height="500px" alt=""></img>
+<img src="images/Procedural_animation03.png" width="auto" height="500px" alt=""></img>
+
+### Train
+<img src="images/training.png" width="auto" height="500px" alt=""></img>
+
 ## Install Ubuntu cuda
 ### 1. Install nvidia driver
 check recommend gpu driver
