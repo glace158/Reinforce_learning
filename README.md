@@ -6,7 +6,7 @@
 
 | Slope | Stairs | Obstacle |
 | :-------------------------:|:-------------------------: | :-------------------------: |
-| ![](https://github.com/glace158/Reinforce_learning/tree/main/images/Procedural_animation01.gif) | ![](https://github.com/glace158/Reinforce_learning/tree/main/images/Procedural_animation02.gif) | ![](https://github.com/glace158/Reinforce_learning/tree/main/images/Procedural_animation02.gif) |
+| ![](https://github.com/glace158/Reinforce_learning/blob/main/images/Procedural_animation01.gif) | ![](https://github.com/glace158/Reinforce_learning/blob/main/images/Procedural_animation02.gif) | ![](https://github.com/glace158/Reinforce_learning/blob/main/images/Procedural_animation02.gif) |
 
 ### Train
 <img src="images/training.png" width="auto" height="500px" alt=""></img>
