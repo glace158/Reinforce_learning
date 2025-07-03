@@ -6,10 +6,10 @@
 
 | Slope | Stairs | Obstacle |
 | :-------------------------:|:-------------------------: | :-------------------------: |
-| ![](https://github.com/glace158/Reinforce_learning/blob/main/images/Procedural_animation01.gif) | ![](https://github.com/glace158/Reinforce_learning/blob/main/images/Procedural_animation02.gif) | ![](https://github.com/glace158/Reinforce_learning/blob/main/images/Procedural_animation02.gif) |
+| ![](https://github.com/glace158/Reinforce_learning/blob/main/images/Procedural_animation01.gif) | ![](https://github.com/glace158/Reinforce_learning/blob/main/images/Procedural_animation02.gif) | ![](https://github.com/glace158/Reinforce_learning/blob/main/images/Procedural_animation03.gif) |
 
-### Train
-<img src="images/training.png" width="auto" height="500px" alt=""></img>
+### Training
+<img src="images/Training.gif" width="auto" height="300px" alt=""></img>
 
 ## Install Ubuntu cuda
 ### 1. Install nvidia driver
