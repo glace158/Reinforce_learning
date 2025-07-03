@@ -1,4 +1,5 @@
 # Reinforce_learning
+This repository uses Unity ML-Agents to train a quadruped robot. Imitation learning is applied using procedural animation to teach the robot to mimic a URDF-based quadruped model.
 
 <img src="images/image.png" width="auto" height="500px" alt=""></img>
 
